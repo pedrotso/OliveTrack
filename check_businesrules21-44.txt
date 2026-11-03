@@ -1,0 +1,24 @@
+BR-021 OK
+BR-022 OK
+BR-023 Don't understand
+BR-024 OK
+BR-025 Don't understand
+BR-026 Don't understand
+BR-027 OK
+BR-028 OK
+BR-029 OK
+BR-030 OK
+BR-031 OK
+BR-032 OK
+BR-033 OK
+BR-034 OK
+BR-035 OK
+BR-036 Don't understand
+BR-037 OK
+BR-038 OK
+BR-039 OK
+BR-040 OK
+BR-041 Don't understand
+BR-042 OK
+BR-043 OK
+BR-044 OK
