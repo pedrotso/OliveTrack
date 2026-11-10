@@ -1,0 +1,64 @@
+# Dependências
+node_modules/
+.pnp
+.pnp.js
+
+# Builds e artefactos gerados
+dist/
+dist-ssr/
+build/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# PWA gerado pelo vite-plugin-pwa (dev-dist)
+dev-dist/
+sw.js
+workbox-*.js
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Base de dados local
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Caches e ferramentas
+.cache/
+.turbo/
+.eslintcache
+.oxlintcache
+coverage/
+.vercel
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

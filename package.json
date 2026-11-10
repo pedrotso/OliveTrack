@@ -1,0 +1,14 @@
+{
+  "name": "app",
+  "private": true,
+  "workspaces": ["shared", "frontend", "backend"],
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,green \"npm run dev -w frontend\" \"npm run dev -w backend\"",
+    "build": "npm run build -w shared && npm run build -w backend && npm run build -w frontend",
+    "lint": "npm run lint -w frontend && npm run lint -w backend",
+    "typecheck": "npm run typecheck -w shared && npm run typecheck -w frontend && npm run typecheck -w backend",
+    "db:up": "docker compose up -d db",
+    "db:migrate": "npm run db:migrate -w backend"
+  },
+  "devDependencies": { "concurrently": "^9.0.0" }
+}
