@@ -1,0 +1,44 @@
+\section{Data Architecture}
+\label{sec:data-architecture}
+This section describes the proposed entities, relationships, integrity constraints
+and storage representations. Sections~\ref{sec:use-cases}--\ref{sec:business-rules}
+define behaviour; this model must implement those constraints. Types, indexes and
+technology choices remain design proposals where not yet agreed.
+
+The companion field reference is compiled from
+\nolinkurl{data-architecture-reference.tex}, using
+\nolinkurl{technical/data-architecture/data-dictionary.tex}. It supplies field-level
+detail omitted from this summary and must be versioned with it. Any conflict with
+the requirements requires an explicit correction or decision, not silent precedence.
+
+\subsection{Conceptual Data Model}
+\label{sec:data-conceptual}
+\input{sections/data-architecture/conceptual-overview}
+\input{sections/data-architecture/conceptual-access}
+\input{sections/data-architecture/conceptual-properties}
+\input{sections/data-architecture/conceptual-workers}
+\input{sections/data-architecture/conceptual-workforce}
+\input{sections/data-architecture/conceptual-deliveries}
+\input{sections/data-architecture/conceptual-documents}
+\input{sections/data-architecture/conceptual-files}
+\FloatBarrier
+\Needspace{10\baselineskip}
+\subsection{Logical Data Model}
+\label{sec:data-logical}
+\input{sections/data-architecture/logical-model}
+\Needspace{9\baselineskip}
+\subsection{Data Dictionary}
+\label{sec:data-dictionary}
+\input{sections/data-architecture/data-dictionary}
+\subsection{Integrity Constraints}
+\label{sec:data-integrity}
+\input{sections/data-architecture/integrity-constraints}
+\subsection{Data Lifecycle and History}
+\label{sec:data-lifecycle}
+\input{sections/data-architecture/lifecycle}
+\subsection{Local and Central Data}
+\label{sec:data-local-central}
+\input{sections/data-architecture/local-central}
+\subsection{Physical Data Model}
+\label{sec:data-physical}
+\input{sections/data-architecture/physical-model}

@@ -1,0 +1,51 @@
+\subsection{Operational Document Examples}\label{sec:source-examples}
+The client intermediary supplied operational photographs on 6 November 2026 and accompanying
+explanations. Their review on 21 November extends the working specification with
+concrete source fields and form structures. The examples selected for this specification comprise one cooperative
+ticket and four individual worker forms. The following
+tables record their interpretation and the client explanations reconciled during this review. The four Spanish forms are the selected generation templates; technical rendering and operational review remain planned under Section~\ref{sec:validation}. Example
+names and personal identifiers are omitted. These examples establish no additional
+mandatory pre-work document check.
+
+\subsubsection{Cooperative Ticket}
+The example identifies cooperative season 2023--2024 and ticket/sample 14011.
+Its processing start is 07:08:48, finish 07:14:07 and printed duration 00:05:20.
+The timestamps differ by 00:05:19; preserve both printed duration and recorded
+times and flag the discrepancy for review. Cooperative processing times are distinct
+from trip departure/arrival and worker hours.
+{\compacttable\begin{longtable}{L{0.28}L{0.72}}
+\caption{Observed ticket fields and their working interpretation.}\label{tab:source-ticket}\\
+\toprule\rowcolor{TableHeader}\textbf{Source label} & \textbf{Representation and interpretation}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Source label} & \textbf{Representation and interpretation}\\\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot\bottomrule\endlastfoot
+TICKET, FECHA, season & Source ticket reference, local source date and cooperative season label. The source season need not equal the application's campaign name.\\\midrule
+H. INI, H. FIN, TIEMPO EMPLEADO & Processing start, finish and independently reported duration, preserving seconds. Validate known chronology and flag discrepancies without overwriting source facts.\\\midrule
+LINEA, NUM. MUESTRA & Tractor queue/line at the cooperative and sample reference, according to the supplied explanation. Matching sample and ticket numbers in this example do not imply universal equality.\\\midrule
+CALIDAD: VUELO; VARIEDAD & The intermediary identifies VUELO as tree-picked olives and MULTIVARIETAL as mixed varieties. Preserve original labels; other quality codes require confirmation.\\\midrule
+TERMINO; POL; PAR; REC; PARAJE & Municipality and printed land identifiers/locality. Preserve literal identifiers as text. The intermediary explains POL as polygon/field number, PAR and REC as field identifiers, and PARAJE as the field name. Preserve these reported labels without requiring a map or automatic cadastral conversion.\\\midrule
+SOCIO, member details; MATRICULA; LOCALIZADOR & Reported member identity/reference, vehicle plate when printed, and source locator. These are source snapshots, independent of internal UUIDs and registered worker driver.\\\midrule
+KILOS TOTALES; KILOS ASIGNADOS & Total weight and accepted assigned weight, both 929~kg here. The client confirmed that KILOS ASIGNADOS is the cooperative-accepted final weight used for indicators and yield weighting. Store it once as the canonical assigned kg; preserve total kg separately.\\\midrule
+MEDIANERIA & Percentage of the total weight accepted by the cooperative, confirmed by the client; 100\% here. It is not laboratory yield. Use reported assigned kg directly, without applying this percentage again or inventing a missing assigned weight.\\\midrule
+Penalty, when reported & The intermediary describes a penalty above a time-per-kg allowance and states that this ticket has none. Record any reported penalty, its unit and application status without calculating a time-per-kg charge. No threshold or tariff is required because automatic penalty calculation is outside scope.\\
+\end{longtable}}
+
+\subsubsection{Individual Worker Forms}\label{sec:document-examples}
+The four individual forms use company, worker name, DNI/NIE, job role, date and
+worker signature. Job role is a document snapshot, separate from a work period's
+actual task. The supported identification vocabulary follows \decisionref{Q-ID-01}. Generated documents retain the supplied Spanish wording, while the application interface is English.
+{\compacttable\begin{longtable}{L{0.3}L{0.7}}
+\caption{Supplied worker form inventory.}\label{tab:source-forms}\\
+\toprule\rowcolor{TableHeader}\textbf{Form} & \textbf{Specific content and treatment}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Form} & \textbf{Specific content and treatment}\\\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot\bottomrule\endlastfoot
+Personal protective equipment receipt & Reviewed equipment selections, optional other-item descriptions and acknowledgement of delivery/use information. Store selections in the generated source snapshot.\\\midrule
+Safety information receipt & Reviewed list of supplied risk/prevention information, equipment/product instructions and emergency information. Signature records the acknowledgement represented by the source.\\\midrule
+Machinery-use authorisation & Reviewed list of authorised machinery. Store the list in the document; profile machinery capability and actual work tasks remain separate facts.\\\midrule
+Medical-examination consent & Explicit acceptance or refusal, date and worker signature in the corresponding area. A signed refusal is a completed signing result with refused consent. Clinical results are outside this form workflow.\\
+\end{longtable}}
+The four individual forms are classified as \textit{other}, with explicit form
+subtypes. Every document belongs to exactly one worker. Generating for several workers
+produces separate individual documents/sources from the selected template.
+Insurance-only manager access does not include these forms. Template wording and
+legal references require client review before operational use. PPE stock management, automated machinery
+authorisation enforcement and clinical records are not introduced by these examples.

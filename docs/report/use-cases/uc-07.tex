@@ -1,0 +1,83 @@
+\subsection{\identifier{UC-07} --- Manage Worker Records}
+\label{uc:07}
+\paragraph{Purpose}
+Create, consult and maintain business-specific workers, including same-day offline
+creation, and consult each worker's actual days and hours in their profile,
+without creating application accounts for workers.
+\paragraph{Actors}
+Farm Owner; Field Manager with permission for the requested operation.
+Profile consultation does not grant creation or modification rights.
+\paragraph{Preconditions}
+The user has valid business access, worker scope and the requested operation grant.
+Offline consultation requires prepared profiles or locally created workers and
+unexpired offline authorisation. Basic worker creation may operate offline in an
+authorised business context; existing-profile edits, inactivation/reactivation and
+deletion require connectivity. The shared conditions in
+Section~\ref{sec:shared-definitions} apply.
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The user searches the authorised available records or selects Add worker.
+For consultation, the system displays the permitted profile and its availability
+or pending status. The user may open the worker's activity history under A9,
+and consultation ends without changing records. No modification
+permission is required. Creation continues at Step~2.
+\item For creation, the user enters full name, telephone, official identification
+type (DNI, NIE or Other with a required description), issuing country and number, and records machinery capability and optional notes.
+\item The system generates a stable internal identifier independent of the official
+number, validates required fields and warns about same-business matches by name,
+telephone or normalised type/country/number.
+\item The user reviews possible matches. Selecting an existing profile ends creation
+and opens that profile within the user's permissions. Confirming a distinct worker
+continues to Step~5. The system never automatically merges identities or businesses.
+\item The system saves the new worker's current values and last-modified information. An offline
+create retains a stable operation identity and pending central-acceptance status.
+\end{enumerate}
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Immediate field use.] A local new worker may be selected for permitted
+attendance, work and driving. Dependent records
+refer to the pending worker and any required pending campaign start.
+\item[A2 --- Document prerequisites.] Profile creation does not verify identification,
+require a scanned copy or establish documentary readiness. Signing requires
+an accepted individual source for that same worker and separate signing authority.
+For a newly created offline worker, synchronise the worker and upload/generate the
+individual source online before preparing it for offline signing.
+\item[A3 --- Reconnection and duplicates.] The server validates authority and
+duplicate warnings before accepting dependent records. Resolution preserves all
+linked work, files and identities; retries do not create a second worker.
+\item[A4 --- Update.] From a consulted profile, the user may explicitly select Edit
+with separate modification permission and connectivity. The system validates and
+saves the changes, preserving the internal identity and historical associations
+without permanent field-change history.
+\item[A5 --- Inactivate/reactivate.] Connected confirmation preserves history,
+flags future plans and excludes inactive workers from new assignments. Reactivation
+reuses the identity; daily absence/non-selection does not inactivate a worker.
+\item[A6 --- Delete.] Connected deletion requires authority, confirmation and no
+associated records or pending dependencies; otherwise refuse and offer inactivation.
+\item[A7 --- Missing or invalid information.] The system preserves input and
+requires all creation fields, including offline. Accept DNI, NIE or Other with a required description. Preserve letters and leading zeros; check required fields and duplicate warnings. Country-specific document-format validation is outside the final delivery under \decisionref{Q-ID-01}; entry is not verification.
+\item[A8 --- Unavailable consultation.] The system distinguishes unavailable local
+data or retrieval failure from a successful search with no matching records.
+\item[A9 --- Days and hours worked.] From the profile, the user selects Activity
+and filters by date range and, optionally, campaign or property/parcel. Display
+actual working dates, recorded start/end periods, tasks, areas, counted hours per
+day and the total for the selection. Count each working date once even when the
+worker worked in several areas or campaigns. Confirmed presence without complete
+periods remains visibly incomplete, not zero hours or an invented measured day.
+Use Section~\ref{sec:worker-activity-calculations}; exclude planned periods.
+The view obeys work-record permissions and labels restricted or partially prepared
+offline scope, freshness and pending proposals. Profile access grants no access to
+other-property work. This is a chronological worker history, not a campaign-comparison
+dashboard or an attendance-document workflow.
+\end{description}
+\paragraph{Postconditions}
+Consultation changes no records. A created/updated profile retains its business and
+internal identity, with pending state where applicable. Field dependencies remain
+linked during recovery. Creation alone confirms no attendance, task or documentary
+eligibility. Cancellation preserves accepted information.
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:021]{\identifier{FR-021}}, \hyperref[fr:022]{\identifier{FR-022}}, \hyperref[fr:023]{\identifier{FR-023}}.
+
+\hyperref[br:013]{\identifier{BR-013}}--\hyperref[br:016]{\identifier{BR-016}}, \hyperref[br:019]{\identifier{BR-019}}, \hyperref[br:020]{\identifier{BR-020}}, \hyperref[br:037]{\identifier{BR-037}}.
+\paragraph{Decision References}
+\decisionref{D-25}, \decisionref{D-26}, \decisionref{Q-ID-01}, \decisionref{Q-SCOPE-06}.

@@ -1,0 +1,237 @@
+\subsection{\identifier{UC-19} --- Consult Campaign Indicators}
+\label{uc:19}
+
+\paragraph{Purpose}
+
+Allow an authorised user to understand
+the progress and results of a harvest campaign
+through operational, production and permitted
+monetary indicators.
+
+The same consultation supports ongoing work
+and the final campaign review.
+Closing a campaign does not freeze its indicators.
+
+This final-delivery workflow reviews one campaign at a time. Comparing campaigns
+or harvest years remains a possible future enhancement under
+\decisionref{Q-SCOPE-03}.
+Detailed Excel exports likewise remain a possible future enhancement under
+\decisionref{Q-SCOPE-04}; this use case includes campaign-summary PDF export.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with the relevant
+consultation permissions.
+
+Monetary indicators require financial consultation permission, disabled initially and explicitly granted by the owner within assigned scope. Financial entry/correction remain separately granted.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The campaign exists.
+    \item The user has permission
+    to consult the requested scope.
+    \item Offline consultation requires
+    a previously prepared operational summary
+    and relevant authorised local information.
+\end{itemize}
+
+Operational activity is not a precondition:
+a campaign may have no recorded work
+or deliveries yet.
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user selects one harvest campaign.
+    \item The system identifies the campaign
+    and the authorised consultation scope.
+    \item The user selects the campaign overview,
+    a property summary or parcel detail.
+    \item The user may apply date, worker
+    and task filters where relevant.
+    \item The system retrieves or calculates
+    the eligible indicators using approved rules.
+    \item The system presents totals, tables
+    and useful simple charts.
+    \item Each indicator identifies its meaning,
+    unit, scope and relevant completeness.
+    \item The user may open an indicator
+    to inspect its contributing records.
+    \item The user may export the selected
+    summary as a PDF.
+\end{enumerate}
+
+\paragraph{Indicator Groups}
+
+\textbf{Work indicators:}
+\begin{itemize}
+    \item Distinct workers with confirmed
+    daily presence and an explicitly identified
+    actual assignment within the selected campaign.
+    \item Distinct start dates with confirmed
+    actual work periods.
+    \item Total confirmed actual working hours.
+    \item Hours by worker.
+    \item Hours by task type:
+    machinery operation and general work.
+    \item Actual campaign assignments whose
+    hours or task information remain incomplete.
+\end{itemize}
+
+\textbf{Production indicators:}
+Only Delivered, non-cancelled deliveries contribute to delivery counts, weights,
+yield and monetary totals (\decisionref{D-30}). Delivered counts do not require a
+ticket or analysis; each other result requires its own eligible source inputs.
+\begin{itemize}
+    \item Confirmed deliveries.
+    \item Known weight totals,
+    separated by weight meaning.
+    \item Available yield results
+    and approved yield aggregates.
+    \item Pending analyses and relevant
+    result coverage.
+\end{itemize}
+
+\textbf{Monetary indicators:}
+\begin{itemize}
+    \item Current cooperative-reported
+    ticket amounts.
+    \item Separate provisional and final totals.
+    \item Tickets awaiting monetary values.
+\end{itemize}
+
+Monetary consultation is available online or from authorised prepared offline data, with financial permission.
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- No matching activity exists.]
+    The system explains that no records match.
+    Zero is used only where it is a valid
+    result for the defined indicator.
+    An undefined average is not shown as zero.
+
+    \item[A2 --- Data are incomplete.]
+    The system identifies pending information.
+    Meaningful partial results show their known coverage and exclusions within
+    the Delivered, non-cancelled set. Available source data for In transport
+    deliveries remains in detail as awaiting receipt confirmation, without
+    indicator contribution or a false missing-data label.
+
+    \item[A3 --- The campaign is closed.]
+    The user may consult its current results.
+    Late analysis results, ticket information
+    and reported values update the relevant
+    indicators when accepted.
+
+    \item[A4 --- An accepted correction exists.]
+    Indicators use the current accepted values
+    under the applicable correction rules.
+    Previous values are not added
+    as additional contributions.
+
+    \item[A5 --- Loads have mixed provenance.]
+    Known totals may contribute
+    to the campaign summary.
+    Property or parcel allocation is shown for known source quantities. The current model stores no monetary amounts by origin, so mixed-load monetary totals remain unallocated by area; percentage allocation is outside this version.
+    Unallocated information remains identifiable.
+
+    \item[A6 --- Yield calculation is unsupported.]
+    Use the reported accepted assigned weight from the same delivery's ticket. Missing yield or eligible positive weight excludes the delivery; without a positive denominator the average is unavailable.
+
+    \item[A7 --- Access covers only part
+    of the campaign.]
+    Results are limited to the authorised scope.
+    A restricted view is not labelled
+    as the unrestricted campaign total.
+
+    \item[A8 --- The device is offline.]
+    The system displays the prepared
+    operational summary and its last
+    successful update.
+    Financial indicators are available from prepared data only with financial permission; missing local information remains explicit.
+
+    \item[A9 --- Local changes are pending.]
+    The operational summary combines the prepared
+    server baseline with relevant local changes.
+
+    Creates are included once.
+    Updates replace their corresponding baseline values.
+    Locally accepted removals or cancellations
+    remove the affected local contributions.
+
+    Affected indicators are identified as provisional
+    until server acceptance.
+    A locally confirmed arrival enables the delivery count and available eligible
+    weights, yield and amounts in that provisional view. Central totals change only
+    after server acceptance; pre-arrival source data remains excluded.
+    The interface does not imply knowledge
+    of unsynchronised changes from other devices.
+
+    \item[A10 --- A pending change is rejected.]
+    The system distinguishes the unresolved proposal
+    from server-accepted information.
+
+    The accepted summary is restored or recalculated
+    from accepted values.
+    Any still-visible local proposal is separately
+    identified and is not presented
+    as part of the accepted total.
+
+    \item[A11 --- Requested detail is unavailable offline.]
+    The system explains that connectivity
+    is required for that detail.
+    It does not present unavailable records
+    as an empty result.
+
+    \item[A12 --- Retrieval or calculation fails.]
+    The system identifies the affected indicator
+    and offers a retry where appropriate.
+    Failure is distinguishable from zero
+    or a successful query with no records.
+
+    \item[A13 --- A PDF is requested.]
+    The system exports the selected authorised
+    summary with its campaign, filters,
+    generation date and time,
+    completeness and synchronisation limitations.
+    The export represents that moment,
+    rather than a permanently frozen campaign.
+    The generated PDF is available for authorised download. Printing may use the
+    browser or PDF reader; integrated printing is outside the final-delivery
+    commitment under \decisionref{Q-SCOPE-05}.
+    An offline PDF may include authorised prepared financial indicators. It identifies pending local contributions, last synchronisation and incomplete scope; financial permission is required.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On success:}
+The user can inspect the current indicators
+for the selected authorised scope
+and access available supporting records.
+
+\textbf{On offline consultation:}
+The displayed operational summary identifies
+its synchronisation date and pending local changes.
+
+\textbf{On export:}
+A PDF reflects the selected summary
+and its relevant limitations at generation time.
+
+\textbf{In all cases:}
+Consultation does not modify source records,
+create payments or close the campaign.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:055]{\identifier{FR-055}}, \hyperref[fr:056]{\identifier{FR-056}}, \hyperref[fr:057]{\identifier{FR-057}}, \hyperref[fr:058]{\identifier{FR-058}}, \hyperref[fr:059]{\identifier{FR-059}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:061]{\identifier{FR-061}}, \hyperref[fr:062]{\identifier{FR-062}}.
+
+\hyperref[br:014]{\identifier{BR-014}}, \hyperref[br:018]{\identifier{BR-018}}, \hyperref[br:019]{\identifier{BR-019}}, \hyperref[br:020]{\identifier{BR-020}}, \hyperref[br:035]{\identifier{BR-035}}, \hyperref[br:036]{\identifier{BR-036}}, \hyperref[br:037]{\identifier{BR-037}}, \hyperref[br:038]{\identifier{BR-038}}, \hyperref[br:039]{\identifier{BR-039}}, \hyperref[br:040]{\identifier{BR-040}}.
+
+\paragraph{Decision References}
+\decisionref{Q-DA-01}, \decisionref{Q-DA-05}, \decisionref{Q-IND-01}, \decisionref{D-15}, \decisionref{D-30}.

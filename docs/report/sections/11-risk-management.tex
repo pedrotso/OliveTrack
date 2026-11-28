@@ -1,0 +1,115 @@
+\section{Risk Management}\label{sec:risk-management}
+The working assessment contains twelve risks and proposed responses. It follows
+the risk identification/analysis stages and continuous review cycle in the supplied course material~\cite{course-risk}. It is a desk-based consolidation
+of the team's contribution; no facilitated workshop, complete nine-person vote
+or completed mitigation is claimed. Ratings and named response ownership still
+require team validation under \decisionref{Q-PM-01}.
+
+\subsection{Approach and Assessment Scales}
+Identify a present condition and its possible adverse consequence, keeping the
+statement short and recording context/triggers separately. Review three
+project-specific source groups: technical design/integration, delivery/capacity,
+and stakeholder validation. This grouping organises the register; it is not a
+claim that a full SEI taxonomy questionnaire was completed. An actual defect or
+missed milestone enters the issue log, while its possible wider effects remain
+risks. Communication accompanies identification, analysis, planning, tracking and
+control throughout delivery.
+
+The supplied probability bands are judgement categories, not measured frequencies:
+Low below 40\%, Medium 40\% through 70\%, High above 70\%. Impact is measured
+against the candidate threshold of success: Marginal permits success with limited
+rework; Critical permits it only with substantial effort or adjustment;
+Catastrophic prevents it within the agreed baseline. Timeframe means the time
+until action is needed: Short within one month, Medium one to three months,
+Long beyond three months. It is not the expected duration of an incident.
+Confirm timeframes against the actual remaining project horizon.
+
+Exposure uses the categorical lookup in Table~\ref{tab:risk-exposure}, not an
+unexplained multiplication of ordinal labels. The matrix contains the current
+provisional risk placements and is consistent with the register.
+\Needspace{12\baselineskip}
+{\compacttable
+\begin{longtable}{L{0.16}L{0.28}L{0.28}L{0.28}}
+\caption{Qualitative exposure matrix and provisional risk placement.}\label{tab:risk-exposure}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Probability} & \textbf{Marginal impact} & \textbf{Critical impact} & \textbf{Catastrophic impact}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Probability} & \textbf{Marginal impact} & \textbf{Critical impact} & \textbf{Catastrophic impact}\\\midrule\endhead
+\bottomrule\endlastfoot
+High & Medium: \identifier{RS-04}, \identifier{RS-12} & High: \identifier{RS-01}, \identifier{RS-07}, \identifier{RS-08}, \identifier{RS-09} & Critical: \identifier{RS-06}\\\midrule
+Medium & Low: \identifier{RS-03}, \identifier{RS-05}, \identifier{RS-11} & Medium: \identifier{RS-02}, \identifier{RS-10} & High: none identified\\\midrule
+Low & Low: none identified & Low: none identified & Medium: none identified\\
+\end{longtable}}
+
+\subsection{Candidate Threshold of Success}\label{sec:threshold-success}
+The risk-assessment process uses a threshold of success (ToS):
+a small set of measurable, time-bound conditions that must all be met. Table~\ref{tab:success-threshold} makes the
+proposed conditions and evidence explicit. They do not yet constitute an agreed
+ToS: acceptance principles and review roles are agreed, while final dates, named
+owners, execution evidence and resource commitments remain to confirm. The intermediate submission milestone of 6 November 2026 and
+the prototype presentation milestone of 10 November 2026 are distinct past
+checkpoints; their dates do not by themselves demonstrate completion. The final delivery and
+defence dates remain to be agreed under \decisionref{Q-PM-01}.
+
+{\compacttable
+\begin{longtable}{L{0.14}L{0.57}L{0.29}}
+\caption{Candidate success conditions and remaining baseline inputs.}\label{tab:success-threshold}\\
+\toprule\rowcolor{TableHeader}\textbf{ID / area} & \textbf{Condition and evidence at the agreed delivery} & \textbf{Input still to agree}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{ID / area} & \textbf{Condition and evidence at the agreed delivery} & \textbf{Input still to agree}\\\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+ToS-1\newline Scope & All criteria included in the final-delivery baseline have recorded acceptance evidence, including its field/document paths. & Execute criteria; name reviewers and confirm final date; \decisionref{Q-SCOPE-01}.\\\midrule
+ToS-2\newline Schedule & Required software/prototype, repository, report and presentation are delivered by their agreed milestone dates, with dated submission evidence. & Final calendar and responsibilities; \decisionref{Q-PM-01}.\\\midrule
+ToS-3\newline Quality & No known defect blocks a principal flow, permits unauthorised access, loses data, duplicates effects or produces incorrect totals. Included criteria have verification evidence; minor issues are documented and accepted in review. & Execute the agreed acceptance checks and record reviewers/results; Section~\ref{sec:validation}.\\\midrule
+ToS-4\newline Field use & Selected phone/tablet/desktop tasks and prepared field flows pass the agreed offline/reconnection and usability criteria, with durable proposals, dependency validation and no silent conflict overwrite. & Record exact devices/browsers and execution evidence; Section~\ref{sec:nfr-validation}.\\\midrule
+ToS-5\newline Resources & Actual effort and service expenditure remain within the approved effort/infrastructure budget or a recorded authorised revision. & Applicable per-member effort and service limits; Section~\ref{sec:project-planning}.\\
+\end{longtable}}
+
+\subsection{Risk Register}
+\input{sections/risk-management/register}
+
+\subsection{Priorities and Response Plans}
+The source's six focus risks are retained as a provisional intervention list.
+Exposure puts \identifier{RS-06} first and the four High-exposure risks next;
+\identifier{RS-02} also receives early attention because offline behaviour is a
+prerequisite for the field workflow. This explains its inclusion alongside, rather
+than automatically above, other Medium-exposure risks. Reassess this tie-breaker
+once the ToS and implementation plan are approved. A low vote never removes a
+mandatory security/integrity check.
+
+Multi-voting is optional. The supplied eight-column ballot does not establish a
+complete nine-member vote. If repeated with four votes per participant, nine
+participants would cast 36 votes across the twelve risk statements. Record actual
+participation, discuss ties and discrepancies, and agree the ranking before treating
+it as a team result.
+
+\input{sections/risk-management/priority-links}
+\input{sections/risk-management/responses}
+
+\subsection{Monitoring, Ownership and Escalation}
+Cec\'{i}lia and Pedro coordinate current risk tracking through Phase 1, drawing
+on the assessment contributed by Pepe and Mateo. The role owners in the
+register are proposed response responsibilities; assign a named person and backup
+before treating an action as scheduled. Review priority risks weekly and the full
+register at agreed milestones, scope changes and significant incidents. Escalate
+active triggers immediately when they threaten delivery, access or data integrity.
+
+Each review records date, named owner, status (Open, Monitoring, Materialised or
+Closed), rating, action/due date, trigger evidence and residual exposure. These are
+fields to maintain, not fabricated current results. Materialised risks become issues
+with actions; closure needs a reason and evidence. Link mitigation work to the
+backlog, remaining estimates and the hours sheet. Reassess exposure after action;
+planning mitigation alone does not demonstrate reduced residual risk.
+
+Client questions are coordinated through the intermediary without granting binding
+business/legal approval authority. Communicate assumptions and changes at planned
+checkpoints, seeking explicit feedback on scope, schedule, resources and quality. Retain detailed votes/action history in the
+project artefacts; update the report when the working baseline changes.
+
+\paragraph{Operational examples and requirement risk.}
+The examples reviewed on 21 November reduce uncertainty about available forms and
+ticket labels. The client-confirmed assigned kg, accepted MEDIANERIA percentage and reported-only penalty policy now resolve the source interpretation. The four supplied Spanish forms are selected; rendering and operational checks remain team tasks. Track these
+items against the existing stakeholder/requirements risks and reassess affected
+effort before scheduling implementation. Receipt of examples alone does not close
+a risk or prove a mitigation completed.
+
+\input{sections/project-management-summary}

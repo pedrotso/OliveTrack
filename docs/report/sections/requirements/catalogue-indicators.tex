@@ -1,0 +1,61 @@
+\Needspace{14\baselineskip}
+\subsubsection{Campaign Indicators and Reports}
+{\requirementtable
+\begin{longtable}{L{0.18}L{0.82}}
+\caption{Functional requirements: Campaign Indicators and Reports.}\label{tab:catalogue-indicators}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endfirsthead
+\caption[]{Functional requirements: Campaign Indicators and Reports (continued).}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endhead
+\midrule\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\rowcolor{TableHeader}
+\phantomsection\label{fr:055}\textbf{\identifier{FR-055}} & \textbf{The system shall allow authorised users to consult campaign indicators and property/parcel breakdowns.}\\*
+\phantomsection\label{ac:055:a}\identifier{FR-055(a)} & Consult one campaign during/after activity, with overview, property summaries and available parcel detail.\\
+\phantomsection\label{ac:055:b}\identifier{FR-055(b)} & Allow campaigns without activity; preserve identity and label partial authorised scope. Review one campaign at a time. Cross-campaign and cross-year comparisons remain a possible future enhancement outside the final-delivery commitment under \decisionref{Q-SCOPE-03}.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:056}\textbf{\identifier{FR-056}} & \textbf{The system shall filter indicators and inspect their supporting records.}\\*
+\phantomsection\label{ac:056:a}\identifier{FR-056(a)} & Filter by date/property/parcel/worker/task only where source relationships exist; label scope/date basis. Work uses the business-local period-start date; delivery, weight, yield and reported-value indicators use arrival date. Preserve source/report dates in detail.\\
+\phantomsection\label{ac:056:b}\identifier{FR-056(b)} & Enforce permission/local availability for contributing records. Worker/task filters allocate no deliveries/money; unavailable detail is not empty.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:057}\textbf{\identifier{FR-057}} & \textbf{The system shall present actual participants, working days and counted hours.}\\*
+\phantomsection\label{ac:057:a}\identifier{FR-057(a)} & Count distinct present workers with actual campaign assignment, including incomplete hours, and distinct eligible period-start dates.\\
+\phantomsection\label{ac:057:b}\identifier{FR-057(b)} & Show counted hours overall/by worker/task using confirmed complete actual periods and worker breaks, never plans or machinery capability.\\
+\phantomsection\label{ac:057:c}\identifier{FR-057(c)} & Recalculate distinct workers/dates across areas; disclose unknown periods and incomplete assignments.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:058}\textbf{\identifier{FR-058}} & \textbf{The system shall present delivery, weight and assigned-weighted yield indicators.}\\*
+\phantomsection\label{ac:058:a}\identifier{FR-058(a)} & Only Delivered, non-cancelled deliveries contribute. Count them without tickets/analyses; sum each eligible compatible reported weight once.\\
+\phantomsection\label{ac:058:b}\identifier{FR-058(b)} & For that set, weight known yield by eligible positive ticket accepted assigned kg. Disclose exclusions, contributing count and incomplete coverage; no eligible denominator means unavailable, not zero.\\
+\phantomsection\label{ac:058:c}\identifier{FR-058(c)} & Count mixed loads once; allocate only known source quantities. Under \identifier{BR-035}, mixed-load money remains unallocated by area and percentage allocation is excluded.\\
+\phantomsection\label{ac:058:d}\identifier{FR-058(d)} & Show pre-arrival ticket/analysis data as awaiting receipt; exclude it from indicators without falsely labelling it missing.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:059}\textbf{\identifier{FR-059}} & \textbf{The system shall present current reported monetary indicators with financial authorisation.}\\*
+\phantomsection\label{ac:059:a}\identifier{FR-059(a)} & For Delivered, non-cancelled deliveries, show current provisional/final totals separately and tickets awaiting amounts, online or from authorised prepared data.\\
+\phantomsection\label{ac:059:b}\identifier{FR-059(b)} & Count each eligible current valuation once; show pre-arrival amounts as awaiting receipt without contribution. Keep financial and sync states distinct; infer no payment.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:060}\textbf{\identifier{FR-060}} & \textbf{The system shall present authorised prepared indicators offline.}\\*
+\phantomsection\label{ac:060:a}\identifier{FR-060(a)} & Show missing/unallocated inputs, available scope, freshness and pending contributions; imply no knowledge of later remote changes.\\
+\phantomsection\label{ac:060:b}\identifier{FR-060(b)} & Combine prepared accepted data with local proposals: create once, replace updates and suppress removals. Local arrival enables eligible provisional contributions; only server acceptance changes central totals.\\
+\phantomsection\label{ac:060:c}\identifier{FR-060(c)} & Distinguish unavailable data, failures and zero; financial indicators require their grant and prepared data.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:061}\textbf{\identifier{FR-061}} & \textbf{The system shall refresh derived totals after source changes without duplicate contributions.}\\*
+\phantomsection\label{ac:061:a}\identifier{FR-061(a)} & Recalculate affected origin/destination totals after accepted corrections or late data, including after closure; indicators are read-only.\\
+\phantomsection\label{ac:061:b}\identifier{FR-061(b)} & Local proposals affect only labelled provisional results; rejected/unresolved proposals never appear as centrally accepted. Retain unresolved proposals separately.\\
+\phantomsection\label{ac:061:c}\identifier{FR-061(c)} & Closure does not freeze results; previous exports remain snapshots.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:062}\textbf{\identifier{FR-062}} & \textbf{The system shall export an authorised campaign snapshot as PDF online or offline.}\\*
+\phantomsection\label{ac:062:a}\identifier{FR-062(a)} & Include campaign, authorised scope, filters/date basis, generation time, completeness and synchronisation limits.\\
+\phantomsection\label{ac:062:b}\identifier{FR-062(b)} & Offline PDFs identify freshness/pending contributions; include money only with permission and prepared data, keeping financial and sync states distinct.\\
+\phantomsection\label{ac:062:c}\identifier{FR-062(c)} & Export changes no source records. Provide the generated PDF for authorised download; users may print it through their browser/PDF reader. Detailed Excel export and integrated printing remain possible future enhancements under \decisionref{Q-SCOPE-04}/\decisionref{Q-SCOPE-05}. Worker days/hours are consulted in the profile under \identifier{FR-023}; no dedicated attendance-document export is included.\\
+\end{longtable}
+}

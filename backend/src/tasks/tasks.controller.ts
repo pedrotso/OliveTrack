@@ -1,3 +1,4 @@
+import { z } from "zod";
 import {
   BadRequestException,
   Body,
@@ -35,14 +36,14 @@ export class TasksController {
   @Post()
   async create(@Body() body: unknown) {
     const parsed = TaskSchema.safeParse(body);
-    if (!parsed.success) throw new BadRequestException({ error: parsed.error.flatten() });
+    if (!parsed.success) throw new BadRequestException({ error: z.flattenError(parsed.error) });
     return this.tasks.upsert(parsed.data);
   }
 
   @Put(":id")
   async update(@Param("id", new ParseUUIDPipe()) id: string, @Body() body: unknown) {
     const parsed = PatchSchema.safeParse(body);
-    if (!parsed.success) throw new BadRequestException({ error: parsed.error.flatten() });
+    if (!parsed.success) throw new BadRequestException({ error: z.flattenError(parsed.error) });
     const { title, done } = parsed.data;
     const task = await this.tasks.patch(id, { title, done });
     if (!task) throw new NotFoundException({ error: "not found" });

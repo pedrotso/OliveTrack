@@ -1,0 +1,40 @@
+\subsection{\identifier{UC-01} --- Provision and Activate the Initial Owner Account}
+\label{uc:register-owner}\label{uc:01}
+\paragraph{Purpose}
+An authenticated Technical Administrator prepares the initial owner identity and
+single client workspace for the private deployment serving Pepe's parents. The
+owner activates the identity and chooses their own password. Manager onboarding
+continues through owner invitations under \identifier{UC-04}.
+\paragraph{Actors}
+Technical Administrator; intended Farm Owner as activation recipient.
+\paragraph{Preconditions}
+Connectivity is available. The administrator has an active account with explicit
+technical provisioning authority, bootstrapped through the deployment procedure.
+The deployment has no other initial owner/client workspace, or the administrator
+is resuming that same pending setup. The administrator's role grants no operational
+business membership or access to agricultural data/files.
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The administrator authenticates and opens the restricted provisioning view.
+\item The administrator enters the owner's name, normalised unique email and business name, and confirms the business timezone.
+\item The server validates technical authority and the single-client boundary, then creates the pending owner identity, workspace and inactive owner membership atomically.
+\item The system sends an activation link under \identifier{SEC-09}, valid for 24 hours. Account passwords are not included in messages or selected by the administrator.
+\item The intended recipient follows the link, reviews the identity and sets a password satisfying \identifier{SEC-01}.
+\item The server consumes the token once, verifies email and activates the same account and owner membership atomically.
+\item The owner signs in under \identifier{UC-02}. The system opens the business workspace; no properties, workers or operational records are created by provisioning.
+\end{enumerate}
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Unauthorised or public request.] Reject account/business creation without technical authority. Public owner registration is outside this private deployment.
+\item[A2 --- Duplicate identity or existing setup.] Reuse the reviewed pending setup or route the existing owner to recovery. Never create another owner/workspace on retry or concurrent request.
+\item[A3 --- Invalid or expired activation.] Keep setup pending and allow a controlled resend that invalidates the previous link. Invalid, consumed or expired tokens grant no access.
+\item[A4 --- Delivery or connection failure.] Preserve pending state and retry without duplicate identities or membership. Confirm accepted server outcome after uncertain transmission.
+\item[A5 --- Manager requests an account.] Follow the owner's valid invitation under \identifier{UC-04}; the administrator does not replace that business-authorisation workflow.
+\end{description}
+\paragraph{Postconditions}
+One active initial owner and one client workspace exist after successful activation.
+A failed/unfinished activation preserves the pending setup and grants no business
+access. Provisioning and activation are online operations.
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:001]{\identifier{FR-001}}, \hyperref[fr:002]{\identifier{FR-002}},
+\hyperref[br:001]{\identifier{BR-001}}, \hyperref[br:002]{\identifier{BR-002}}.

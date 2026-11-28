@@ -1,0 +1,72 @@
+Identity and row-level checks are insufficient for cross-record invariants. Enforce
+the following at central transactional acceptance, including concurrent requests.
+{\readabletable
+\begin{longtable}{L{0.24}L{0.59}L{0.17}}
+\caption{Cross-record integrity constraints.}\label{tab:integrity-constraints}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Scope} & \textbf{Essential constraint} & \textbf{Rules} \\
+\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Scope} & \textbf{Essential constraint} & \textbf{Rules} \\
+\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Ownership/access & One owner per active workspace; all business parent/file links in scope. Apply owner-reviewed grants and mandatory insurance access. & \identifier{BR-001}--BR-004 \\
+\midrule
+Coverage/work & Parcel belongs to property; assignments fit coverage. Preserve unique attendance and non-overlapping same-worker planned/actual intervals, checked separately. Reopening precedes confirmed changes where required. & \identifier{BR-005}--BR-021 \\
+\midrule
+Delivery/results & Accepted delivery has transport and source batch(es). Unique delivery FK on ticket and analysis. Analysis weighting reads the same delivery ticket. Cancelled parents accept no new source results. & \identifier{BR-031}--BR-033 \\
+\midrule
+Corrections and cancellation & Validate affected campaign scopes, chronology, coverage and dependent data; no cascade deletion. Cancellation preserves sources and removes contributions. Hard deletion requires no dependent tickets, analyses, valuations or evidence; remove composed
+transport/batch rows together. & \identifier{BR-031}, \identifier{BR-038} \\
+\midrule
+Values/evidence & One current valuation per ticket. Exactly one target per source attachment; combine all applicable association and complete-file consultation permissions, without mandatory monetary-content classification or automatic redaction. & \identifier{BR-024}, \identifier{BR-034}--BR-036 \\
+\midrule
+Versions/signatures & Unique document/version sequence and accepted worker/version signature. Signer must equal the document's single Worker reference. One current accepted source per document. Successful replacement deletes the old source, signature and PDF, even when signed; invalidate old-source signing without transferring or recreating it. Temporary local proposal recovery follows \identifier{Q-DOC-04}, not a version-history policy. & \identifier{BR-023}--BR-030 \\
+\midrule
+Generation/rendition & Generated source has reviewed template/revision/input snapshot; accepted rendition uses associated worker/version signature and same-workspace files. Source identity remains immutable. & \identifier{BR-041} \\
+\midrule
+Files/acceptance & Apply upload format/limit checks. No current source before file readiness. Revision/idempotency checks prevent duplicate effects; cleanup respects all retained references. & \identifier{BR-021}, \identifier{BR-044} \\
+\end{longtable}}
+
+Coverage reservation, intervals, sequence allocation and minimum-child counts need
+transactional enforcement. File cleanup is recoverable across database/object-store
+boundaries. The team verifies replacement file cleanup, positive/non-overlapping break validation, out-of-period warnings and recovery mechanisms against the approved NFRs.
+
+
+Planned campaigns may overlap. Serialise competing Planned-to-In-progress starts,
+Closed-to-In-progress reopens and execution coverage changes over every relevant
+property/parcel key, including whole-property versus child conflicts. Actual-date
+checks remain independent of planned dates and archival. Two accepted competing
+executions must not result from concurrent offline requests.
+
+Worker name, telephone and official type/country/number are required before accepting
+a new worker. The internal UUID is the primary key; same-business duplicate matches
+produce review, not an automatic merge or mandatory unique-document rejection.
+Accept worker identity before dependent work or driving. Document creation
+requires that accepted worker online; signing requires the accepted individual source. Every confirmed complete WorkPeriod has its actual task.
+Do not create unresolved attendance alerts for unrelated unselected workers.
+
+For accepted document sources, enforce the immutable file reference/digest required
+by \identifier{SEC-08}. Integrity metadata is protected with the associated source; a digest does
+not establish the worker's identity or make a drawn mark a certified signature.
+
+\paragraph{Source examples.}
+Validate ticket metadata against its schema; preserve literal identifiers and
+separate total kg, canonical accepted assigned kg and accepted percentage. Printed duration may differ from
+elapsed timestamps and requires an interpretation note; valid chronology still
+applies. MEDIANERIA never automatically populates yield or deductions. A new
+application signature for a decision-bearing form requires an explicit valid choice,
+immutably bound to worker/version evidence and rendered identically on its PDF.
+External signed uploads may have unknown structured response. Every uploaded/generated Document has exactly one worker, fixed after acceptance;
+check that the signature and rendition worker matches the version parent.
+
+\paragraph{Technical administration and single-client setup.}
+Enforce administrator authority centrally for owner provisioning and enforce a
+single deployment workspace/initial owner, including concurrent requests. Pending
+workspace and owner membership activate atomically after recipient verification.
+Only deployment bootstrap assigns the administrator role; normal owner/manager
+requests cannot elevate it. Membership-scoped business APIs/files require their
+own grants, even for an authenticated administrator. Invited manager creation
+requires the valid owner-issued recipient context. Activation challenges remain
+protected technical records, separate from the 33 domain entities.

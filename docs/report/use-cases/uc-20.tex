@@ -1,0 +1,51 @@
+\subsection{\identifier{UC-20} --- Generate Worker Documents}\label{uc:20}
+
+\paragraph{Purpose}
+Generate a reviewed unsigned version from a supplied Spanish template, then sign it through \identifier{UC-14} and retain the worker-specific PDF.
+
+\paragraph{Actors}
+Farm Owner; Field Manager with the relevant scope and permissions.
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item The user has generation permission; managers have no such permission by default.
+\item The template and selected worker records belong to the authorised business context.
+\item Generation/acceptance of a source version requires connectivity. The supplied individual forms in Table~\ref{tab:source-forms} define the initial candidate inventory; retain the original Spanish wording while the application interface remains English; the team verifies rendering and field mapping.
+\end{itemize}
+
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The user selects an available template and existing worker(s).
+\item The system prefills known company/worker identity and identifies gaps; the user reviews the document date, job-role snapshot and equipment, information or machinery selections. The consent template reserves the worker choice for signing.
+\item The user completes required fields, reviews each individual document and its worker and confirms.
+\item The system accepts an unsigned version under \identifier{UC-13} without changing worker profiles.
+\item The user initiates \identifier{UC-14} review/signing now or later; the worker explicitly confirms.
+\item The system retains version-specific evidence and a timestamped worker-specific PDF.
+\item The system exposes the result in the authorised document view with local/server and file status.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Missing information or template.] The system preserves draft input for correction and identifies missing fields/template without inventing values. Use the supplied Spanish wording and required field schema; technical rendering/field checks remain team verification tasks.
+\item[A2 --- Several workers.] Generate a separate Document and unsigned source version for each selected worker, using the same template if desired. Each source, signature and rendition belongs to its single worker; review each generated document before acceptance.
+\item[A3 --- Review cancelled or generation fails.] The system preserves accepted versions and creates no signature.
+\item[A4 --- Document already exists.] The user reviews a new unsigned source. Successful acceptance deletes the former source, signature and PDF under \identifier{BR-026}; no signature is inherited and no old content is overwritten in place.
+\item[A5 --- Prepared offline signing.] The user prepares the accepted source online, then initiates \identifier{UC-14} offline. The system labels local signatures/PDFs pending until server acceptance; source generation remains online.
+\item[A6 --- Identification or work-permit evidence.] The user uploads originals through \identifier{UC-13}. Verification forms neither issue identification/work permits nor establish legal approval.
+\item[A7 --- Worker activity requested.] Consult actual days and hours through the worker profile in \identifier{UC-07}. No dedicated attendance-document template or generation workflow is included.
+\end{description}
+
+\paragraph{Postconditions}
+Successful generation creates a reviewed unsigned source version under the
+current-only retention policy. If signing is completed, the source, signature
+evidence and worker-specific PDF are retained together under signed-version
+retention until successful replacement, which deletes the prior source, signature and PDF. Worker profiles remain unchanged; generation alone never marks a
+source as signed.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:040]{\identifier{FR-040}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:042]{\identifier{FR-042}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:044]{\identifier{FR-044}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:063]{\identifier{FR-063}}.
+
+\hyperref[br:022]{\identifier{BR-022}}, \hyperref[br:023]{\identifier{BR-023}}, \hyperref[br:024]{\identifier{BR-024}}, \hyperref[br:026]{\identifier{BR-026}}, \hyperref[br:027]{\identifier{BR-027}}, \hyperref[br:028]{\identifier{BR-028}}, \hyperref[br:030]{\identifier{BR-030}}, \hyperref[br:041]{\identifier{BR-041}}, \hyperref[br:044]{\identifier{BR-044}}.
+
+\paragraph{Decision References}
+\decisionref{D-14}, \decisionref{Q-DOC-01}, \decisionref{Q-DOC-02}, \decisionref{Q-DOC-04}.

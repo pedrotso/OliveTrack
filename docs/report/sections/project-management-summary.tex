@@ -1,0 +1,46 @@
+\subsection{Planning and Effort Summary}\label{sec:project-planning}
+The supplied hours workbook snapshot of 24 November totals 112 person-hours.
+The Summary values reconcile with individual entries plus shared Team meetings
+counted for the nine listed members. Two task entries still lack dates;
+confirm those dates and any unrecorded work with their authors. The sheet records
+past effort and does not establish acceptance of an implementation task.
+
+The supplied estimation workbook contains 56 three-point task estimates with
+\(E=(B+4M+W)/6\), totalling 872.05 person-hours. It mixes semester-wide effort and
+proof-of-concept assumptions, including older exclusions and 810/950-hour budget
+assumptions. The revised 88-task catalogue retains its separate inherited reference
+triples, recomputes their PERT values and identifies scope changes/reuse evidence.
+The 87 inherited triples total 452.17 hours when full-precision PERT is summed.
+The source catalogue total of 453.2 hours summed already-rounded rows. One new
+DEV-06 deployment/backup task has a proposed 4/8/16-hour triple (8.67 expected),
+bringing reference/proposed catalogue effort to 460.83 hours. All changed scope
+and reuse must be re-estimated before these values can become remaining work.
+Its task IDs and granularities differ from the 56-item workbook. Neither total is
+an approved current remaining-effort forecast. Reconcile task ownership, completed
+scope and remaining estimates before calculating actual plus remaining effort;
+do not add the 112 hours to either whole-scope historical total or claim a reserve.
+
+\subsubsection{Phase Responsibilities}\label{sec:phase-assignment}
+The allocation below follows the supplied team note. Each pair owns coordination
+and completion evidence for its phase; choose one execution lead and a reviewer
+for each task on the board. Recurring management and early testing continue across
+phases. The detailed catalogue supplies task IDs, prerequisites and reference effort.
+{\compacttable\begin{longtable}{L{0.12}L{0.5}L{0.38}}
+\toprule\rowcolor{TableHeader}\textbf{Phase} & \textbf{Deliverable focus} & \textbf{Responsible pair}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Phase} & \textbf{Deliverable focus} & \textbf{Responsible pair}\\\midrule\endhead
+\bottomrule\endlastfoot
+1 & Requirements, handbook, C4 and API/sync design; management tracking. & Cec\'{i}lia and Pedro.\\\midrule
+2 & Existing monorepo/environment/PWA foundation, shared contracts and calculations. & Hugo and Pepe.\\\midrule
+3 & Domain Prisma schema/migrations, seed data and local Dexie/outbox structures. & Mateo and Navega.\\\midrule
+4 & NestJS API/sync core, protected files, account provisioning/authentication PWA infrastructure, private deployment and backups. & Andr\'{e} and Gabriel.\\\midrule
+5 & Agricultural backend/UI modules, manager delegation, optional planning, documents and indicators. & Pepe and Dinis.\\\midrule
+6 & Integrated QA, client walkthrough, deployment/handover and final academic deliverables. & Gabriel and Navega.\\
+\end{longtable}}
+Phase numbers group responsibility and dependencies; readiness is assessed per
+task/contract. Integration waits for its listed prerequisites and validation;
+independent preparation can proceed in parallel. One final delivery is planned,
+with final calendar and capacity unconfirmed under \decisionref{Q-PM-01}. Pepe,
+Gabriel and Navega participate in two phases, so schedule their assignments
+against actual availability. Phase pairs are confirmed by the supplied note;
+individual task, risk, test and operational leads, dates and team-wide AI inventory
+still need assignment under \decisionref{Q-PM-02}.

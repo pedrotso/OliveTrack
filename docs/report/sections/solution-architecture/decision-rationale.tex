@@ -1,0 +1,16 @@
+{\compacttable
+\begin{longtable}{L{0.23}L{0.45}L{0.32}}
+\caption{Architecture rationale, trade-offs and validation needs.}\label{tab:architecture-rationale}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Proposed choice} & \textbf{Reason / requirement driver} & \textbf{Trade-off / validation}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Proposed choice} & \textbf{Reason / requirement driver} & \textbf{Trade-off / validation}\\\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Responsive PWA with IndexedDB outbox & One phone/tablet interface and prepared field continuity; atomic local proposals support \identifier{FR-034} and \identifier{AOC-03}. & Browser storage and execution limits require device tests; protection and trusted time remain under \decisionref{Q-DOC-07}.\\\midrule
+Modular TypeScript API and shared pure rules & Modules follow domain responsibilities; shared previews reduce divergent calculations, while the server enforces \identifier{REL-03}. & Shared code does not supply authority or concurrency guarantees. Validate the selected stack through the technical slice under \decisionref{Q-ARCH-01}.\\\midrule
+PostgreSQL transactional acceptance & Relationships, uniqueness and serialised validation support single tickets/analyses, attendance and exclusive execution. & Cross-record checks need a tested transaction/locking design, not only independent row checks.\\\midrule
+Stable operations and optimistic revisions & Safe retries and explicit conflict review preserve \identifier{REL-01}/\identifier{REL-02} without silent last-write-wins. & Adds dependency and recovery work; expired-context safeguards and owner-authorised recovery remain verification tasks.\\\midrule
+Private object storage plus relational metadata & Keeps source files, signature evidence and derived PDFs distinct under \identifier{SEC-08} and \identifier{BR-026}. & Database/file readiness and cleanup need recoverable coordination; provider/cost and retention are separate decisions.\\\midrule
+Managed hosting candidate & Separates application delivery, API, database and files while supporting configurable backup/monitoring. & Compare an affordable deployment against the agreed NFRs; AWS is an option under \decisionref{Q-ARCH-02}, not a free or approved service guarantee.\\
+\end{longtable}}

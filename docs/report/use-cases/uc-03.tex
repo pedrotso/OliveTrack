@@ -1,0 +1,110 @@
+\subsection{\identifier{UC-03} --- Recover and Update Account Access}
+\label{uc:recover-access}
+\label{uc:03}
+
+\paragraph{Purpose}
+
+Allow password recovery and authenticated password or verified-email updates,
+    preserving account identity, business ownership and permissions.
+
+\paragraph{Actors}
+
+Account holder.
+
+\paragraph{Preconditions}
+
+An internet connection is available.
+    Password recovery requires access to the registered email inbox;
+    authenticated updates require an active session and identity revalidation.
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+        \item The account holder opens the recovery form.
+        \item The account holder enters the account email.
+        \item The system displays a generic acknowledgement.
+        \item For an eligible account, the system sends
+        a password reset link to the registered email.
+        \item The account holder follows the link.
+        \item The system validates the reset request.
+        \item The account holder enters and confirms
+        a new password.
+        \item The system validates and saves the new password.
+        \item The system consumes the reset authorisation
+        and invalidates existing online sessions.
+        \item The system confirms the change and directs
+        the account holder to login.
+    \end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{enumerate}[label=A\arabic*.]
+        \item \textbf{Unknown or ineligible email:}
+        The system displays the same generic acknowledgement
+        without disclosing whether an account exists.
+
+        \item \textbf{Invalid, expired or previously used link:}
+        The password is not changed.
+        A new recovery request may be submitted.
+
+        \item \textbf{Invalid password or confirmation mismatch:}
+        The system requests correction before completing
+        the reset.
+
+        \item \textbf{Email delivery failure:}
+        The existing credentials remain unchanged.
+        The account holder may submit another request.
+
+        \item \textbf{Connection failure:}
+        The system reports that completion could not be
+        confirmed and requires validation before reporting
+        a successful reset.
+
+        \item \textbf{No access to the registered inbox:}
+        Automatic recovery cannot be completed.
+        An alternative identity-verification process is
+        outside the currently defined workflow.
+
+        \item \textbf{Authenticated password update:}
+        The connected account holder opens account settings and revalidates identity.
+        The user enters and confirms a new password; the system validates and saves
+        it under the configured password policy and applies the recovery/session
+        invalidation policy before confirming success.
+
+        \item \textbf{Verified email update:}
+        The connected authenticated user requests a new address after identity
+        revalidation. The system validates normalised-email uniqueness and sends
+        verification to that address. The user follows the verification link;
+        only successful verification activates the new address. Until then, or
+        on invalid/expired verification, the existing address remains active.
+        The system preserves account identity, ownership, memberships, signatures
+        and record authorship across updates and retries.
+    \end{enumerate}
+
+\paragraph{Postconditions on Success}
+
+For recovery/password update, the new password is active and online sessions
+    are invalidated under the same security policy; a reset authorisation cannot
+    be reused. For email update, only the verified new address becomes active.
+    Account identity, business ownership, memberships, permissions, signatures
+    and record authorship remain unchanged.
+
+\paragraph{Postconditions on Failure}
+
+No unsuccessful credential change is activated. Pending/failed email verification
+    leaves the existing address active. Existing identity and permissions are unchanged.
+
+\paragraph{Connectivity}
+
+Recovery and authenticated email/password updates require an internet connection.
+    Disconnected devices detect session invalidation
+    when they reconnect or reach the offline
+    authorisation limit.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:005]{\identifier{FR-005}}, \hyperref[fr:064]{\identifier{FR-064}}.
+
+\hyperref[br:002]{\identifier{BR-002}}, \hyperref[br:042]{\identifier{BR-042}}.
+
+\paragraph{Decision References}
+\decisionref{D-16}, \decisionref{Q-AA-05}, \decisionref{Q-AA-07}.

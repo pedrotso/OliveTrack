@@ -1,0 +1,93 @@
+\subsubsection{RS-06 --- Academic Workload and Capacity}
+\textbf{Prevent.} Collect availability and assessment dates, split delivery into
+small owned tasks, reserve integration/test time and review remaining effort
+against actual capacity. Identify backups for dependent work. Do not assume nine
+people can all work simultaneously or replace elapsed lead time with person-hours.
+
+\textbf{Respond.} When capacity is insufficient, rebalance tasks and propose a
+reviewed scope reduction under \decisionref{Q-SCOPE-01}. Do not silently remove
+required permissions, integrity checks or evidence. Record the effect on estimates
+and milestones. \textbf{Owner/review:} Project coordinator; weekly and immediately
+when a task dependency is at risk.
+
+\subsubsection{RS-01 --- Architecture Validation}
+\textbf{Prevent.} Validate the selected stack and API/data contracts before expanding
+implementation. Build one minimal path: authenticate, prepare permitted data, save
+an identified work proposal durably, reconnect and accept it idempotently in
+PostgreSQL. Include a stale-revision case. Record deployment/service choices under
+\decisionref{Q-ARCH-01} and \decisionref{Q-ARCH-02}.
+
+\textbf{Respond.} If a service or library blocks that path, evaluate a simpler
+compatible implementation with a recorded decision and migration impact. Avoid an
+unreviewed stack switch or bypassing central authority. \textbf{Owner/review:}
+Backend/architecture lead; next implementation planning session and at each
+blocked integration checkpoint until the slice passes.
+
+\subsubsection{RS-07 --- Scope Expansion}
+\textbf{Prevent.} Maintain the included/excluded scope in Section~\ref{sec:scope},
+maintain the single-final-delivery baseline and estimate additions before
+accepting them. Payroll, wage calculations, payments, invoicing and automatic
+ticket extraction remain excluded. Keep the agreed cooperative-reported values
+and campaign indicators; they are not payroll or accounting.
+
+\textbf{Respond.} Defer optional additions or exchange scope through a reviewed
+decision with effort, dependencies and acceptance impact. Do not promise new
+CSV/Excel exports as a mitigation; use only outputs already selected for delivery.
+\textbf{Owner/review:} Project coordinator; each new request and milestone review.
+
+\subsubsection{RS-08 --- Client Clarification}
+\textbf{Prevent.} The client intermediary collects focused questions, requests
+sanitised ticket/document examples and schedules concise validation sessions.
+Connect each blocking question to Section~\ref{sec:uc-open-decisions}, an owner
+and the task that needs the answer. Use synthetic examples while protecting real
+worker data.
+
+\textbf{Respond.} If the client is unavailable, record an explicitly provisional
+team assumption and develop only reversible parts that do not depend on an
+unvalidated business/legal conclusion. Escalate blocking decisions; the
+intermediary does not acquire binding product/legal approval authority.
+\textbf{Owner/review:} Client intermediary; weekly and before dependent-task dates.
+
+\subsubsection{RS-09 --- Task Coordination}
+\textbf{Prevent.} Maintain the shared task board with one accountable owner,
+reviewer where needed, due date, dependencies and completion evidence. Record
+actual person-hours in the existing shared sheet. Use brief asynchronous updates
+for completed work, next work and blockers; create a handover for absences.
+
+\textbf{Respond.} Rebalance overloaded or unowned work in the team review and
+update the plan and estimates. Reconcile document contributions before final
+report integration. \textbf{Owner/review:} Project coordinator; weekly and whenever
+ownership or availability changes.
+
+\subsubsection{RS-02 --- Offline Synchronisation}
+\textbf{Prevent.} Implement and test the protocol in Section~\ref{sec:offline-sync}
+early: stable record/operation IDs, atomic local saves, ordered dependencies,
+idempotent server effects, optimistic revisions and explicit conflict review.
+Test normal restart, uncertain outcomes, concurrent starts/edits, worker creation,
+authorisation expiry and protected pending data. A transport operation log is not
+an append-only restriction on editable business records.
+
+\textbf{Respond.} If automatic replay is unreliable, expose a clear authorised
+retry/review action while fixing it. A manual trigger uses the same durable queue,
+permissions and conflict validation; it does not introduce Last Write Wins or
+discard pending proposals. If necessary, revise final-delivery scope explicitly.
+\textbf{Owner/review:} Backend/synchronisation lead; each vertical-slice increment
+and before demonstrating verified offline behaviour.
+
+\subsubsection{Responses for the Remaining Risks}
+The remaining risks retain monitoring and proportionate actions even when not in
+the first six priorities.
+{\compacttable
+\begin{longtable}{L{0.13}L{0.87}}
+\caption{Responses for other monitored risks.}\label{tab:other-risk-responses}\\
+\toprule\rowcolor{TableHeader}\textbf{ID} & \textbf{Prevention and response}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{ID} & \textbf{Prevention and response}\\\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\identifier{RS-03} & Review phone/tablet workflows under the approved USA criteria and representative outdoor conditions. If tasks fail, simplify the affected screen and repeat the affected task checks.\\\midrule
+\identifier{RS-04} & Establish build and core-rule regression checks before broad integration. Block/review a failing merge, fix the cause and repeat affected regression checks.\\\midrule
+\identifier{RS-05} & Require shared contracts, dependency review and peer review for all code regardless of authoring tool. Rework incompatible contributions before merge and record required follow-up.\\\midrule
+\identifier{RS-10} & Integrate small changes against reviewed contracts/migrations. Resolve conflicting branches with the relevant owners and rerun affected build/integration checks.\\\midrule
+\identifier{RS-11} & Record a backup and handover for changed ownership. Assign an interim owner and recover outstanding decisions/work when the trigger occurs.\\\midrule
+\identifier{RS-12} & Obtain sanitised examples and remote walkthroughs on representative devices. If field validation is unavailable, state the limitation and keep dependent assumptions open.\\
+\end{longtable}}

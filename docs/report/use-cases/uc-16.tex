@@ -1,0 +1,50 @@
+\subsection{\identifier{UC-16} --- Record Weighing Data and Adjustments}\label{uc:16}
+
+\paragraph{Purpose}
+Manually record or correct the delivery's single ticket and cooperative-reported weights, adjustments, timing and optional evidence.
+
+\paragraph{Actors}
+Farm Owner; Field Manager with the relevant scope and permissions.
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item The delivery exists and is not cancelled; ticket entry is allowed In transport or after Delivered.
+\item The user has the requested entry or correction permission. Managers may consult complete values/tickets only after explicit owner authorisation; structured monetary entry or correction requires the relevant additional financial permission.
+\item Offline use requires prepared delivery context and valid offline authorisation.
+\end{itemize}
+
+After confirmation, completing an unknown ticket/analysis field requires correction permission under Section~\ref{sec:completion-correction}; the closed-campaign exception does not waive it.
+
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The user selects the delivery and creates its ticket, or opens the existing ticket.
+\item The user records the available reference, cooperative, source date/season, receiving line, sample/member references and locator. Optional source snapshots preserve quality, variety, municipality and POL/PAR/REC/PARAJE under Table~\ref{tab:source-ticket}.
+\item The user enters reported weights with source labels and units, including total and assigned kg separately. KILOS ASIGNADOS supplies canonical accepted assigned kg; KILOS TOTALES remains a separate reported total. MEDIANERIA is the percentage accepted by the cooperative, distinct from laboratory yield. Do not apply it again to assigned kg.
+\item The user may enter cooperative processing start/end and independently printed duration in seconds, plus reported excess duration/unit. Monetary penalties require financial permission; explicitly absent penalties differ from unreported information.
+\item The user records known adjustments and whether the source already includes them.
+\item With the applicable entry/attachment permission, the user may attach PDF/JPG/PNG evidence within the 10~MB limit. Monetary content does not require a classification step or financial-entry permission for file upload.
+\item The user reviews and confirms. The system saves structured values and shows separate attachment/local/server status.
+\item For a Delivered, non-cancelled delivery, the system recalculates eligible indicators using current source values. In transport, it shows available data in delivery detail as awaiting receipt confirmation, without indicator contribution or a false missing-data label. It uses reported assigned kg directly and does not calculate or reapply penalties.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Ticket already exists or concurrent creation.] The user opens the existing ticket and may correct it with separate authority; the server rejects concurrent creation of a second ticket. A reference alone is not globally unique.
+\item[A2 --- Incomplete/ambiguous weight.] The system retains source facts as incomplete, without substituting zero, and excludes them from calculations requiring known semantics.
+\item[A3 --- Penalty already included or treatment unknown.] The user records the known application status. The system neither calculates the penalty nor deducts it again from reported weight or amount.
+\item[A4 --- Financial content.] The system displays complete ticket contents to authorised readers, including monetary data. Financial consultation requires an explicit owner grant; structured monetary entry/correction still needs additional grants. The system neither classifies mandatory monetary content nor redacts printed values. Revoked consultation follows current access rules.
+\item[A5 --- Offline or interrupted attachment transfer.] The system saves permitted structured proposals locally and tracks recoverable file transfer separately. The user may retry the file; the system reports server availability only after upload acceptance.
+\item[A6 --- Correction or late receipt.] The separately authorised user updates current fields only, including previously unknown fields after confirmation. The system permits existing-delivery ticket updates after closure without reopening.
+\item[A7 --- Invalid timing or cancelled delivery.] The system rejects an end before its known start or a cancelled parent. It flags a mismatch between elapsed timestamps and printed duration for review while preserving both, including the one-second discrepancy in Table~\ref{tab:source-ticket}.
+\end{description}
+
+\paragraph{Postconditions}
+One current ticket remains linked to the delivery. Unknowns remain visible. Financial/source and synchronisation classifications stay separate; rejected proposals do not become accepted totals.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:049]{\identifier{FR-049}}, \hyperref[fr:050]{\identifier{FR-050}}, \hyperref[fr:053]{\identifier{FR-053}}, \hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:061]{\identifier{FR-061}}.
+
+\hyperref[br:012]{\identifier{BR-012}}, \hyperref[br:032]{\identifier{BR-032}}, \hyperref[br:034]{\identifier{BR-034}}, \hyperref[br:036]{\identifier{BR-036}}, \hyperref[br:038]{\identifier{BR-038}}, \hyperref[br:044]{\identifier{BR-044}}.
+
+\paragraph{Decision References}
+\decisionref{D-10}, \decisionref{D-11}, \decisionref{Q-DA-02}, \decisionref{Q-DA-08}, \decisionref{Q-AT-02}.

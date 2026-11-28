@@ -1,0 +1,101 @@
+\label{sec:nfr-offline}
+Offline continuity is operation-specific and follows \hyperref[br:013]{\identifier{BR-013}}.
+Online availability and prepared field use are separate properties. The 15-day
+authorisation already agreed in \decisionref{D-22} remains unchanged; additional
+approved availability/performance targets are coordinated through \decisionref{Q-NFR-02}
+and \decisionref{Q-NFR-07}.
+\paragraph{Simple routine interaction.}\label{sec:offline-interaction}
+Use the ordinary field forms, clear locally-saved/pending status and automatic sync
+attempts with a manual retry when connected. Do not require routine outbox management.
+Genuine conflicts or changed grants need an explicit recoverable exception workflow.
+The demonstration's simplified interface does not establish production persistence,
+authorisation enforcement or recovery.
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{AOC-01} --- Prepared offline operational continuity}\label{nfr:AOC-01}
+After online authentication and preparation, the PWA shall support the operations that the use cases designate as available offline.
+
+\textit{Rationale:} Maintains field continuity with the same forms and operation-specific grants rather than an unrestricted offline application.
+
+\textit{Related:} \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:011]{\identifier{FR-011}}, \hyperref[fr:015]{\identifier{FR-015}}, \hyperref[fr:016]{\identifier{FR-016}}, \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:023]{\identifier{FR-023}}, \hyperref[fr:028]{\identifier{FR-028}}, \hyperref[fr:029]{\identifier{FR-029}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:048]{\identifier{FR-048}}--\hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:062]{\identifier{FR-062}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Support prepared consultation, optional planning, attendance/work and authorised corrections, deliveries/results, selected-version signing and financial consultation, entry, correction and PDF output under their FR grants. Explicit campaign start and identified same-day worker creation also work offline with stable pending dependencies.
+\item Initial authentication, account/access administration, property/parcel structure, campaign creation/coverage/closure/reopening, existing-worker administration, source-version management and template generation require connectivity. Do not confuse these with the supported worker-create/campaign-start exceptions.
+\item Offline operation is not presented as access to all historical data; unavailable local data is distinguished from an empty result.
+\item Prepared financial values, complete tickets and source files follow the financial/full-content grants in Section~\ref{sec:permission-defaults}. Do not exclude monetary data from offline views or require content classification/redaction. Structured records and file-transfer readiness remain separate.
+\item Expose readiness for schedules in the current and following week and current insurance, including explicitly selected existing workers. Other permitted signing documents require explicit preparation; apply \hyperref[br:029]{\identifier{BR-029}} without automatically downloading all contracts.
+\item Distinguish metadata and file readiness. Interrupted preparation, unavailable files and insufficient storage must not produce a false ready state; coordinate storage guidance with \hyperref[nfr:AOC-05]{\identifier{AOC-05}}.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{AOC-02} --- Bounded offline authorisation}\label{nfr:AOC-02}
+A device shall operate offline only for a limited time after its latest successful online permission validation.
+
+\textit{Rationale:} Balances seasonal field connectivity against the risk of lost devices and delayed revocation.
+
+\textit{Related:} \hyperref[fr:002]{\identifier{FR-002}}, \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:005]{\identifier{FR-005}}, \hyperref[fr:008]{\identifier{FR-008}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Prepared offline authorisation expires 15 days after the latest successful online validation of permissions, as already defined in \hyperref[fr:004]{\identifier{FR-004}} and \identifier{D-22}. Only another successful online validation renews it.
+\item The 15-day grant is separate from online credential/session expiry, the current/following-week preparation window and the 30-day accepted-cache inactivity cleanup.
+\item On expiry, protected offline access is locked until the device is revalidated online.
+\item Expiry never deletes pending operations: they stay protected in the local queue and are submitted after revalidation, subject to server-side authorisation (including \hyperref[nfr:REL-08]{\identifier{REL-08}} for revoked managers).
+\item Protect the validation/expiry context against clock rollback and fail closed when its trusted-time context cannot be established. Keeping server time or detecting rollback is a proposed safeguard, not proof against arbitrary clock manipulation; the final method and boundary tests remain under \decisionref{Q-DOC-07}.
+\item Reconnection revalidates current access and permissions before any pending operation is accepted.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{AOC-03} --- Persistent operation queue and visible states}\label{nfr:AOC-03}
+Every offline change shall be stored durably, and its synchronisation state shall be visible.
+
+\textit{Rationale:} Prevents a locally saved entry from being mistaken for a server-accepted record and makes connectivity failures recoverable.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:029]{\identifier{FR-029}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:043]{\identifier{FR-043}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Persist the business proposal and outbox entry atomically before local confirmation, with stable record/operation identities, origin account/workspace, base revision, dependencies, payload and recorded time. File-transfer readiness is tracked separately.
+\item After successful durable local saving, pending records and confirmed signing proposals survive normal PWA closure/reopening, temporary network loss and device restart while the supported browser storage remains intact. This does not guarantee survival after eviction, deliberate clearing or device loss.
+\item Use the states in Section~\ref{sec:sync-states}: Pending, Synchronising, Accepted, Transmission failed, Rejected, Conflicted and Outcome uncertain. Routine forms show a simple local/pending/synced presentation and freshness; actionable detail appears for genuine problems, without routine technical queue management.
+\item Browser-storage eviction or device loss before synchronisation remains an explicit residual risk and is not covered by central backups.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{AOC-04} --- Service availability and synchronisation performance}\label{nfr:AOC-04}
+The online service shall meet an agreed availability target while reconnection throughput follows the shared performance benchmark.
+
+\textit{Rationale:} Provides concrete quality gates without conflating online uptime with field continuity.
+
+\textit{Related:} \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:029]{\identifier{FR-029}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:048]{\identifier{FR-048}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Target at least 99.5\% availability per complete calendar month with continuous scheduled monitoring, including planned user-impacting maintenance as unavailable. Prepared offline continuity is evaluated separately.
+\item Use \hyperref[nfr:PERF-08]{\identifier{PERF-08}} and the single reference profile in Section~\ref{sec:nfr-performance}; do not maintain a competing reconnect benchmark. File-transfer performance remains separate.
+\item Unavailability of the online API does not suppress locally supported offline operations.
+\item Use one external probe per minute to check PWA delivery plus an authenticated database-backed synthetic read within 10 seconds. Availability is successful probes divided by all scheduled probes times 100; report monitoring gaps separately and never as success. Report file-service failures separately if other features remain available.
+\item Retain timestamped probe evidence and coverage. A short trial validates the procedure, not an achieved monthly target. Assign an alert recipient, communication channel and operating responsibility before operational use.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{AOC-05} --- Local storage capacity and persistence}\label{nfr:AOC-05}
+The PWA shall check, request and report local storage so that offline work is not lost silently.
+
+\textit{Rationale:} The solution depends on sufficient local storage for pending operations and prepared documents (Section~\ref{sec:technical-dependencies}).
+
+\textit{Related:} \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:028]{\identifier{FR-028}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:039]{\identifier{FR-039}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Request persistent browser storage where supported and record whether it is granted. This request does not guarantee persistence against user clearing, device loss or browser policy.
+\item Use available browser storage estimates to assess preparation needs and warn on insufficient space. Estimates are advisory; actual writes and quota failures remain authoritative.
+\item If a change cannot be stored locally, the user is told before the interface reports local confirmation.
+\item While pending operations exist, the interface states that unsynchronised data are held only on this device.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{AOC-06} --- Outage guidance and maintenance communication}\label{nfr:AOC-06}
+Unavailable online operations shall provide timely recovery guidance without blocking unrelated prepared field work.
+
+\textit{Rationale:} Users need a truthful outcome and a practical next step during outages.
+
+\textit{Related:} \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:048]{\identifier{FR-048}}, \hyperref[fr:062]{\identifier{FR-062}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Proposed target: within 30 seconds without observable request progress, replace indefinite loading with truthful failure or uncertain-outcome guidance and retry/prepared alternatives. Measure from submission or last progress; an active file transfer may continue with progress feedback.
+\item Preserve input and pending operations. Timeout neither proves rejection nor permits blind duplicate submission; apply the recorded-outcome/retry workflow.
+\item Announce planned user-impacting maintenance at least 24 hours in advance through the agreed channel; communicate emergency incidents as soon as practicable. Named responsibility/channel and response coverage remain to be assigned.
+\item Exercise API and file-storage outages separately. Central recovery objectives remain under \identifier{REL-04}; communication targets do not promise a restoration time.
+\end{enumerate}

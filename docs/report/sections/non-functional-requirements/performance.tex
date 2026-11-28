@@ -1,0 +1,137 @@
+All workloads, sampling plans and timing limits in this subsection are approved
+working-specification acceptance targets under \decisionref{Q-NFR-07}; they are not
+measured capacity, executed results or an infrastructure procurement commitment. Correct results and accurate save states remain required:
+speed does not compensate for lost work, duplicate effects or incorrect totals.
+
+\subsubsection{Reference Conditions}\label{sec:nfr-performance-reference}
+Use synthetic data in one owner workspace: 20 properties, 40 optional parcels,
+10 campaigns, 100 workers, 180 working dates, 5,000 daily attendance decisions,
+10,000 actual periods, 2,000 deliveries, 2,000 tickets and 2,000 analyses. These are
+test fixtures, not capacity limits. Validate campaign coverage and dates, unique
+business/day attendance, separate area assignments and at-most-one ticket/analysis.
+Use client-validated weight/yield meanings; do not settle open source questions
+through invented fixture calculations. The central history is not assumed to be
+entirely prepared offline: record each offline scenario's authorised local subset.
+
+Exercise five simultaneous authenticated sessions. Use a representative mid-range
+phone with at least 4 GB RAM, a representative tablet and a desktop browser for the required computer layout. Record exact hardware, operating system, browser, server resources, build
+and dataset versions. The reference online profile is at least 10 Mbps download,
+2 Mbps upload and at most 150 ms round-trip latency. Document cache state and
+separate cached/uncached runs; initial installation, login and preparation are online
+prerequisites. Disable the network only after successful scoped preparation.
+
+For \identifier{PERF-01}--\identifier{PERF-07}, collect at least 30 independent samples
+per applicable device, operation and mode; at least 95\% must meet the approved
+limit. Measure from the initiating action to usable content, completed calculation
+or accurate save state, including applicable rendering and network time. Record
+errors as failures. \identifier{PERF-08} instead uses ten complete reconnect cycles;
+its benchmark is defined in \identifier{PERF-08}.
+
+The upload policy remains \hyperref[br:044]{\identifier{BR-044}}. Reference
+file sizes do not reduce that limit. Worker-document generation under
+\hyperref[fr:063]{\identifier{FR-063}} is included. The selected Spanish inventory appears in Table~\ref{tab:source-forms}; technical rendering/field checks and a representative generation performance fixture are team verification tasks under \decisionref{Q-DOC-01} and
+\decisionref{Q-NFR-07}.
+
+\Needspace{8\baselineskip}
+\subsubsection{Performance Requirements}
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-01} --- Application and property access}\label{nfr:PERF-01}
+Authorised home and property views shall become usable promptly online and within prepared offline scope.
+
+\textit{Rationale:} Field navigation must not wait for unavailable central services.
+
+\textit{Related:} \hyperref[fr:002]{\identifier{FR-002}}, \hyperref[fr:011]{\identifier{FR-011}}, \hyperref[fr:015]{\identifier{FR-015}}, \hyperref[fr:023]{\identifier{FR-023}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Target: usable authorised home and property list within 3 seconds under the reference profile; apply the same limit to prepared offline reopening.
+\item Measure online opening and prepared reopening separately, distinguishing cached and uncached runs. Expose unavailable local detail without blocking unrelated navigation.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-02} --- Worker and schedule consultation}\label{nfr:PERF-02}
+Worker searches, prepared profiles and schedule changes shall provide timely usable results.
+
+\textit{Rationale:} Daily consultation should remain practical with the reference workforce and history.
+
+\textit{Related:} \hyperref[fr:023]{\identifier{FR-023}}, \hyperref[fr:028]{\identifier{FR-028}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Target: each worker search, prepared-profile opening and daily/worker/weekly view change completes within 2 seconds.
+\item Test filters, matching and empty results, and unavailable prepared dates. Offline timing covers only authorised available scope; a retrieval failure is not a successful empty query.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-03} --- Working-time previews and validation feedback}\label{nfr:PERF-03}
+Supported local work calculations and validation feedback shall respond promptly to input changes.
+
+\textit{Rationale:} Group entry needs immediate feedback before explicit confirmation.
+
+\textit{Related:} \hyperref[fr:026]{\identifier{FR-026}}, \hyperref[fr:031]{\identifier{FR-031}}, \hyperref[fr:032]{\identifier{FR-032}}, \hyperref[fr:033]{\identifier{FR-033}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Target: update supported previews and validation feedback within 1 second for a 25-worker group with up to 100 periods.
+\item Use the counted-time rules in Section~\ref{sec:counted-working-time}, including overnight work and worker-specific breaks and rejected overlapping-break proposals. Missing tasks/hours remain incomplete, not invented durations or counted unclassified periods.
+\item Compare local checks with central validation on the same fixtures. Local feedback neither guarantees acceptance nor settles pending source-weight or yield interpretations.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-04} --- Local saving and connected acknowledgement}\label{nfr:PERF-04}
+Work submissions shall provide timely and distinct local-save and central-acceptance feedback.
+
+\textit{Rationale:} A quick interface response must reflect the actual persistence outcome.
+
+\textit{Related:} \hyperref[fr:029]{\identifier{FR-029}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:037]{\identifier{FR-037}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item For 25 workers with up to 100 periods and 25 breaks, the local-save target is 3 seconds from submission to durable local confirmation.
+\item For a valid online submission under the reference profile, the server-acknowledgement target is 3 seconds from submission. Record it separately from local persistence.
+\item Interrupt transmission before and after central commit/acknowledgement. Report the actual or uncertain outcome; a timeout proves neither rejection nor acceptance.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-05} --- Campaign indicators and source refresh}\label{nfr:PERF-05}
+Eligible indicators and their supported filters shall load and refresh promptly after relevant changes.
+
+\textit{Rationale:} Campaign review depends on current, correctly scoped source contributions.
+
+\textit{Related:} \hyperref[fr:055]{\identifier{FR-055}}, \hyperref[fr:056]{\identifier{FR-056}}, \hyperref[fr:058]{\identifier{FR-058}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:061]{\identifier{FR-061}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Target: campaign indicators and applicable property/parcel filters become usable within 4 seconds.
+\item Refresh affected visible results within 4 seconds after that client receives an accepted change or durably saves a supported local proposal; do not imply instant delivery to disconnected devices.
+\item Verify restricted scope, late source information after closure, mixed-load allocation and Delivered-only eligibility. Keep accepted and local provisional contributions distinct.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-06} --- Prepared and online file opening}\label{nfr:PERF-06}
+Authorised prepared and online documents shall open within a measured reference-file budget.
+
+\textit{Rationale:} Field consultation depends on both file readiness and usable viewing.
+
+\textit{Related:} \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:040]{\identifier{FR-040}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:049]{\identifier{FR-049}}, \hyperref[fr:051]{\identifier{FR-051}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item For a prepared authorised PDF/JPG/PNG reference file up to 2 MB, opening limits are 2 seconds offline and 10 seconds online.
+\item Test current insurance and explicitly prepared signing documents; record larger-file performance separately. The reference size is not an upload limit: \identifier{BR-044} still applies to worker documents and source evidence.
+\item Missing local files, denied access and failed transfers produce truthful guidance rather than a successful-open result.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-07} --- Campaign PDF snapshot export}\label{nfr:PERF-07}
+A campaign indicator snapshot shall be produced promptly from available authorised information.
+
+\textit{Rationale:} Export must preserve the meaning and limitations of the visible campaign results.
+
+\textit{Related:} \hyperref[fr:059]{\identifier{FR-059}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:062]{\identifier{FR-062}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Target: a snapshot of up to ten pages is ready to open or download within 10 seconds under the applicable reference mode.
+\item Inspect online and offline scope, generation time, completeness, freshness and pending labels. Include prepared monetary content only with its financial grant; offline finance is not categorically excluded.
+\item This benchmark covers campaign snapshots, not template-based worker-document generation. \identifier{FR-063} remains included; its representative templates and performance fixture require separate review.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PERF-08} --- Reconnection throughput}\label{nfr:PERF-08}
+A valid prepared structured-operation batch shall synchronise within an agreed reconnection budget.
+
+\textit{Rationale:} Reconnection must recover field work without duplicate effects or hidden failures.
+
+\textit{Related:} \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:029]{\identifier{FR-029}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:048]{\identifier{FR-048}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Accept 100 valid structured operations totalling at most 1~MB within 60 seconds, excluding files. Start timing after connectivity and current authority validation complete; record access-validation time separately.
+\item All ten reference reconnect cycles must meet the budget, preserving dependency order and one business effect per operation. Count only valid centrally accepted operations as complete.
+\item Exclude file transfers from this benchmark; define the operation unit, dependency mix and payload profile before testing. Test denied authority, conflicts, business-rule failures and attachment recovery separately.
+\end{enumerate}

@@ -1,0 +1,346 @@
+\section{Scope and Feature Overview}
+\label{sec:scope}
+
+\subsection{Included Scope}
+OliveTrack is privately delivered to Pepe's parents for one client business, with
+one initial owner account prepared by a Technical Administrator. It supports:
+account access, delegated management, properties and optional parcels, campaigns,
+workers, optional planning, attendance and actual work, worker documents and signing,
+deliveries, cooperative results and campaign indicators.
+
+Table~\ref{tab:feature-overview} maps these areas to their use cases. Detailed
+behaviour, permissions and correction conditions are specified in
+Sections~\ref{sec:use-cases}--\ref{sec:business-rules}. Supported field operations
+may continue offline; connectivity is defined per operation. Uploaded identity and
+work-permit evidence is not issued or verified by document generation.
+
+\subsection{Excluded Scope}
+
+Product scope describes supported system capabilities; project scope also
+includes the work needed to specify, build, verify and deliver them. The scope
+below is the current working baseline for a single final delivery under
+\decisionref{Q-SCOPE-01}. Individual pending scope choices are resolved explicitly
+before changing that baseline.
+
+The current proposal excludes:
+
+\begin{itemize}
+    \item Payroll execution, wage calculation,
+    worker remuneration rates and payment processing.
+    \item Invoicing, full accounting
+    and commercial olive oil sales.
+    \item Application-calculated price estimates
+    for deliveries.
+    \item Worker self-service accounts
+    for attendance or business management.
+    \item Direct cooperative or laboratory
+    integrations.
+    \item Automatic extraction of values
+    from ticket images or documents.
+    \item Independent transport-trip management
+    beyond the delivery-associated transport record.
+    \item Management of agricultural activities
+    unrelated to the agreed olive-harvest scope.
+    \item Percentage-based allocation of mixed-load weights or amounts in this version.
+    \item Ownership transfer and selectable local-only/cloud-only storage modes.
+    \item Interactive maps, drawn property/parcel boundaries, visual area selection
+    and map-derived area estimates for the final delivery.
+    \item Comparisons between campaigns or harvest years in the final delivery.
+    \item Detailed Excel exports in the final delivery.
+    \item Dedicated in-application document printing, including batch printing.
+    \item An owner-facing business-closure feature, removed from scope under
+    \decisionref{Q-SCOPE-07}.
+\end{itemize}
+
+Maps, cross-campaign/cross-year comparisons and detailed Excel exports remain
+possible future enhancements under \decisionref{Q-SCOPE-02},
+\decisionref{Q-SCOPE-03} and \decisionref{Q-SCOPE-04}, respectively. No implementation
+date is committed; later inclusion requires an explicit scope-change review.
+The final delivery uses property/parcel names, textual location and optional
+declared hectares, reviews one campaign at a time and exports authorised campaign
+summaries as PDF under \identifier{FR-062}.
+
+Authorised document and generated-PDF downloads are sufficient for the final
+delivery under \decisionref{Q-SCOPE-05}. Users may print downloaded files through
+their browser or PDF reader. Integrated printing, batch printing and printer
+management remain possible future enhancements, with no implementation commitment.
+
+Worker activity is consulted directly in each worker's profile under
+\identifier{FR-023}. The final delivery includes days and hours worked, without a
+dedicated attendance-document workflow; see \decisionref{Q-SCOPE-06}.
+
+\subsection{Single Final Delivery}
+\label{sec:mvp-proposal}
+\label{sec:final-delivery}
+
+The project has one final version and one final delivery. No separate MVP release
+or staged functional deliveries are planned. Internal development and testing may
+proceed progressively towards that same delivery.
+
+The current final-delivery baseline is an end-to-end
+harvest workflow in which the owner can:
+
+\begin{enumerate}
+    \item Prepare properties, campaign coverage,
+    workers and necessary documents.
+
+    \item Plan work and consult prepared schedules.
+
+    \item Confirm attendance and record
+    actual periods and tasks in the field,
+    including without connectivity.
+
+    \item Record transport and delivery,
+    then complete ticket, analysis
+    and reported monetary information
+    as it becomes available.
+
+    \item Consult relevant insurance,
+    use the agreed signing interaction
+    and inspect campaign results.
+\end{enumerate}
+
+The backlog records implementation order, dependencies, effort, ownership and
+acceptance criteria for the final delivery. Any scope reduction or addition needs
+an explicit reviewed decision; backlog order alone does not exclude a requirement.
+Future enhancements remain outside the final-delivery commitment; the selected four document templates and current-only replacement policy follow the decisions in Section~\ref{sec:validation}. Signing, local document protection and recovery still
+require operational validation.
+
+The navigable prototype prepared for the intermediate presentation, described in
+Section~\ref{sec:document-status}, is a prior demonstration artefact. It does not
+constitute another functional product delivery or acceptance of the final system.
+
+\Needspace{8\baselineskip}
+\subsection{Feature Overview}
+
+{\readabletable
+    \begin{longtable}{L{0.28}L{0.54}L{0.18}}
+\caption{Functional areas and corresponding use cases.}\label{tab:feature-overview}\\
+        \toprule
+\rowcolor{TableHeader}
+        \textbf{Area}
+        & \textbf{Main capability}
+        & \textbf{Use cases}
+        \\
+        \midrule
+
+\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Area} & \textbf{Main capability} & \textbf{Use cases}\\
+\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+        Account access
+        & Owner registration, email verification,
+        login, logout and recovery.
+        & \identifier{UC-01}--UC-03
+        \\
+\midrule
+
+        Manager access
+        & Invitations, operational defaults, adjustable permissions and revocation.
+        & \identifier{UC-04}
+        \\
+\midrule
+
+        Land and campaign organisation
+        & Properties, optional parcels, campaign coverage, planned/actual dates and lifecycle.
+        & \identifier{UC-05}--UC-06
+        \\
+\midrule
+
+        Workforce
+        & Identified worker profiles, machinery capability and authorised same-day offline creation.
+        & \identifier{UC-07}
+        \\
+\midrule
+
+        Planning
+        & Daily and multi-day plans,
+        reuse and schedule consultation.
+        & \identifier{UC-08}--UC-09
+        \\
+\midrule
+
+        Actual work
+        & Attendance, task periods,
+        breaks and corrections.
+        & \identifier{UC-10}--UC-11
+        \\
+\midrule
+
+        Documents and signing
+        & Document access, uploads, retention, offline preparation and worker-specific signing.
+        & \identifier{UC-12}--UC-14
+        \\
+\midrule
+
+        Harvest logistics
+        & Transport-associated deliveries,
+        weighing tickets and analyses.
+        & \identifier{UC-15}--UC-17
+        \\
+\midrule
+
+        Reported values
+        & Current cooperative-reported
+        ticket amounts.
+        & \identifier{UC-18}
+        \\
+\midrule
+
+        Campaign review
+        & Indicators, supporting detail
+        and PDF summaries.
+        & \identifier{UC-19}
+        \\
+\midrule
+
+        Document generation
+        & Reviewed template-based generation, followed by version-specific signing.
+        & \identifier{UC-20}
+        \\
+
+    \end{longtable}
+}
+
+Administrative configuration normally requires
+connectivity.
+Essential field entry and consultation
+use prepared authorised information
+and explicit synchronisation states.
+
+Offline capability is defined per operation.
+It does not imply that the entire application
+or every historical record is available
+without a connection.
+
+\subsection{Assumptions and Dependencies}
+
+\subsubsection{Business Assumptions}
+
+The baseline provides one business workspace per owner. Several independently
+owned workspaces through the same owner account are outside scope. Managers use
+owner-assigned property scope, including parcels and current/future campaigns;
+several managers may share a property under \decisionref{Q-AA-02}. Business closure
+is excluded under \decisionref{Q-SCOPE-07}. The separate procedure for account/data
+erasure requests remains under \decisionref{Q-AA-07}; it introduces no closure feature.
+
+The current requirements review assumes that:
+
+\begin{itemize}
+    \item Reference information and documents are prepared when possible. New workers
+    may be created on the day, including offline, with mandatory identification.
+    Their creation does not establish documentary readiness.
+    \item A worker may perform different tasks
+    and work in several areas during the same day.
+    \item Campaigns may cover several properties
+    or selected parcels.
+    \item Source information may arrive
+    after the physical delivery
+    or campaign closure.
+    \item One transport record is associated
+    with each delivery in the final version.
+    \item Each delivery may have at most one ticket and one analysis, each added later. Yield aggregation uses the ticket's client-confirmed KILOS ASIGNADOS.
+    \item Monetary values are supplied
+    by the cooperative and associated
+    with weighing tickets.
+\end{itemize}
+
+These assumptions must be revised
+when validated examples contradict them.
+
+\subsubsection{Business Dependencies}
+
+The team depends on client or intermediary input
+to confirm:
+
+\begin{itemize}
+    \item Additional source examples, where a new label or exception is not covered by the confirmed ticket interpretation.
+    \item Representative assigned weights and analysis values for test fixtures.
+    \item Operational review of the four selected Spanish forms and their rendered signing output.
+    \item Concrete responsibility assignments and validation of the default permission profile.
+    \item Final-delivery scope
+    and operational acceptance expectations.
+\end{itemize}
+
+Real examples should be provided
+with unnecessary personal information removed.
+
+\subsubsection{Technical Dependencies}
+\label{sec:technical-dependencies}
+
+Registration, invitations and recovery depend on identity management and email
+delivery. Offline access depends on prior authentication, protected local storage
+and the authorisation policy in \hyperref[br:002]{\identifier{BR-002}}. Session, password, authentication and logging controls are specified in
+Sections~\ref{sec:nfr-security} and~\ref{sec:nfr-offline}. The approved targets
+require technical proof; residual mechanisms and deployment choices are listed
+in Section~\ref{sec:validation-pending}. Supported financial operations and PDF output use the same grant and
+preparation conditions as other field operations.
+
+The solution depends on:
+
+\begin{itemize}
+    \item Devices and browsers capable
+    of supporting the selected application approach.
+    \item Successful preparation of authorised
+    reference data before offline work.
+    \item Sufficient local storage
+    for pending operations and prepared documents.
+    \item A central service for validation,
+    persistence and synchronisation.
+    \item Defined recovery behaviour
+    for rejected operations, concurrent changes
+    and interrupted transfers.
+    \item Consistent deletion propagation
+    for document versions removed
+    under the retention rules.
+\end{itemize}
+
+The selected progressive web application (PWA), IndexedDB, modular backend and PostgreSQL stack is described
+in Section~\ref{sec:solution-architecture}. Its selection does not establish
+feasibility of the unresolved local-security and synchronisation mechanisms;
+these require the technical validation listed in Section~\ref{sec:validation-pending}.
+
+\subsubsection{Project Dependencies}
+
+The academic schedule, team availability,
+hosting resources and required course deliverables
+constrain the implementation plan.
+
+Use-case approval, task ownership,
+effort estimates and acceptance evidence
+must be tracked explicitly.
+The existence of a documented use case
+does not establish that its implementation
+has been completed or validated.
+The working risk register and response plans in Section~\ref{sec:risk-management}
+link these dependencies to task ownership, effort tracking and milestone review.
+Final delivery dates, resource commitments and assessment validation remain under
+\decisionref{Q-PM-01}.
+
+\subsection{Requirements Review and Change Control}\label{sec:requirements-change}
+Treat the current specification as a reviewable snapshot, not permanently frozen
+requirements. Record each proposed change with its source, request/review dates,
+affected IDs and disposition. Use the use-case links, shared business rules and
+architecture/data dependencies to assess scope, effort, schedule, quality and risk
+before acceptance.
+
+The owner/client validates business meaning through the intermediary; the team
+reviews feasibility and delivery impact. Neither a demonstration nor an unanswered
+question counts as approval. Record the decision and reviewer, update affected
+artefacts together, and adjust estimates/backlog before committing the change.
+Identify the baseline revision used for an estimate or demonstration. The exact
+approval assignment and scope-change responsibilities remain under \decisionref{Q-SCOPE-01}
+and \decisionref{Q-PM-02}.
+
+\input{sections/source-document-examples}
+
+\paragraph{Private access and retained functional scope.}
+Owner self-registration and onboarding additional independent client businesses
+are outside the final delivery. Technical administration covers initial setup and
+activation support only. Owner-managed invitations, property-scoped manager grants,
+optional planning/schedule consultation and the remaining agricultural workflows
+retain their specified behaviour. The administrator is not an operational substitute
+for the owner or manager. Handover includes account activation, representative
+phone/tablet preparation, a short user guide and named technical support ownership.

@@ -1,0 +1,167 @@
+\subsection{\identifier{UC-12} --- Consult Worker Documents}
+\label{uc:12}
+
+\paragraph{Purpose}
+
+Allow an authorised user to find, open
+and download current worker documents,
+including uploaded files.
+
+Uploaded documents are included in the current scope.
+
+Documents generated through \identifier{UC-20} are available through the same consultation
+workflow, subject to the applicable permissions and retention rules.
+
+Insurance documents must support prepared
+offline consultation for field operations.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with the relevant scope and permissions.
+
+The owner may consult documents within
+their business.
+
+A Field Manager must have access to insurance
+documents for workers within their authorised
+operational scope.
+Contracts and other documents require
+additional owner-granted permissions.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The worker record exists.
+    \item The user is authorised to consult
+    the requested document type and worker scope.
+    \item Offline access requires the relevant
+    authorised files and metadata
+    to have been prepared on the device.
+\end{itemize}
+
+An existing document is not a precondition:
+the document list may be empty.
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user selects a worker
+    and opens the document list.
+    \item The system displays authorised documents,
+    organised as contracts, insurance
+    or other documents.
+    \item The system identifies each document
+    by its title, type, relevant date or version
+    and signature status where applicable.
+    \item Insurance entries display the recorded
+    expiry date and validity status.
+    \item The user selects an available version.
+    \item The system verifies access
+    and opens the PDF, JPG or PNG file.
+    \item The user may download
+    the authorised document.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}[style=nextline]
+
+    \item[A1 --- No documents are available.]
+    The system states that no documents
+    are available within the authorised scope.
+
+
+    \item[A2 --- A replaced version is requested.]
+    Only the current document source is consultable. A successful replacement
+    deletes the old source, signature and signed PDF under \identifier{BR-026},
+    including contracts and externally declared signed uploads. Explain that a
+    replaced file is no longer available; there is no version-history browser.
+
+    \item[A3 --- Insurance validity is incomplete.]
+    If the expiry date is missing,
+    the system displays validity as unconfirmed.
+    It does not infer validity from upload date
+    or version order.
+
+    \item[A4 --- Insurance is expired.]
+    The system identifies the expired status
+    while allowing authorised consultation.
+    Expiry does not hide the document.
+
+    \item[A5 --- The device is offline.]
+    The system opens prepared authorised
+    insurance files and displays the last
+    successful synchronisation information.
+    Only the current version is available where it exists and has been successfully prepared. Superseded copies are removed when replacement is synchronised.
+
+    \item[A6 --- A required file is not local.]
+    The system explains that the document
+    is unavailable offline.
+    It does not claim that no document exists.
+
+    \item[A7 --- Additional workers need preparation.]
+    While connected, the authorised user
+    may prepare insurance documents
+    for additional existing workers
+    who may be called to work.
+
+    \item[A8 --- Retrieval or download fails.]
+    The system explains the failure
+    and offers a retry where appropriate.
+    Failure is distinguishable
+    from an empty document list.
+
+    \item[A9 --- A document was signed outside the application.]
+    The interface identifies the external-signature
+    declaration separately from application signing.
+    It does not claim that the system
+    verified the external signature.
+
+    \item[A10 --- The current source is withdrawn.]
+    The interface identifies it as withdrawn
+    and does not present it as available
+    for operational use.
+    Its retained signature information
+    is not changed to unsigned.
+
+    \item[A11 --- A deleted version remains on an offline device.]
+    The device applies the authorised deletion
+    when it reconnects and synchronises.
+    The interface must not promise knowledge
+    of server changes that have not yet been received.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On success:}
+The selected authorised document version
+is displayed or downloaded.
+
+\textbf{On offline consultation:}
+The available local version and its freshness
+are identifiable.
+
+\textbf{On failure:}
+The system explains the limitation
+without exposing protected information.
+
+\textbf{In all cases:}
+Consultation does not change document contents,
+version identity or signature status.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:044]{\identifier{FR-044}}.
+
+\hyperref[br:022]{\identifier{BR-022}}, \hyperref[br:023]{\identifier{BR-023}}, \hyperref[br:024]{\identifier{BR-024}}, \hyperref[br:025]{\identifier{BR-025}}, \hyperref[br:026]{\identifier{BR-026}}, \hyperref[br:027]{\identifier{BR-027}}, \hyperref[br:028]{\identifier{BR-028}}, \hyperref[br:029]{\identifier{BR-029}}, \hyperref[br:030]{\identifier{BR-030}}.
+
+\paragraph{Decision References}
+\decisionref{Q-DOC-07}, \decisionref{Q-DOC-04}, \decisionref{Q-SCOPE-01}.
+
+\paragraph{Example document types}
+The individual forms in Table~\ref{tab:source-forms} appear under other documents
+with their subtype. Display a recorded consent response separately from signature
+and expiry status. Insurance-only grants do not expose these forms.

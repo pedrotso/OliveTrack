@@ -1,0 +1,142 @@
+\section{Validation and Key Decisions}
+\label{sec:validation-decisions}\label{sec:validation}
+\subsection{Validation Approach}\label{sec:nfr-validation}
+Validate each functional and non-functional requirement against its lettered
+criteria, recording configuration, preconditions, expected/observed result,
+reviewer, date and evidence. Use Section~\ref{sec:requirements-mapping} for the
+existing use-case mapping rather than repeating a traceability matrix here.
+
+Use functional tests and client review for business behaviour; authorisation and
+cross-workspace tests for access; interruption/retry/concurrency tests for offline
+integrity; measured workloads for PERF; representative tasks for USA; and a
+database-plus-files restore rehearsal for recovery. Test property-scoped campaign
+views, owner recovery as new authority, signing-source conflicts and expired
+synchronisation context explicitly. The required architecture slice is described
+in Section~\ref{sec:solution-architecture}.
+
+Documented decisions, demonstrated interactions, implemented functionality and
+verified results are distinct. Approval of a target does not establish measured
+feasibility. Preserve detailed test cases and execution evidence in the repository;
+the source file \nolinkurl{sections/validation/nfr-scenarios.tex} remains a supporting
+planned checklist, outside this report's compiled body.
+
+\paragraph{Source-example acceptance scenarios.}
+Check \identifier{UC-16}/\identifier{FR-049}/\identifier{BR-032} with separate total
+and accepted assigned weights (929~kg each) and 100\% accepted MEDIANERIA. Preserve
+07:08:48--07:14:07 and printed 00:05:20 with a visible discrepancy, without inferring laboratory yield, a penalty amount or money. Check \identifier{UC-14}/\identifier{FR-042} with signed
+refusal, cancellation and an unanswered choice. Check \identifier{UC-20}/\identifier{FR-063}
+with two individual sources and retained equipment/machinery and role snapshots.
+Execution evidence for these specified checks remains pending.
+
+\paragraph{Individual document boundary.}
+Verify \identifier{BR-023}/\identifier{FR-044} with an attempted different-worker
+signature, version or PDF request. Reject the mismatch. Generating from one template
+for two workers creates two independent documents, each with its own current source. Accepted worker
+ownership is fixed; replacement, withdrawal and retention apply to each individual
+document. Prepare offline signing only after that worker's source is accepted online.
+
+
+\paragraph{Replacement and profile verification.}
+Test signed contract and insurance replacement, failed uploads and repeated retries:
+only successful replacement deletes the old source, signature and PDF, without inheritance
+or history. Check explicit financial grants, break-overlap rejection and outside-work
+warnings. Verify worker-profile days/hours, shared-business-date grouping across
+device timezones and arrival-date filters for late source updates. Record results;
+these are planned checks until executed by the team.
+
+\subsection{Key Decisions and Rationale}\label{sec:reviewed-decisions}
+The table consolidates the functional decisions confirmed by the author during
+the report review, including the supplied client explanations. It does not assert
+separate whole-team/client legal or procurement approval. Historical anchors remain
+stable; detailed behaviour belongs to the referenced requirements and rules.
+{\compacttable
+\begin{longtable}{L{0.24}L{0.76}}
+\caption{Confirmed decisions for the working final-delivery baseline.}\label{tab:reviewed-decisions}\\
+\toprule\rowcolor{TableHeader}\textbf{Topic} & \textbf{Decision / rationale}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Topic} & \textbf{Decision / rationale}\\\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\phantomsection\label{decision:D-38}Private initial access\newline{\footnotesize D-38} & One owner/client business for Pepe's parents. A Technical Administrator prepares initial setup/activation and has no automatic operational data authority. Managers retain owner-invited account creation and existing grants; optional planning remains included. See \identifier{UC-01}, \identifier{FR-001} and \identifier{BR-001}. \\
+\midrule
+
+\phantomsection\label{decision:D-01}\label{decision:D-09}\label{decision:Q-AA-01}\label{decision:D-16}\label{decision:D-21}Business access\newline{\footnotesize D-01, D-09, Q-AA-01; related anchors retained} & One private client workspace, administrator-provisioned initial owner, invited managers and distinct account/worker identities. Financial/complete-ticket consultation is disabled initially and requires explicit owner authorisation; entry and correction have separate grants. Scoped insurance consultation remains mandatory. See Section~\ref{sec:permission-defaults}. \\
+\midrule
+\phantomsection\label{decision:D-02}\label{decision:D-03}\label{decision:D-04}\label{decision:D-05}\label{decision:D-06}\label{decision:D-23}\label{decision:D-24}Campaign lifecycle\newline{\footnotesize D-02, D-03, D-04; related anchors retained} & Explicit starts, exclusive executing coverage and independent archival remain. Complete valid missing work after closure; reopen for confirmed-work corrections. Existing ticket/analysis/value updates need no reopening. See \identifier{BR-008}--BR-012. \\
+\midrule
+\phantomsection\label{decision:D-10}\label{decision:Q-DA-01}\label{decision:D-11}\label{decision:Q-DA-03}\label{decision:Q-DA-04}\label{decision:D-12}\label{decision:Q-DA-05}\label{decision:D-30}\label{decision:Q-DA-02}\label{decision:Q-DA-08}Source weights and identifiers\newline{\footnotesize D-10, Q-DA-01, D-11; related anchors retained} & One ticket/analysis per delivery. The client confirmed KILOS ASIGNADOS as accepted kg for indicators/yield weighting and MEDIANERIA as the accepted percentage; apply it no second time. Preserve the supplied LINEA/VUELO/variety/land-label meanings and source timestamps/duration, including the one-second discrepancy. Record reported penalties without calculating a tariff. Delivered-only eligibility remains. \\
+\midrule
+\phantomsection\label{decision:D-13}\label{decision:Q-DA-06}\label{decision:Q-DA-07}\label{decision:Q-DA-09}\label{decision:Q-DA-10}Trips, cancellation and values\newline{\footnotesize D-13, Q-DA-06, Q-DA-07; related anchors retained} & Each delivery is one trip to one destination. Cancel interrupted/refused deliveries with a reason, preserving linked records and excluding contributions. A new physical attempt is a new record, never reinstatement. A current final amount may return to provisional with financial correction authority and explicit confirmation. \\
+\midrule
+\phantomsection\label{decision:D-07}\label{decision:D-14}\label{decision:Q-DOC-01}\label{decision:Q-DOC-02}\label{decision:Q-DOC-03}Individual Spanish documents\newline{\footnotesize D-07, D-14, Q-DOC-01; related anchors retained} & Use the four supplied Spanish forms, one worker per document and explicit review/signing. Keep the current source until successful replacement, then delete its old source, signature and PDF for every category, including signed contracts. Keep no consultable version history; the new source inherits no signature. Source/response integrity holds while that source exists. See \identifier{BR-026}/\identifier{BR-041}. \\
+\midrule
+\phantomsection\label{decision:D-15}\label{decision:Q-OFF-01}\label{decision:Q-OFF-02}\label{decision:Q-IN-02}\label{decision:D-17}\label{decision:Q-WF-01}\label{decision:Q-WF-02}\label{decision:D-19}\label{decision:D-20}\label{decision:D-22}\label{decision:D-25}\label{decision:D-26}\label{decision:D-27}\label{decision:D-28}\label{decision:Q-WF-03}\label{decision:Q-DOC-06}\label{decision:Q-AT-02}Field records, breaks and files\newline{\footnotesize D-15, Q-OFF-01, Q-OFF-02; related anchors retained} & Planning, presence, assignments and actual periods remain distinct. Breaks need positive intervals, no same-worker overlap and warnings for missing/outside work; deduct only eligible non-counted intersections. Support authorised offline starts/new workers, 15-day authority and separate 30-day cache cleanup. PDF/JPG/JPEG/PNG files accept 10~MB (10,000,000 bytes). Successful explicit attachment replacement deletes its old file; failure preserves it. \\
+\midrule
+\phantomsection\label{decision:D-18}\label{decision:Q-UI-01}\label{decision:D-29}\label{decision:D-31}\label{decision:D-32}\label{decision:D-33}\label{decision:D-34}Specification and evidence\newline{\footnotesize D-18, Q-UI-01, D-29; related anchors retained} & The prototype, specification, implementation and measured results remain distinct. Team-owned technical configuration/testing does not establish completed verification or procurement. Historical anchors are retained for impact analysis. \\
+\midrule
+\phantomsection\label{decision:Q-SCOPE-01}Single final delivery\newline{\footnotesize Q-SCOPE-01} & One final version and one final delivery; no separate MVP release or staged functional deliveries. Internal development/testing serves that delivery. The agreed included scope and acceptance criteria form the baseline; changes require explicit review. \\
+\midrule
+\phantomsection\label{decision:Q-SCOPE-02}\label{decision:Q-SCOPE-03}\label{decision:Q-SCOPE-04}Possible future enhancements\newline{\footnotesize Q-SCOPE-02, Q-SCOPE-03, Q-SCOPE-04} & Maps, cross-campaign/year comparisons and detailed Excel exports are possible future enhancements outside the final-delivery commitment, with no implementation dates. \\
+\midrule
+\phantomsection\label{decision:Q-SCOPE-05}Downloads and printing\newline{\footnotesize Q-SCOPE-05} & Downloading authorised documents/generated PDFs is sufficient. Printing uses the browser/PDF reader. Integrated or batch printing and printer management remain possible future enhancements. \\
+\midrule
+\phantomsection\label{decision:Q-SCOPE-06}Worker activity in the profile\newline{\footnotesize Q-SCOPE-06} & Consult chronological actual periods, days and counted hours in each worker profile, with daily/selected-period totals and filters under \identifier{FR-023}. Show incomplete/offline scope and current authority. The separate attendance-document workflow is discarded. \\
+\midrule
+\phantomsection\label{decision:Q-SCOPE-07}Business closure excluded\newline{\footnotesize Q-SCOPE-07} & The owner-facing business-closure feature is removed entirely, including from proposed future enhancements. Campaign closure, archival and membership revocation retain their own meanings. Privacy requests use the separate manual procedure. \\
+\midrule
+\phantomsection\label{decision:D-08}\label{decision:Q-NFR-06}Recovery authority\newline{\footnotesize D-08, Q-NFR-06} & After origin-account restricted submission, owner acceptance supplies new authority and must pass normal domain checks. Preserve origin/reviewer separately; client time proves no prior authority. Approval cannot validate signing against a replaced/withdrawn/deleted source. \\
+\midrule
+\phantomsection\label{decision:Q-AA-02}Property delegation\newline{\footnotesize Q-AA-02} & Property grants cover parcels/current/future campaigns and may be shared by managers. Restrict records/indicators to authorised contributions. Explicit worker availability reveals no other-property work. \\
+\midrule
+\phantomsection\label{decision:Q-ARCH-01}Selected stack\newline{\footnotesize Q-ARCH-01} & React/TypeScript, Vite, Tailwind, installable PWA, IndexedDB, modular NestJS backend and PostgreSQL. The team implements and tests the offline-to-central technical slice; the stack choice is not execution evidence. \\
+\midrule
+\phantomsection\label{decision:Q-NFR-01}Authentication policy\newline{\footnotesize Q-NFR-01} & Application-managed Argon2id; 15-character minimum and support for passphrases of at least 64 characters; five failures/15 minutes; 15-minute access and seven-day absolute online sessions; 24-hour verification, 30-minute reset and seven-day invitation validity. Internal cost/delay/TLS/session settings are team implementation tasks. \\
+\midrule
+\phantomsection\label{decision:Q-NFR-02}\label{decision:Q-NFR-04}Continuity and audit targets\newline{\footnotesize Q-NFR-02, Q-NFR-04} & Daily encrypted backups retained 14 days; RPO at most 24 hours and RTO at most four hours, with restore rehearsal. Monthly availability at least 99.5\%, planned downtime included. Preceding-client support: 30 days; minimal operation/feed metadata and security events: separate 90-day schedules. Offline file openings are not logged. No ordinary field-change history is introduced. \\
+\midrule
+\phantomsection\label{decision:Q-NFR-08}\label{decision:Q-IND-01}\label{decision:D-35}Interface, time and precision\newline{\footnotesize Q-NFR-08, Q-IND-01, D-35} & English interface for now; Spanish generated forms. DD/MM/YYYY dates, 24-hour times, decimal comma; percentages/EUR amounts display two decimals, work totals use hours/minutes, and weights/areas preserve source precision. Device timezone drives entry/display; confirm an initially device-suggested shared business timezone for daily grouping. Work filters use start date; delivery/weight/yield/value filters use arrival date. Source dates remain in detail. \\
+\midrule
+\phantomsection\label{decision:Q-ID-01}Worker identification\newline{\footnotesize Q-ID-01} & Accept DNI, NIE or Other with a required description, recording issuing country and number as text with letters/leading zeros. Check required fields and warn on duplicates. Country-specific document-format validation is outside the final delivery; entry is not verification and requires no scan. \\
+\midrule
+\phantomsection\label{decision:Q-NFR-07}Device and quality targets\newline{\footnotesize Q-NFR-07} & Keep phone, tablet and desktop support and the adopted PERF/USA targets. The team records exact devices/browsers/configuration and actual results. No benchmark/usability result is inferred from approval of a target. \\
+\midrule
+\phantomsection\label{decision:Q-DOC-04}Signing after replacement\newline{\footnotesize Q-DOC-04} & Replacement deletes the old source. Reject pending signing against a replaced/withdrawn/deleted source; preserve only protected temporary recovery/outcome information. No owner approval, signature transfer, source resurrection or consultable history. A valid current replacement needs fresh worker review/signing. \\
+\midrule
+\phantomsection\label{decision:Q-AA-07}\label{decision:D-36}Manual privacy requests\newline{\footnotesize Q-AA-07, D-36} & The owner receives and follows requests for consultation, correction or erasure. A designated technical responsible person intervenes when necessary and authorised. No request-management portal or owner-facing business-closure workflow is included. Operating notices/purposes remain deployment preparation. \\
+\midrule
+\phantomsection\label{decision:D-37}Acceptance and reviewers\newline{\footnotesize D-37} & The team verifies criteria/tests; the client through the intermediary validates operational flows; faculty assess the academic work. Acceptance requires verification of included criteria, no known blocking/access/data-loss/duplication/incorrect-total defects, and documented minor issues accepted in review. Dates, per-task/operations leads and effort budget remain unconfirmed. \\
+\end{longtable}}
+
+\subsection{Remaining Team Decisions and Verification Tasks}
+\label{sec:uc-open-decisions}\label{sec:validation-pending}
+Functional choices resolved in this review are recorded above. The remaining work
+below consists of explicitly deferred project/deployment choices and technical or
+operational verification. No provider, date, budget, named owner or successful test
+result is invented. The team owns implementation details within the agreed rules.
+{\compacttable
+\begin{longtable}{L{0.24}L{0.53}L{0.23}}
+\caption{Deferred choices and outstanding execution evidence.}\label{tab:pending-decisions}\\
+\toprule\rowcolor{TableHeader}\textbf{Topic} & \textbf{Remaining work} & \textbf{Responsibility}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Topic} & \textbf{Remaining work} & \textbf{Responsibility}\\\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\phantomsection\label{decision:Q-ARCH-02}Hosting and operating ownership\newline{\footnotesize Q-ARCH-02} & Choose HTTPS application/API hosting, private files, database region, quotas, costs and backup configuration. AWS is an example only. Name monitoring/incident contacts, response coverage and communication channel before operation. & Team; unconfirmed \\
+\midrule
+\phantomsection\label{decision:Q-NFR-05}Transactional email\newline{\footnotesize Q-NFR-05} & Service and sender domain remain unselected. Implement protected backend sending, authenticated domain, controlled resend and technical monitoring; verify provider terms/configuration and controlled test delivery. & Team; unconfirmed \\
+\midrule
+\phantomsection\label{decision:Q-DOC-07}\label{decision:Q-AA-04}\label{decision:Q-AA-05}\label{decision:Q-TECH-01}\label{decision:Q-WF-04}Technical configuration and proof\newline{\footnotesize Q-DOC-07, Q-AA-04, Q-AA-05; related anchors retained} & The team selects/tests password costs, progressive delays, endpoint limits, session/TLS/HSTS settings, source-digest protection, local encryption/key lifecycle, trusted-time expiry, destination-context/revision recovery and owner-review isolation. Verify safe expired-context replay, replacement cleanup and 90-day metadata. These are implementation/evidence tasks, not unanswered feature choices. & Team \\
+\midrule
+\phantomsection\label{decision:Q-NFR-03}Processing notices and operations\newline{\footnotesize Q-NFR-03} & Complete purposes/bases, notices, provider roles/locations/transfers, rights/incident contacts and the manual request procedure before real-data operation. The functional replacement policy and manual routing are decided; this report does not establish legal validation. & Owner; designated technical support \\
+\midrule
+\phantomsection\label{decision:Q-VERIFY-01}Execution evidence\newline{\footnotesize Q-VERIFY-01} & Record actual phone/tablet/desktop models and browsers, server/network profiles, build/data versions and executed functional/security/offline/performance/usability tests. Rehearse database/files restore and collect availability evidence; do not mark planned checks as passed. & Team \\
+\midrule
+\phantomsection\label{decision:Q-PM-01}Dates, effort and capacity\newline{\footnotesize Q-PM-01} & Final delivery and presentation/defence dates are unknown. Effort budget/capacity, actual and remaining hours and task dependencies need team confirmation. 810/950 hours are historical unapproved assumptions; 872.1 hours is the earlier workbook estimate, not a current commitment or remaining-work forecast. & Team; course constraints \\
+\midrule
+\phantomsection\label{decision:Q-PM-02}People, risks and AI inventory\newline{\footnotesize Q-PM-02} & Phase responsibility pairs are now recorded in Section~\ref{sec:phase-assignment}; per-task leads, reviewers and operations owners still need confirmation. Validate risk ratings, ownership/backups and action dates; maintain the board/hours records. This report review used AI assistance; the team-wide inventory of tools, tasks and human review responsibilities remains unconfirmed. & Team \\
+\end{longtable}}
+
+\paragraph{Administrator acceptance checks.}
+Verify authorised initial provisioning, pending setup, recipient-chosen password,
+24-hour expiry/replay/resend and concurrent setup retries. Verify that technical
+administrator status alone exposes no worker document, work record or ticket amount.
+Exercise existing manager invitation/signup/acceptance and planning flows to confirm
+that private owner onboarding does not change their agreed behaviour.
