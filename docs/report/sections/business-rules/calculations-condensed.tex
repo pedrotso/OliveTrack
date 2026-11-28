@@ -1,0 +1,179 @@
+\subsubsection{Areas, Dates and Eligibility}
+Declared hectares are optional; unknown is not zero. Parcel totals need not equal
+property area and no quantity allocation follows automatically from hectares.
+Maps are a possible future enhancement outside the final-delivery commitment
+under \decisionref{Q-SCOPE-02}. Any future map estimate must remain separate from
+the declared reference area.
+Only In progress campaigns reserve exclusive execution under \identifier{BR-008};
+Planned coverage does not. Dates on Closed campaigns remain
+relevant. Working-date filters use period start dates; delivery counts use arrival
+dates. Production and reported-value indicator filters use delivery arrival date, including when ticket, analysis or amount information arrives later. Preserve each source's own date in detail under \decisionref{Q-IND-01}.
+
+\subsubsection{Counted Working Time}
+\label{sec:counted-working-time}
+A valid period has complete start and end instants, with end later than start.
+An earlier clock time alone does not establish the end date; validate full intervals
+across adjacent dates. All durations below are elapsed hours.
+Let \(W_i\) be an eligible actual
+period and \(w(i)\) its worker. Let \(B_w\) be the union of applicable non-counted
+break intervals for that same worker. Then
+\[
+h_i=\operatorname{duration}(W_i)-
+\operatorname{duration}(W_i\cap B_{w(i)}),\qquad H=\sum_i h_i.
+\]
+Durations in this expression are in hours. A break affects only intersections
+with that worker's periods; the union prevents duplicate deduction. Counted
+breaks and already excluded gaps do not reduce hours. Task/area attribution uses
+the intersecting share of each period. A complete confirmed period requires its actual task. Planned or missing periods do not establish actual hours or zero.
+No wages are calculated. Enter/display work at minute precision and use the configured business timezone for date association. Compute elapsed durations without rounding each period, then display totals as hours and minutes. Clock changes use complete time instants. Breaks require positive complete intervals and may not overlap another break for the same worker. Warn for out-of-period or incomplete work context; deduct only eligible intersections under \decisionref{Q-WF-03}.
+
+\Needspace{9\baselineskip}
+\paragraph{Acceptance examples.}
+{\compacttable
+\begin{longtable}{L{0.62}L{0.38}}
+\caption{Counted working-time examples.}\label{tab:working-time-examples}\\
+\toprule
+\rowcolor{TableHeader}
+\textbf{Input} & \textbf{Result} \\
+\midrule\endfirsthead
+\toprule
+\rowcolor{TableHeader}
+\textbf{Input} & \textbf{Result} \\
+\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+08:00--18:00 with no non-counted break.
+& 10 hours. \\
+\midrule
+08:00--18:00 with a counted 12:00--13:00 break.
+& 10 hours. \\
+\midrule
+08:00--18:00 with a non-counted 12:00--13:00 break.
+& 9 hours. \\
+\midrule
+08:00--12:00 and 13:00--18:00.
+& 9 hours, without another deduction for the excluded gap. \\
+\midrule
+08:00--11:00 machinery and 11:00--13:00 general work.
+& 3 machinery hours and 2 general-work hours. \\
+\midrule
+22:00--02:00 the next day, on a night without a clock change.
+& 4 hours, associated with the start date. \\
+\midrule
+A and B work 08:00--12:00; only A takes a non-counted 30-minute break.
+& A: 3 hours 30 minutes; B: 4 hours; total: 7 hours 30 minutes. \\
+\midrule
+A draft two-hour interval without its actual task.
+& Incomplete; choose the task before confirming it as counted work. \\
+\end{longtable}
+}
+
+\subsubsection{Campaign Work and Delivery Indicators}
+Let \(P_C\) be distinct workers with confirmed presence and actual assignment
+to campaign \(C\); let \(E_C\) be eligible actual periods, with start date \(d_i\).
+Let \(D_C\) be distinct deliveries in scope for campaign \(C\) whose arrival is
+confirmed (\textit{Delivered}) and which are not cancelled. This is the common
+delivery set for counts, weights, yield and monetary totals, under
+\decisionref{D-30}. A delivery belongs to \(D_C\) even without a ticket or analysis. Then
+\[
+N_{\mathrm{workers}}=|P_C|,\qquad
+N_{\mathrm{days}}=|\{d_i:i\in E_C\}|,\qquad
+N_{\mathrm{deliveries}}=|D_C|.
+\]
+Participation can be known without hours; a no-period assignment does not add
+a measured working day. Driver selection alone is not participation.
+\[
+H_C=\sum_{i\in E_C}h_i,\qquad
+H_{C,w}=\sum_{\substack{i\in E_C\\w(i)=w}}h_i,\qquad
+H_{C,f}=\sum_{\substack{i\in E_C\\\operatorname{task}(i)=f}}h_i.
+\]
+Task totals use the required actual task of each confirmed complete period. Distinct workers
+and days cannot be summed across area breakdowns. Incomplete intervals support
+no invented duration; partial known totals disclose missing coverage.
+
+
+\subsubsection{Worker Activity in the Profile}
+\label{sec:worker-activity-calculations}
+For worker \(w\) and selected date/campaign/area filters \(F\), let
+\(E_{w,F}\) contain the eligible actual periods visible within the user's
+work-record authority. Use the counted duration \(h_i\) defined above and the
+business-local start date \(d_i\). The profile shows each recorded period and
+\[
+N_{w,F}=|\{d_i:i\in E_{w,F}\}|,\qquad
+H_{w,F,d}=\sum_{\substack{i\in E_{w,F}\\d_i=d}}h_i,\qquad
+H_{w,F}=\sum_{i\in E_{w,F}}h_i.
+\]
+Count a working date once across matching areas/campaigns, and sum counted hours
+without per-period rounding. A confirmed presence or assignment without complete
+periods remains an incomplete entry; it does not establish zero hours or add a
+measured working date. Show known totals with that limitation. Plans never count
+as actual work. The chronological history may include authorised records from
+several campaigns; it does not compare campaign performance. Offline history and
+totals identify prepared coverage, freshness and pending local changes, applying
+the same accepted/provisional distinction as the other work views. This view
+requires no attendance-document template or copied total on the Worker record.
+
+\subsubsection{Weights and Yield}
+Each delivery has at most one ticket and one analysis. For each weight meaning/unit
+\(m\), let \(E_w^{(m)}\subseteq D_C\) contain deliveries whose ticket reports a known,
+eligible weight \(q_i^{(m)}\). The corresponding total is
+\[
+Q_C^{(m)}=\sum_{i\in E_w^{(m)}}q_i^{(m)}.
+\]
+
+Count each reported weight once and disclose missing or incompatible data within
+\(D_C\). The canonical \texttt{assigned\_weight\_kg} is populated directly from
+KILOS ASIGNADOS, confirmed by the client as cooperative-accepted kg. Keep KILOS
+TOTALES as a separate reported total and MEDIANERIA as the accepted percentage.
+Never multiply assigned kg by MEDIANERIA again or reconstruct an absent assigned
+weight from total kg. In the example, 100\% is accepted and both reported weights
+are 929~kg. Processing/printed duration and any excess/penalty are reported facts;
+record the source without calculating a tariff or applying a second deduction.
+The example provides no laboratory yield or monetary amount, so neither is inferred.
+
+Let \(E_a\subseteq D_C\) contain deliveries with a known reported yield \(r_i\)
+and an eligible positive reported accepted assigned weight \(w_i\) from their ticket. Then
+\[
+\bar r=\frac{\sum_{i\in E_a}w_i r_i}{\sum_{i\in E_a}w_i}.
+\]
+The percentage remains a reported source result; its reference weight is reached
+through the ticket, not an independently editable analysis copy. A missing yield
+or accepted assigned weight excludes that delivery and is disclosed, not inserted as zero.
+No eligible positive denominator means unavailable. A reported zero yield with a
+valid positive weight is not missing. Show contributing deliveries and incomplete
+coverage. For 1\,000 kg at 20\% and 500 kg at 18\%, the result is approximately
+19,33\%; percentages display two decimal places with decimal comma; calculations use full stored values.
+Theoretical oil is not oil actually received; its inclusion is not assumed.
+
+
+\subsubsection{Current Monetary Totals and Allocation}
+Let \(T_C\) be the tickets belonging to deliveries in \(D_C\).
+Let \(E_f\subseteq T_C\) and \(E_p\subseteq T_C\) contain tickets with a known current
+EUR amount \(a_t\), classified as final and provisional respectively. Then
+\[
+V_{\mathrm{final}}=\sum_{t\in E_f}a_t,\qquad
+V_{\mathrm{provisional}}=\sum_{t\in E_p}a_t.
+\]
+Use one current EUR amount per ticket and decimal monetary precision;
+\(E_f\cap E_p=\emptyset\). Neither total establishes a payment.
+Replaced values contribute nothing; missing amounts are disclosed, not zero.
+Do not reapply reported penalties or deductions.
+Mixed-load totals contribute once to eligible campaign results; source-area
+quantity allocation requires known source quantities. The current model has no source-amount fields, so mixed-load monetary totals remain unallocated by area. Percentage allocation is outside this version; a transport document's declared/dominant origin does not distribute physical or monetary totals.
+Otherwise show unallocated information, not duplicate totals or invented zeros.
+
+Ticket, analysis and amount entry is permitted while a delivery is
+\textit{In transport}, subject to the relevant grants. Available source data remains
+visible in delivery detail as awaiting receipt confirmation, rather than missing,
+and contributes nothing until arrival is confirmed. Missing-data coverage concerns
+eligible \(D_C\) records, not deliveries still awaiting receipt.
+
+For central totals, \(D_C\) uses server-accepted arrival confirmations and source
+values. An authorised offline arrival confirmation may put a delivery into the local
+\(D_C\) and update local provisional indicators using available eligible data.
+Identify pending synchronisation; central totals change only after server acceptance.
+
+Indicator refresh and PDF snapshots follow \hyperref[fr:061]{\identifier{FR-061}} and
+\hyperref[fr:062]{\identifier{FR-062}}, including authorised offline output and freshness labels.
+Undefined results, unavailable local data and retrieval failures must not be
+displayed as zero.

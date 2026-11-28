@@ -1,0 +1,68 @@
+\Needspace{12\baselineskip}
+\subsubsection{Deliveries, Weighing, Analyses and Reported Values}
+{\requirementtable
+\begin{longtable}{L{0.18}L{0.82}}
+\caption{Functional requirements: Deliveries, Weighing, Analyses and Reported Values.}\label{tab:catalogue-deliveries}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endfirsthead
+\caption[]{Functional requirements: Deliveries, Weighing, Analyses and Reported Values (continued).}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endhead
+\midrule\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\rowcolor{TableHeader}
+\phantomsection\label{fr:046}\textbf{\identifier{FR-046}} & \textbf{The system shall register, correct or cancel deliveries and their provenance, and delete delivery records when permitted.}\\*
+\phantomsection\label{ac:046:a}\identifier{FR-046(a)} & Require campaign, eligible origins, registered worker driver, vehicle, destination and departure. Record known source quantities separately from declared transport origin/reference; infer no allocation or driver attendance/hours.\\
+\phantomsection\label{ac:046:b}\identifier{FR-046(b)} & Delivery changes require separate correction authority and valid chronology/contexts. Reopen closed affected campaigns for corrections, cancellation, deletion or reassignment; \identifier{FR-054} still covers source-result updates.\\
+\phantomsection\label{ac:046:c}\identifier{FR-046(c)} & Confirmed deletion requires no ticket, analysis, valuation or evidence; remove composed transport/batches atomically. Alternatively cancel with a reason, preserving dependencies and excluding indicator contributions under \identifier{BR-031}.\\
+\phantomsection\label{ac:046:d}\identifier{FR-046(d)} & Reassignment validates all affected permissions, dates, coverage and dependencies without cascade deletion. Cancel interrupted/refused trips with a reason; preserve their records and exclude contributions. A new physical attempt creates a new delivery/transport record; cancellation is not reversed.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:047}\textbf{\identifier{FR-047}} & \textbf{The system shall confirm a delivery or retrospectively register the complete transport.}\\*
+\phantomsection\label{ac:047:a}\identifier{FR-047(a)} & Save departure as In transport; authorised arrival confirmation changes it to Delivered with arrival not before departure.\\
+\phantomsection\label{ac:047:b}\identifier{FR-047(b)} & Allow retrospective entry as Delivered with both event times, distinct from entry times; one associated transport per delivery remains the proposal.\\
+\phantomsection\label{ac:047:c}\identifier{FR-047(c)} & Arrival enables eligible counts/results under \identifier{BR-038}. Offline confirmation updates labelled local provisional indicators; central totals await acceptance.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:048}\textbf{\identifier{FR-048}} & \textbf{The system shall record departures and delivery confirmations offline.}\\*
+\phantomsection\label{ac:048:a}\identifier{FR-048(a)} & Use prepared campaign, area and worker data; allow a new destination name.\\
+\phantomsection\label{ac:048:b}\identifier{FR-048(b)} & Keep physical and synchronisation states separate; validate current authority and campaign context centrally.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:049}\textbf{\identifier{FR-049}} & \textbf{The system shall record one weighing ticket per delivery and its reported source values.}\\*
+\phantomsection\label{ac:049:a}\identifier{FR-049(a)} & Allow one ticket per non-cancelled delivery, including In transport. Preserve reference, cooperative, source date and Table~\ref{tab:source-ticket} metadata. KILOS ASIGNADOS is the canonical accepted assigned kg for indicators and yield weighting; keep total kg separate, without another editable assigned-weight copy.\\
+\phantomsection\label{ac:049:b}\identifier{FR-049(b)} & Record processing start/end and printed duration in seconds; preserve and flag discrepancies. MEDIANERIA is the accepted percentage, not yield. Record any reported excess/penalty with unit and application status; no automatic tariff calculation or repeated percentage/deduction applies.\\
+\phantomsection\label{ac:049:c}\identifier{FR-049(c)} & Expose genuinely missing or invalid source values and exclude dependent calculations. Do not infer missing assigned kg from total kg or MEDIANERIA. References are contextual; concurrent creation accepts at most one ticket per delivery.\\
+\phantomsection\label{ac:049:d}\identifier{FR-049(d)} & Apply \identifier{BR-044} evidence limits, Section~\ref{sec:permission-defaults} grants and Section~\ref{sec:conceptual-files} transfer recovery. Full-ticket access includes printed amounts without redaction/classification; structured financial writes require separate grants. Prepared authorised data/files work offline.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:050}\textbf{\identifier{FR-050}} & \textbf{The system shall correct the current ticket and adjustment information.}\\*
+\phantomsection\label{ac:050:a}\identifier{FR-050(a)} & Separate correction authority updates the existing ticket, including post-confirmation completion; retain current values without a second ticket or permanent field history.\\
+\phantomsection\label{ac:050:b}\identifier{FR-050(b)} & Refresh indicators under \identifier{FR-061}; preserve uniqueness and use the common conflict workflow.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:051}\textbf{\identifier{FR-051}} & \textbf{The system shall record one analysis per delivery and its reported yield.}\\*
+\phantomsection\label{ac:051:a}\identifier{FR-051(a)} & Allow one analysis per non-cancelled delivery, including In transport. Record available yield percentage, entity, reference and analysis date separately from entry time; pre-arrival results await receipt under \identifier{BR-038}.\\
+\phantomsection\label{ac:051:b}\identifier{FR-051(b)} & Weight yield by the delivery ticket's accepted assigned weight in kg, never an editable analysis copy; exclude missing yield/weight and ineligible or non-positive weight, disclosing incomplete coverage.\\
+\phantomsection\label{ac:051:c}\identifier{FR-051(c)} & Allow prepared offline entry and \identifier{BR-044} evidence; track record/file states separately. No automatic extraction occurs.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:052}\textbf{\identifier{FR-052}} & \textbf{The system shall correct the current analysis without creating another result for the delivery.}\\*
+\phantomsection\label{ac:052:a}\identifier{FR-052(a)} & Separate correction authority updates the existing analysis, including post-confirmation completion; retain one current result without permanent field history.\\
+\phantomsection\label{ac:052:b}\identifier{FR-052(b)} & Refresh indicators without changing ticket weights or delivery dates; ticket correction updates the derived reference weight.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:053}\textbf{\identifier{FR-053}} & \textbf{The system shall allow authorised users to consult and manage the current reported ticket amount online and offline.}\\*
+\phantomsection\label{ac:053:a}\identifier{FR-053(a)} & Require operation-specific financial authority and an existing ticket/non-cancelled delivery, including In transport. Store the EUR amount to two decimal places, the cooperative/date and provisional/final status; reference, notes and PDF/JPG/PNG evidence are optional. Apply \identifier{BR-038} pre-arrival exclusion.\\
+\phantomsection\label{ac:053:b}\identifier{FR-053(b)} & Final replaces provisional. A final amount may return to provisional with financial correction permission and explicit confirmation. Retain one current value; missing differs from zero, and changes are never additive monetary contributions.\\
+\phantomsection\label{ac:053:c}\identifier{FR-053(c)} & Do not calculate prices or payments, reapply reported penalties or infer area allocations. Source files retain separate transfer/retention status.\\
+\phantomsection\label{ac:053:d}\identifier{FR-053(d)} & Allow prepared authorised offline consultation/entry/correction. Apply Section~\ref{sec:permission-defaults} financial/full-file grants; label freshness/pending proposals in indicators/PDFs. No monetary-content classification is required.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:054}\textbf{\identifier{FR-054}} & \textbf{The system shall complete and correct external information after campaign closure.}\\*
+\phantomsection\label{ac:054:a}\identifier{FR-054(a)} & Authorised ticket, analysis and reported-value additions/corrections for existing deliveries/tickets need no reopening.\\
+\phantomsection\label{ac:054:b}\identifier{FR-054(b)} & This does not permit confirmed-work correction, new activity outside actual dates, delivery reversal or campaign reassignment.\\
+\end{longtable}
+}

@@ -1,0 +1,93 @@
+\paragraph{Conventions.}
+Each table has a stable UUID id. Business-scoped tables carry workspace identity;
+parent, worker, area and file references must stay in that workspace. Shared server
+metadata comprises creation/update times, author where relevant and a revision
+counter for concurrency, not a full field-change history. Accepted records satisfy
+requiredness; a locally pending proposal is not central acceptance.
+Optional parcel means whole-property scope; area uniqueness must handle NULL
+explicitly. The table lists principal fields, not the full dictionary. Work timestamps are complete UTC instants with capture-time IANA timezone metadata. Device timezone drives entry/display; the initially device-suggested and owner-confirmed business timezone determines the shared start-based working date.
+{\readabletable
+\begin{longtable}{L{0.27}L{0.4}L{0.33}}
+\caption{Principal entities, fields and relationships in the logical data model.}\label{tab:logical-model}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Entity / table} & \textbf{Principal fields} & \textbf{Relationships / key} \\
+\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Entity / table} & \textbf{Principal fields} & \textbf{Relationships / key} \\
+\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+User\newline \texttt{app\_\allowbreak{}user} & \mbox{\texttt{name}}, \mbox{\texttt{normalised\_email}}, \mbox{\texttt{account\_status}}, \mbox{\texttt{system\_role}}, \mbox{\texttt{provisioned\_by\_admin\_id}} & Global identity; unique normalised email. Verified changes preserve id. \\
+\midrule
+Workspace\newline \texttt{workspace} & \mbox{\texttt{name}}, \mbox{\texttt{business\_timezone}}, \mbox{\texttt{status}} & Single client workspace, pending until owner activation; timezone suggested from the creating device and explicitly confirmed; Owner through membership. \\
+\midrule
+WorkspaceMembership\newline \texttt{workspace\_\allowbreak{}membership} & \mbox{\texttt{user\_id}}, \mbox{\texttt{workspace\_role}}, \mbox{\texttt{access\_status}}, \mbox{\texttt{revoked\_at}} & User; unique workspace/User pair. \\
+\midrule
+ManagerInvitation\newline \texttt{manager\_\allowbreak{}invitation} & \mbox{\texttt{recipient\_email}}, \mbox{\texttt{invited\_by\_user\_id}}, \mbox{\texttt{invitation\_status}}, \mbox{\texttt{expires\_at}} & Intended verified recipient; issuer and accepted membership. \\
+\midrule
+AccessGrant\newline \texttt{access\_\allowbreak{}grant} & \mbox{\texttt{membership\_id}}, \mbox{\texttt{operation\_code}}, \mbox{\texttt{property\_id}} & Required property scope; parcels/current/future campaigns inherit it. Unique membership/operation/property; insurance constraint. \\
+\midrule
+WorkerAvailability\newline \texttt{worker\_\allowbreak{}availability} & \mbox{\texttt{membership\_id}}, \mbox{\texttt{worker\_id}} & Owner-explicit worker availability; unique membership/worker, same workspace; no other-property work authority. \\
+\midrule
+Property\newline \texttt{property} & \mbox{\texttt{name}}, \mbox{\texttt{textual\_location}}, \mbox{\texttt{declared\_area\_ha}}, \mbox{\texttt{olive\_varieties}} & Workspace; parent of Parcels. \\
+\midrule
+Parcel\newline \texttt{parcel} & \mbox{\texttt{property\_id}}, \mbox{\texttt{name}}, \mbox{\texttt{declared\_area\_ha}}, \mbox{\texttt{olive\_varieties}} & Property in the same workspace. \\
+\midrule
+HarvestCampaign\newline \texttt{harvest\_\allowbreak{}campaign} & \mbox{\texttt{name}}, \mbox{\texttt{planned\_start\_date}}, \mbox{\texttt{actual\_start\_date}}, \mbox{\texttt{actual\_end\_date}}, \mbox{\texttt{lifecycle\_status}} & Workspace; Planned/In progress/Closed; one or more coverage entries. \\
+\midrule
+CampaignCoverage\newline \texttt{campaign\_\allowbreak{}coverage} & \mbox{\texttt{campaign\_id}}, \mbox{\texttt{property\_id}}, \mbox{\texttt{parcel\_id}} & Campaign, Property, optional Parcel; unique selected area. \\
+\midrule
+Worker\newline \texttt{worker} & \mbox{\texttt{full\_name}}, \mbox{\texttt{telephone}}, \mbox{\texttt{official\_id\_type}}, \mbox{\texttt{official\_id\_country}}, \mbox{\texttt{official\_id\_number}}, \mbox{\texttt{can\_operate\_machinery}}, \mbox{\texttt{capability\_description}} & Workspace; no required User FK. \\
+\midrule
+WorkPlan\newline \texttt{work\_\allowbreak{}plan} & \mbox{\texttt{campaign\_id}}, \mbox{\texttt{work\_date}} & Campaign; unique campaign/date. \\
+\midrule
+PlannedAssignment\newline \texttt{planned\_\allowbreak{}assignment} & \mbox{\texttt{plan\_id}}, \mbox{\texttt{worker\_id}}, \mbox{\texttt{property\_id}}, \mbox{\texttt{parcel\_id}} & Plan, Worker, area; unique plan/worker/area. \\
+\midrule
+PlannedWorkPeriod\newline \texttt{planned\_\allowbreak{}work\_\allowbreak{}period} & \mbox{\texttt{assignment\_id}}, \mbox{\texttt{worker\_id}}, \mbox{\texttt{planned\_start}}, \mbox{\texttt{planned\_end}} & PlannedAssignment; checked worker reference. \\
+\midrule
+PlannedBreak\newline \texttt{planned\_\allowbreak{}break} & \mbox{\texttt{assignment\_id}}, \mbox{\texttt{break\_start}}, \mbox{\texttt{break\_end}}, \mbox{\texttt{counts\_as\_work}} & PlannedAssignment. \\
+\midrule
+DailyAttendance\newline \texttt{daily\_\allowbreak{}attendance} & \mbox{\texttt{worker\_id}}, \mbox{\texttt{work\_date}}, \mbox{\texttt{attendance\_status}} & Worker; unique workspace/worker/date. \\
+\midrule
+ActualWorkAssignment\newline \texttt{actual\_\allowbreak{}work\_\allowbreak{}assignment} & \mbox{\texttt{attendance\_id}}, \mbox{\texttt{worker\_id}}, \mbox{\texttt{campaign\_id}}, \mbox{\texttt{property\_id}} & Attendance, Campaign, area; optional source plan assignment. Unique attendance/campaign/area. \\
+\midrule
+WorkPeriod\newline \texttt{work\_\allowbreak{}period} & \mbox{\texttt{assignment\_id}}, \mbox{\texttt{worker\_id}}, \mbox{\texttt{actual\_start}}, \mbox{\texttt{actual\_end}}, \mbox{\texttt{task\_code}} & ActualWorkAssignment; the worker reference must match the associated actual assignment. \\
+\midrule
+WorkBreak\newline \texttt{work\_\allowbreak{}break} & \mbox{\texttt{attendance\_id}}, \mbox{\texttt{break\_start}}, \mbox{\texttt{break\_end}}, \mbox{\texttt{counts\_as\_work}} & DailyAttendance. \\
+\midrule
+Delivery\newline \texttt{delivery} & \mbox{\texttt{campaign\_id}}, \mbox{\texttt{destination\_name}}, \mbox{\texttt{delivery\_status}}, \mbox{\texttt{delivered\_at}}, \mbox{\texttt{cancellation\_reason}} & Campaign; one transport and one or more source batches; cancellation preserves dependants. \\
+\midrule
+TransportRecord\newline \texttt{transport\_\allowbreak{}record} & \mbox{\texttt{delivery\_id}}, \mbox{\texttt{driver\_worker\_id}}, \mbox{\texttt{vehicle\_reference}}, \mbox{\texttt{departure\_at}}, \mbox{\texttt{transport\_document\_reference}}, \mbox{\texttt{declared\_origin\_property\_id}}, \mbox{\texttt{declared\_origin\_parcel\_id}} & Unique Delivery; Worker driver. Declared origin is separate from OliveBatch. \\
+\midrule
+OliveBatch\newline \texttt{olive\_\allowbreak{}batch} & \mbox{\texttt{delivery\_id}}, \mbox{\texttt{property\_id}}, \mbox{\texttt{parcel\_id}}, \mbox{\texttt{collection\_origin}} & Delivery; source area within campaign coverage. \\
+\midrule
+WeighingTicket\newline \texttt{weighing\_\allowbreak{}ticket} & \mbox{\texttt{delivery\_id}}, \mbox{\texttt{assigned\_weight\_kg}}, \mbox{\texttt{reported\_weights}}, \mbox{\texttt{source\_metadata}}, \mbox{\texttt{source\_date}}, \mbox{\texttt{reported\_duration\_seconds}}, \mbox{\texttt{weighing\_started\_at}}, \mbox{\texttt{weighing\_ended\_at}}, \mbox{\texttt{excess\_time\_value}}, \mbox{\texttt{excess\_time\_unit}} & Unique delivery; canonical reported accepted assigned kg plus optional source timing. \\
+\midrule
+TicketAdjustment\newline \texttt{ticket\_\allowbreak{}adjustment} & \mbox{\texttt{ticket\_id}}, \mbox{\texttt{adjustment\_type}}, \mbox{\texttt{reported\_value}}, \mbox{\texttt{unit}} & WeighingTicket. \\
+\midrule
+YieldAnalysis\newline \texttt{yield\_\allowbreak{}analysis} & \mbox{\texttt{delivery\_id}}, \mbox{\texttt{yield\_percentage}}, \mbox{\texttt{analysis\_date}} & Unique delivery. Weight through that delivery's ticket; no copied reference weight. \\
+\midrule
+TicketValuation\newline \texttt{ticket\_\allowbreak{}valuation} & \mbox{\texttt{ticket\_id}}, \mbox{\texttt{amount}}, \mbox{\texttt{currency}}, \mbox{\texttt{valuation\_status}} & Unique WeighingTicket; current value only. \\
+\midrule
+Document\newline \texttt{document} & \mbox{\texttt{title}}, \mbox{\texttt{document\_category}}, \mbox{\texttt{form\_type}}, \mbox{\texttt{worker\_id}} & One required Worker; one current accepted source, without consultable history. \\
+\midrule
+DocumentVersion\newline \texttt{document\_\allowbreak{}version} & \mbox{\texttt{document\_id}}, \mbox{\texttt{version\_number}}, \mbox{\texttt{source\_file\_id}}, \mbox{\texttt{origin\_kind}}, \mbox{\texttt{template\_id}}, \mbox{\texttt{template\_revision}}, \mbox{\texttt{is\_withdrawn}} & Unique document reference: one current accepted source. New identity/sequence on replacement; superseded source, signature and PDF deleted. \\
+\midrule
+WorkerSignature\newline \texttt{worker\_\allowbreak{}signature} & \mbox{\texttt{worker\_id}}, \mbox{\texttt{version\_id}}, \mbox{\texttt{initiated\_by\_user\_id}}, \mbox{\texttt{client\_signed\_at}}, \mbox{\texttt{form\_response}} & Worker, Version, User, StoredFile; unique worker/version; worker must equal Document.worker\_id. \\
+\midrule
+StoredFile\newline \texttt{stored\_\allowbreak{}file} & \mbox{\texttt{storage\_key}}, \mbox{\texttt{original\_filename}}, \mbox{\texttt{media\_type}}, \mbox{\texttt{byte\_size}} & Private content; unique storage key. \\
+\midrule
+SourceAttachment\newline \texttt{source\_\allowbreak{}attachment} & \mbox{\texttt{stored\_file\_id}}, \mbox{\texttt{ticket\_id}}, \mbox{\texttt{analysis\_id}}, \mbox{\texttt{valuation\_id}} & StoredFile; exactly one populated target FK. \\
+\midrule
+DocumentTemplate\newline \texttt{document\_\allowbreak{}template} & \mbox{\texttt{name}}, \mbox{\texttt{document\_category}}, \mbox{\texttt{template\_file\_id}}, \mbox{\texttt{revision}}, \mbox{\texttt{field\_schema}} & Workspace; template StoredFile and reviewed field schema. \\
+\midrule
+DocumentRendition\newline \texttt{document\_\allowbreak{}rendition} & \mbox{\texttt{version\_id}}, \mbox{\texttt{worker\_id}}, \mbox{\texttt{stored\_file\_id}}, \mbox{\texttt{generated\_at}} & Unique version/worker; derived PDF StoredFile; associated accepted signature; worker matches Document. \\
+\end{longtable}}
+
+Other ticket weights and template/invitation/input schemas use validated JSON;
+core relationships remain foreign keys. Assigned kg is a canonical typed ticket column populated from KILOS ASIGNADOS, not duplicated in JSON or analysis. A monetary penalty is a reported
+TicketAdjustment with EUR unit and known application status. Unique delivery
+references enforce one ticket and one analysis even under concurrent requests.
+The selected Spanish template/revision and input snapshot freeze the current generated source context;
+the rendition never replaces that source. Repeated rendering does not create
+another worker/version signature.

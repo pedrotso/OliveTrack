@@ -1,0 +1,14 @@
+.git
+.github
+docs
+state
+**/.env*
+**/.npmrc
+**/*.pem
+**/*.key
+**/node_modules
+**/dist
+**/build
+**/coverage
+**/*.tsbuildinfo
+**/*.log

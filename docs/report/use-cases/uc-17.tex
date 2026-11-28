@@ -1,0 +1,49 @@
+\subsection{\identifier{UC-17} --- Record Analysis Results}\label{uc:17}
+
+\paragraph{Purpose}
+Record the delivery's single current cooperative-reported yield analysis and optional source evidence.
+
+\paragraph{Actors}
+Farm Owner; Field Manager with the relevant scope and permissions.
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item The delivery exists and is not cancelled; analysis entry is allowed In transport or after Delivered.
+\item The user has analysis-entry or separate correction permission.
+\item Prepared delivery/ticket context is required offline; the ticket may still lack its accepted assigned weight.
+\end{itemize}
+
+After confirmation, completing an unknown ticket/analysis field requires correction permission under Section~\ref{sec:completion-correction}; the closed-campaign exception does not waive it.
+
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The user selects the delivery and opens or creates its single analysis.
+\item The user records the available analysis reference, entity and analysis date separately from entry time.
+\item The user enters the reported yield percentage where known.
+\item The system displays the accepted assigned weight linked through the delivery ticket, without a separately editable analysis weight.
+\item The user may attach PDF/JPG/PNG evidence within the 10~MB limit under the applicable entry/attachment permission. File contents are consulted as complete authorised evidence, without mandatory monetary-content classification.
+\item The user reviews and confirms. The system saves the proposal and shows structured-record and attachment status.
+\item The system updates campaign yield only for Delivered, non-cancelled deliveries with known yield and an eligible positive ticket accepted assigned weight. Available In transport results await receipt confirmation in delivery detail and contribute nothing yet; awaiting arrival alone does not mean missing analysis.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Result not yet available.] The system leaves the analysis absent or incomplete without inserting a zero yield.
+\item[A2 --- Accepted assigned weight missing.] The system keeps the reported yield available and excludes it from the average until both arrival confirmation and a valid positive ticket weight exist. Disclose missing-weight coverage within the Delivered, non-cancelled set.
+\item[A3 --- Analysis already exists.] The user opens the same record. With correction authority, the user may replace current values/evidence, including completing unknown fields after confirmation; the system keeps one analysis without field-change history.
+\item[A4 --- Ticket weight corrected.] The system refreshes the reference weight and dependent indicators through the ticket association, without a duplicated editable weight.
+\item[A5 --- Closed campaign.] The authorised user may add or correct the analysis for an existing eligible delivery without reopening; correction permission still applies to confirmed records.
+\item[A6 --- Offline, failed upload or conflict.] The system preserves the local proposal and separate file status. On reconnection the server revalidates parent eligibility, authority and revision; the authorised user resolves conflicts without silently overwriting accepted data.
+\item[A7 --- No eligible denominator.] The system displays the weighted average as unavailable and includes the number of contributing deliveries.
+\end{description}
+
+\paragraph{Postconditions}
+At most one current analysis exists per delivery. Its entry does not alter official weights or delivery dates. The weighted indicator uses current eligible accepted assigned weights and discloses missing data.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:051]{\identifier{FR-051}}, \hyperref[fr:052]{\identifier{FR-052}}, \hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:058]{\identifier{FR-058}}, \hyperref[fr:061]{\identifier{FR-061}}.
+
+\hyperref[br:012]{\identifier{BR-012}}, \hyperref[br:033]{\identifier{BR-033}}, \hyperref[br:036]{\identifier{BR-036}}, \hyperref[br:038]{\identifier{BR-038}}, \hyperref[br:044]{\identifier{BR-044}}.
+
+\paragraph{Decision References}
+\decisionref{D-11}, \decisionref{Q-DA-08}, \decisionref{Q-AT-02}.

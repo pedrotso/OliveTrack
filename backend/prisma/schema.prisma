@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id        String    @id @db.Uuid
+  title     String
+  done      Boolean   @default(false)
+  updatedAt DateTime  @map("updated_at") @db.Timestamptz(3)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+
+  @@map("tasks")
+}
+
+model AppliedMutation {
+  id        String   @id @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("applied_mutations")
+}

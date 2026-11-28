@@ -1,0 +1,90 @@
+\subsubsection{Identity, Dependencies and Current Values}
+\label{sec:identity-current-values}
+Descriptive edits preserve record identities and associations; parcel creation
+does not distribute past property-level records. Ordinary profile/work/source-entry
+corrections retain current values rather than permanent field-change history.
+A delivery has a single current analysis. Document versions, signatures and signed PDF renditions remain domain records subject to their own retention. Security-event retention is a separate NFR decision;
+secrets must not be placed in event logs.
+
+Coverage correction follows \identifier{BR-010}: reopen if closed, resolve dependent records,
+then remove the area. No cascade deletion or undefined exceptional reassignment
+is introduced. Campaign archival does not substitute for reopening.
+
+\subsubsection{Completion and Correction}
+\label{sec:completion-correction}
+Completion supplies previously unrecorded information without replacing or
+removing confirmed values or changing confirmed associations. It includes
+missing hours/tasks and previously unrecorded periods within valid actual dates.
+In a closed campaign it still requires attendance, coverage and overlap consistency.
+An absent worker cannot acquire actual work through completion; attendance must
+first be corrected. Confirmed work changes/removals require reopening, with no
+additional age-based deadline. Work outside valid dates requires reopening/date review.
+Existing-delivery tickets, analyses and amounts follow the separate \identifier{BR-012} exception.
+For tickets and analyses, entry permission creates the initial record. After
+confirmation, completing a previously unknown field in that same record is an
+update requiring the separate correction permission (and the corresponding
+financial permission for monetary content). The work-completion exception does
+not grant additional source-record rights. Campaign closure does not waive these
+permission checks.
+
+\subsubsection{Work Corrections}
+\label{sec:work-corrections}
+Require correction permission and valid origin/destination campaign contexts.
+Worker, date, task, periods, breaks and area may be corrected without rewriting
+the plan. Moving a period preserves unrelated work and daily-attendance consistency.
+Presence-to-absence requires explicit removal confirmation for all contradictory
+actual assignments, including incomplete ones, periods and breaks on that date;
+all affected permissions and campaign reopening rules apply.
+
+\subsubsection{Access Revocation and Offline Conflicts}
+Pending proposals keep their origin account/business. Normal acceptance requires
+current authorisation. Existing revoked-manager proposals may undergo owner review
+under \identifier{BR-004} without restoring access. Acceptance is new explicit owner
+authorisation, not proof of pre-revocation creation. Validate normal domain rules
+and record originator and accepting owner; device timestamps prove no prior authority.
+Owner approval cannot bypass business rules or signing-source eligibility.
+Logout protects retained pending information from other accounts.
+
+Concurrent accepted values require authorised comparison against the pending
+proposal; retain server values or submit a reviewed correction and validate again.
+Temporary conflict data is not permanent correction history. Pending totals remain
+provisional and rejected proposals do not enter accepted totals.
+
+
+\subsubsection{Documents and Signing}
+\label{sec:document-corrections}
+Metadata edits preserve current source identity. Content replacement creates a new
+source identity and requires online validation and complete file readiness. Only
+then delete the former source, signature and signed PDF. This rule applies equally
+to contracts, insurance, other documents and externally declared signed uploads;
+the new source inherits no signature or declaration. Retain no consultable history.
+For example, accepting v2 removes v1 and its signing files; a failed v2 upload
+leaves v1 intact. The next accepted source uses a new identity/sequence, never a
+reused deleted identifier. Each document retains its own fixed worker identity.
+
+Current signed errors may be withdrawn until replaced. Pending signing against a
+replaced or withdrawn source cannot be accepted, transferred or resurrected by owner
+approval. Preserve only protected temporary information needed for rejection and
+recovery, and require fresh worker review/signing of a valid current source.
+Propagate received deletion to prepared copies. Backup expiry/restore suppression
+and minimal operation outcomes are separate technical concerns, not version history.
+
+An explicit source-attachment replacement follows the same successful-upload
+boundary: publish the new file, then remove the old one; failure preserves it.
+This replaces the selected attachment, not unrelated files or its ticket/analysis.
+
+\subsubsection{Delivery-Related Corrections and Indicators}
+Delivery correction, cancellation, deletion or campaign/source reassignment requires
+specific authority in all affected contexts. Reopen closed campaigns first; validate
+chronology, coverage and dependent records. Delete only under \hyperref[br:031]{\identifier{BR-031}}, including its composed-row treatment.
+Cancellation requires a reason, preserves ticket/analysis/amount/evidence records
+and removes their indicator contributions. Interrupted/refused trips use cancellation; a new attempt creates a new record. No cascading deletion or reinstatement is introduced. Unresolved dependencies block reassignment.
+Ticket and analysis corrections update their single current records; the late-source
+exception remains. Amount correction requires financial permission online or
+offline, and retains one current valuation. Source evidence is distinct from
+worker-document retention and field-change history.
+
+Indicators cannot be corrected directly. Recalculate affected origin/destination
+contributions after source changes; local updates replace their baseline rather
+than adding it again. Closure does not freeze current results and existing PDFs
+remain unchanged snapshots. Changing a viewing filter does not change source data.

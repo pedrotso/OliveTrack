@@ -1,0 +1,204 @@
+\subsection{\identifier{UC-10} --- Record Attendance and Actual Work Periods}
+\label{uc:10}
+
+\paragraph{Purpose}
+
+Allow an authorised user to confirm daily attendance
+and record actual work periods, tasks, locations
+and optional breaks.
+
+Planned information may support entry,
+but becomes actual work only after
+explicit confirmation.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with the relevant permissions granted by the owner.
+
+The authorised owner or manager records worker attendance.
+Workers do not need application accounts for this recording.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The user has permission
+    for the requested operation.
+    \item Worker records exist centrally or were created locally through \identifier{UC-07}.
+    A new worker may be created before returning to attendance/work entry.
+    \item The relevant campaign and work areas
+    exist within the authorised scope.
+    \item Work dates comply with
+    the campaign lifecycle rules.
+    \item Offline entry requires the necessary
+    authorised reference data to be available.
+\end{itemize}
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user selects the campaign
+    and working date.
+    \item The system displays planned workers,
+    available proposed periods and any existing
+    attendance and work records.
+    \item Only selected/expected workers without a daily decision are shown
+    as awaiting confirmation. Unrelated unselected workers generate no alert.
+    \item The user marks workers as present or absent.
+    Daily attendance is shared within the business
+    for that worker and working date.
+    \item For present workers, the user identifies
+    the actual campaign and work-area assignments.
+    These may remain incomplete as to hours or tasks.
+    \item The user reviews proposed periods
+    or enters actual periods, tasks and areas.
+    Common values may be applied to a group
+    with individual adjustments.
+    \item The user reviews or records actual breaks,
+    including their start, end and whether
+    they count towards working time.
+    Planned breaks are not accepted automatically.
+    \item The system validates the entries
+    and calculates available working-time totals.
+    \item The user reviews and explicitly
+    confirms the submitted information.
+    \item The system saves the records
+    and displays their local storage
+    and synchronisation status.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- Attendance is known before hours.]
+    The user saves presence or absence
+    and completes work details later.
+    Missing hours remain incomplete,
+    not a confirmed zero total.
+
+    \item[A2 --- An unplanned worker attends.]
+    The user selects an existing authorised
+    worker record, including a worker created offline with authorisation through \identifier{UC-07},
+    and records attendance.
+    A planned assignment is not required.
+
+    \item[A3 --- No plan exists.]
+    The user selects existing workers
+    and enters the actual information directly.
+
+    \item[A4 --- Actual work differs from the plan.]
+    The user adjusts workers, periods,
+    tasks or areas before confirmation.
+    The original plan remains unchanged.
+    A complete period requires its actual task before confirmation.
+    Until then, preserve the incomplete assignment rather than inventing hours.
+
+    \item[A5 --- A worker changes task or area.]
+    The user records separate periods for the relevant campaign
+    and area. Each confirmed complete period identifies its actual task;
+    attendance/assignment may be saved earlier without completed periods.
+
+    \item[A6 --- Work periods exclude a break.]
+    The interval between those periods
+    does not contribute to working time.
+    The same excluded interval is not
+    deducted again.
+
+    \item[A7 --- A break occurs within a period.]
+    The user records its start and end.
+    It is deducted only when explicitly
+    marked as not counted towards working time.
+
+    \item[A8 --- A worker is absent.]
+    The system does not convert planned
+    periods into actual work.
+    Contradictory actual work entries
+    require resolution.
+
+    \item[A9 --- Work crosses midnight.]
+    The period retains its start-date association.
+    Its end date and time establish
+    the full interval for calculations
+    and overlap validation.
+
+    \item[A10 --- Work is entered retrospectively.]
+    The user selects the actual working date.
+    The system preserves the distinction
+    between work date and entry date.
+
+    \item[A11 --- The campaign is closed.]
+
+    The user may complete previously missing information
+    for work performed within the campaign's valid actual dates.
+
+    This includes entering missing details or a previously
+    unrecorded actual period, provided that confirmed values
+    and associations remain unchanged.
+
+    The system validates attendance consistency, permissions,
+    campaign coverage and time overlaps.
+
+    Changing or removing confirmed information requires
+    authorised reopening and follows \identifier{UC-11}.
+
+    Work outside the campaign's valid actual dates requires
+    reopening and date review.
+
+    \item[A12 --- Confirmed information needs correction.]
+    The user follows \identifier{UC-11}.
+    Existing values are not silently replaced
+    through another initial submission.
+
+    \item[A13 --- Invalid or overlapping periods.]
+    The system identifies the problem
+    and preserves unaffected input.
+    Validation considers the worker's relevant
+    periods across areas and campaigns.
+
+    \item[A14 --- The device is offline.]
+    The system saves supported entries locally.
+    Their synchronisation status remains visible.
+
+    Recording actual work does not silently change campaign dates.
+
+    If the campaign has no actual start, the first confirmed
+    actual assignment provides a proposed start date under \identifier{UC-06}.
+
+    The user may explicitly confirm the proposed start offline. Start and
+    dependent work remain pending until the server validates them in order;
+    a competing campaign start is preserved for resolution, not silently accepted.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On success:}
+The submitted attendance and available actual
+work details are saved in the correct context.
+
+\textbf{On attendance-only confirmation:}
+Presence is recorded while hours and tasks
+remain explicitly incomplete where unknown.
+
+\textbf{On offline save:}
+User-confirmed entries are stored locally
+and remain pending server acknowledgement.
+
+\textbf{On cancellation or rejected changes:}
+Previously saved information remains unchanged.
+
+\textbf{In all cases:}
+Actual work entry does not rewrite the plan.
+
+Actual-period validation follows \identifier{FR-033} and Section~\ref{sec:counted-working-time}.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:016]{\identifier{FR-016}}, \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:030]{\identifier{FR-030}}, \hyperref[fr:031]{\identifier{FR-031}}, \hyperref[fr:032]{\identifier{FR-032}}, \hyperref[fr:033]{\identifier{FR-033}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:035]{\identifier{FR-035}}.
+
+\hyperref[br:011]{\identifier{BR-011}}, \hyperref[br:018]{\identifier{BR-018}}, \hyperref[br:019]{\identifier{BR-019}}, \hyperref[br:020]{\identifier{BR-020}}, \hyperref[br:021]{\identifier{BR-021}}.
+
+\paragraph{Decision References}
+\decisionref{Q-WF-01}, \decisionref{Q-WF-03}, \decisionref{D-04}.

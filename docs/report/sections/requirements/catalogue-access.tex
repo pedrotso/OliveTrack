@@ -1,0 +1,72 @@
+\Needspace{10\baselineskip}
+\subsubsection{Registration, Authentication and Access}
+{\requirementtable
+\begin{longtable}{L{0.18}L{0.82}}
+\caption{Functional requirements: Registration, Authentication and Access.}\label{tab:catalogue-access}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endfirsthead
+\caption[]{Functional requirements: Registration, Authentication and Access (continued).}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endhead
+\midrule\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\rowcolor{TableHeader}
+\phantomsection\label{fr:001}\textbf{\identifier{FR-001}} & \textbf{The system shall let a Technical Administrator provision the initial owner and private client workspace.}\\*
+\phantomsection\label{ac:001:a}\identifier{FR-001(a)} & Require online technical authority, owner name/email and business name/timezone; enforce unique normalised email and one initial owner/workspace, including concurrent retries. Public owner registration is unavailable.\\
+\phantomsection\label{ac:001:b}\identifier{FR-001(b)} & Send a single-use 24-hour activation link under \identifier{SEC-09}. The recipient verifies email and chooses their password; controlled resend invalidates the previous link. Never distribute a password in the message.\\
+\phantomsection\label{ac:001:c}\identifier{FR-001(c)} & Activate the existing pending account/membership without duplicate setup or operational records. Technical administration grants no business-data rights. Manager accounts continue through valid owner invitations.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:002}\textbf{\identifier{FR-002}} & \textbf{The system shall authenticate account holders and enforce business access.}\\*
+\phantomsection\label{ac:002:a}\identifier{FR-002(a)} & Only activated accounts may log in with email and password; invalid credentials must not unnecessarily disclose account information.\\
+\phantomsection\label{ac:002:b}\identifier{FR-002(b)} & Validate system authority on technical endpoints; validate membership, scope and operation grants on business endpoints. Route administrators to technical account setup and business members to authorised workspaces; apply session expiry.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:003}\textbf{\identifier{FR-003}} & \textbf{The system shall terminate sessions, isolate accounts and clean eligible local copies.}\\*
+\phantomsection\label{ac:003:a}\identifier{FR-003(a)} & Online or offline logout blocks local access. When connected, identify pending work and offer synchronisation first.\\
+\phantomsection\label{ac:003:b}\identifier{FR-003(b)} & Preserve pending work in protected, account-isolated storage; other accounts cannot access or submit it. Explicit discard requires the originating authenticated user's confirmation of the identified losses.\\
+\phantomsection\label{ac:003:c}\identifier{FR-003(c)} & Normal recovery requires the originating account and renewed authentication/authorisation. Deferred server-side logout completes on reconnection.\\
+\phantomsection\label{ac:003:d}\identifier{FR-003(d)} & Remove eligible centrally accepted local copies after 30 days of account/business/device inactivity. Check on opening before resetting last use; authorised use resets it.\\
+\phantomsection\label{ac:003:e}\identifier{FR-003(e)} & Inactivity cleanup never discards unrelated pending work or recovery dependencies. It does not alter the separate current-source replacement policy, central backup expiry or offline-authorisation limit. Replaced-source signing remains ineligible; removed accepted data needs online preparation again.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:004}\textbf{\identifier{FR-004}} & \textbf{The system shall enforce bounded offline continuity and revalidate access.}\\*
+\phantomsection\label{ac:004:a}\identifier{FR-004(a)} & Prepared offline access lasts 15 days from successful online permission validation; only another successful online validation renews it.\\
+\phantomsection\label{ac:004:b}\identifier{FR-004(b)} & Expiry blocks consultation/new operations until connected authentication and validation; preserve pending work and dependencies. Enforce communicated revocation without claiming instant enforcement offline.\\
+\phantomsection\label{ac:004:c}\identifier{FR-004(c)} & Reconnection checks uncertain outcomes and revalidates membership, scope, permissions, revisions and dependencies before safe synchronisation. Keep the separate 30-day cache policy in \identifier{FR-003}.\\
+\phantomsection\label{ac:004:d}\identifier{FR-004(d)} & Support pending campaign starts and new workers, preserving dependent operations and conflicts without silent overwrite. Present routine status under Section~\ref{sec:offline-interaction}.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:005}\textbf{\identifier{FR-005}} & \textbf{The system shall allow users to recover their account access through a verified reset process.}\\*
+\phantomsection\label{ac:005:a}\identifier{FR-005(a)} & A recovery request gives a generic acknowledgement; eligible accounts receive a reset message.\\
+\phantomsection\label{ac:005:b}\identifier{FR-005(b)} & Only valid, unexpired, unused authorisation permits a policy-compliant reset; consume it and invalidate online sessions on success.\\
+\phantomsection\label{ac:005:c}\identifier{FR-005(c)} & Preserve ownership/permissions. Offline devices detect invalidation on reconnection or authorisation expiry; recovery without inbox access is not assumed.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:006}\textbf{\identifier{FR-006}} & \textbf{The system shall invite managers and manage invitation acceptance.}\\*
+\phantomsection\label{ac:006:a}\identifier{FR-006(a)} & The owner sets recipient email, scope and permissions and may inspect, resend or cancel pending invitations.\\
+\phantomsection\label{ac:006:b}\identifier{FR-006(b)} & Only the intended verified account may accept a valid invitation. Invitee registration does not automatically create an owner workspace.\\
+\phantomsection\label{ac:006:c}\identifier{FR-006(c)} & Repeated acceptance/resending creates no duplicate membership; expired or cancelled invitations grant no access.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:007}\textbf{\identifier{FR-007}} & \textbf{The system shall configure delegated scope and enforce the initial manager profile.}\\*
+\phantomsection\label{ac:007:a}\identifier{FR-007(a)} & Only the owner assigns properties and independent operation grants. Scope includes their parcels and current/future campaigns until revoked; no independent campaign/parcel scope grants apply. Managers cannot delegate authority.\\
+\phantomsection\label{ac:007:b}\identifier{FR-007(b)} & Restrict multi-property campaign records/indicators to assigned properties. Expose relevant workers/insurance and owner-explicitly available workers, without revealing their other-property work or full mixed-property delivery/file totals outside the grant.\\
+\phantomsection\label{ac:007:c}\identifier{FR-007(c)} & Apply the defaults in Section~\ref{sec:permission-defaults}. Financial/full-ticket consultation is disabled initially and requires an explicit owner grant; financial entry/correction remain separate. Evidence upload uses its entry/attachment grant, even when the source contains amounts.\\
+\phantomsection\label{ac:007:d}\identifier{FR-007(d)} & Keep financial and complete-ticket consultation consistent as full-content access. Apply revocation to prepared data/files without redaction; enforce saved grants online and on reconnection.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:008}\textbf{\identifier{FR-008}} & \textbf{The system shall revoke manager access and review existing pending proposals.}\\*
+\phantomsection\label{ac:008:a}\identifier{FR-008(a)} & Revocation blocks normal online business access without deleting accounts or records; offline devices enforce it on reconnection or expiry.\\
+\phantomsection\label{ac:008:b}\identifier{FR-008(b)} & After origin-account authentication, submit preserved proposals through restricted recovery without normal business access. The owner accepts or rejects each; acceptance is a new explicit authorisation, subject to date, lifecycle, coverage, dependency and conflict checks.\\
+\phantomsection\label{ac:008:c}\identifier{FR-008(c)} & Preserve originator and accepting owner separately. Do not infer prior creation or permission from device timestamps; unresolved proposals remain protected under \identifier{BR-004}. Signing-source eligibility cannot be overridden.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:064}\textbf{\identifier{FR-064}} & \textbf{The system shall update verified email and password while preserving account identity.}\\*
+\phantomsection\label{ac:064:a}\identifier{FR-064(a)} & Connected authenticated users may change passwords after identity revalidation under the configured password/session policy.\\
+\phantomsection\label{ac:064:b}\identifier{FR-064(b)} & Validate/verify the normalised new email before activation; retain the old address until then. Failed/expired links and retries change no ownership, membership or authorship.\\
+\phantomsection\label{ac:064:c}\identifier{FR-064(c)} & Preserve account ID, ownership, memberships, signatures and authorship; retries create no replacement identity.\\
+\end{longtable}
+}

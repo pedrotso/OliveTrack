@@ -1,0 +1,47 @@
+\subsection{\identifier{UC-18} --- Manage Cooperative-Reported Ticket Values}\label{uc:18}
+
+\paragraph{Purpose}
+Consult, enter and correct the ticket's current reported monetary amount, online or offline; do not calculate prices or execute payments.
+
+\paragraph{Actors}
+Farm Owner; Field Manager with the relevant scope and permissions.
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item A ticket exists for a non-cancelled delivery; value entry is allowed In transport or after Delivered.
+\item The user has the requested financial consultation, entry or correction permission.
+\item Offline use requires authorised prepared ticket context and valid offline access.
+\end{itemize}
+
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The user opens the ticket directly or through its delivery.
+\item The system displays the current amount or states that no amount has been reported.
+\item For authorised entry/correction, the user provides the reported EUR amount, cooperative/reporting date and provisional/final classification.
+\item The user may provide a source reference, observations and permitted PDF/JPG/PNG evidence within the 10~MB limit.
+\item The user reviews and confirms. The system replaces the current amount without creating an additive historical revision.
+\item For Delivered, non-cancelled deliveries, the system updates eligible financial indicators and identifies central acceptance or a local pending proposal. Available In transport values await receipt confirmation in delivery detail and contribute nothing yet; awaiting arrival alone does not mean a missing amount.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Final replaces provisional.] The system keeps one current value and distinguishes reported final/provisional classification from pending/accepted synchronisation status.
+\item[A2 --- No source amount.] The system shows awaiting value and does not infer a payment, price or zero amount from weights/analysis.
+\item[A3 --- Correction.] The system requires separate financial correction permission and retains only current values. Final-to-provisional reclassification is allowed with financial correction permission and explicit confirmation, retaining one current amount.
+\item[A4 --- Mixed load or reported penalty.] The system leaves mixed-load monetary totals unallocated by area and does not deduct the cooperative-reported penalty again.
+\item[A5 --- Campaign closed.] The authorised user may enter/correct a late amount for an existing eligible ticket without reopening.
+\item[A6 --- Offline.] The system supports authorised prepared consultation, entry and correction and marks proposals pending. Financial indicators/PDFs may include eligible values after a locally confirmed arrival, with freshness and pending labels. Central totals await server acceptance.
+\item[A7 --- Evidence or synchronisation fails.] The system retains recoverable input and file status separately, checks uncertain outcomes and retries without duplicate monetary contributions.
+\item[A8 --- Permission revoked, expired access or conflict.] The system blocks unauthorised access and new operations, preserves protected proposals for the agreed recovery workflow and rechecks current grants/revisions before acceptance.
+\end{description}
+
+\paragraph{Postconditions}
+One current valuation is visible online or as an identified offline proposal. No ticket weight, analysis, payment or permanent value-change history is created by the operation.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:053]{\identifier{FR-053}}, \hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:059]{\identifier{FR-059}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:061]{\identifier{FR-061}}, \hyperref[fr:062]{\identifier{FR-062}}.
+
+\hyperref[br:012]{\identifier{BR-012}}, \hyperref[br:034]{\identifier{BR-034}}, \hyperref[br:035]{\identifier{BR-035}}, \hyperref[br:036]{\identifier{BR-036}}, \hyperref[br:040]{\identifier{BR-040}}, \hyperref[br:044]{\identifier{BR-044}}.
+
+\paragraph{Decision References}
+\decisionref{D-15}, \decisionref{Q-DA-09}, \decisionref{Q-AT-02}.

@@ -1,0 +1,267 @@
+\section{Users, Personas and Permissions}
+\label{sec:users}
+
+\subsection{Stakeholders}
+
+OliveTrack affects people who use the application,
+people whose information is managed
+and parties that supply information
+or assess the project.
+
+\begin{description}
+
+    \item[Farm Owner and Client.]
+    Explains the operational needs,
+    validates business behaviour
+    and uses the application to manage
+    the harvest and inspect its results.
+
+    \item[Field Manager.]
+    A delegated operational user included in the working specification, acting within the scope and permissions assigned by the owner.
+
+    \item[Workers.]
+    Their profiles, attendance,
+    work periods and documents are managed.
+    Workers may participate in signing
+    without holding application accounts.
+
+    \item[Cooperative or Receiving Organisation.]
+    Supplies weighing information,
+    analysis results and monetary values.
+    Direct access to OliveTrack
+    is not assumed in the current scope.
+
+    \item[Technical Administrator.]
+    Prepares the initial owner account and client workspace and supports controlled
+    account activation. Technical authority does not grant access to agricultural
+    records, worker documents, signatures or monetary information.
+
+    \item[Project Team.]
+    Analyses requirements, proposes the solution,
+    implements and validates the agreed scope,
+    and maintains the project documentation.
+
+    \item[Course Faculty and Evaluators.]
+    Establish academic expectations
+    and assess the project deliverables,
+    management process and demonstrated results.
+
+\end{description}
+
+Business validation and academic acceptance
+are related but distinct.
+Client agreement does not replace
+the course's assessment requirements.
+
+\subsection{User Personas}
+
+The profiles below describe working assumptions
+for requirements discussion.
+They represent roles and usage contexts;
+they are not evidence of a completed user study.
+
+\subsubsection{Farm Owner}
+
+\textbf{Role and context.}
+Responsible for the business's properties,
+workers and harvest decisions.
+May prepare administrative information
+with connectivity and consult or record
+operational information in the field.
+
+\textbf{Main goals.}
+\begin{itemize}
+    \item Organise properties, parcels and campaigns.
+    \item Prepare work without repeatedly
+    entering the same information.
+    \item Understand who attended
+    and what work was actually performed.
+    \item Access the correct worker documents.
+    \item Follow deliveries and later results.
+    \item Review campaign totals
+    and investigate their supporting records.
+\end{itemize}
+
+\textbf{Main difficulties.}
+Information arrives at different times,
+manual records can be fragmented,
+and field connectivity is unreliable.
+
+\textbf{Design implications.}
+Use clear business terminology,
+group entry with individual adjustments,
+explicit save states and understandable
+summaries with access to detail.
+
+\subsubsection{Field Manager}
+
+\textbf{Status.}
+Included operational persona, invited by the owner.
+
+\textbf{Role and context.}
+May coordinate workers and field operations
+on behalf of the owner.
+Uses the application within an explicitly
+authorised operational scope.
+
+\textbf{Main goals.}
+\begin{itemize}
+    \item Consult prepared schedules.
+    \item Record attendance and actual work.
+    \item Record transport and delivery information.
+    \item Access relevant worker insurance
+    during field operations.
+\end{itemize}
+
+\textbf{Access limitations.}
+Work-entry permission does not automatically include correction, contract or configuration rights. Financial consultation and complete-ticket/source-file access are disabled initially and require explicit owner authorisation. Financial entry and correction require their own additional grants.
+
+\textbf{Design implications.}
+Prioritise essential field tasks,
+prepared offline information
+and clear permission boundaries.
+
+\subsubsection{Worker as a Participant}
+
+\textbf{Role and context.}
+A person whose work and documents are managed.
+May review and sign a document in person
+on the owner's or authorised manager's device.
+
+\textbf{Main needs.}
+\begin{itemize}
+    \item Be correctly identified in records.
+    \item Review the document intended for signing.
+    \item Review, redraw or cancel
+    before confirming a signature.
+    \item Avoid unintended access
+    to other workers' information.
+\end{itemize}
+
+No worker self-service application
+or management account is assumed.
+
+\subsubsection{Technical Administrator}
+A designated technical operator prepares the private client deployment, provisions
+its initial owner and manages activation delivery/retry. The role uses a separate
+system-level authority. The owner controls all operational delegation and managers
+continue to create/verify accounts through valid owner invitations. Technical
+provisioning is online; no administrator offline business dataset is prepared.
+
+\subsection{System Actors}
+
+The formal actor name is \textit{Farm Owner}; running text uses
+\textit{owner}.
+
+\begin{description}
+
+    \item[Technical Administrator.]
+    Authenticated actor restricted to initial owner/business provisioning and activation support.
+
+    \item[Farm Owner.]
+    Primary application actor using an account within the owner's business workspace.
+
+    \item[Field Manager.]
+    Application actor with owner-delegated permissions.
+
+    \item[Worker.]
+    Reviews and signs documents through an authorised account holder's device,
+    without an application account.
+
+\end{description}
+
+The cooperative is currently an information source,
+rather than a direct application actor.
+Likewise, identifying a worker as a driver
+does not create another application role.
+
+Owner and Manager are operational workspace roles; Technical Administrator is a separate system role.
+A worker record is a business record; creating it does not create an account.
+These concepts are distinct identities.
+
+\paragraph{Visitor.}
+
+A Visitor is a person who is not authenticated.
+An unauthenticated recipient may activate the provisioned owner account, complete
+an owner-issued manager invitation, log in or initiate recovery. Public owner
+registration is unavailable.
+They cannot access business information.
+
+\paragraph{Authenticated account holders.}
+
+An owner holds an application account associated with
+the single business prepared through technical provisioning.
+
+A manager receives business access through an owner invitation and acts within the assigned scope and permissions. Creating this invited account does not create an owner workspace.
+
+Worker participation follows the account/worker distinction above.
+
+
+\subsection{Access Permissions}
+\label{sec:permission-defaults}
+The Technical Administrator can prepare the initial account/workspace and resend
+activation; technical authority supplies no business-data grants. The owner assigns
+properties and independently configurable operation permissions.
+The table gives the manager defaults, which the owner reviews on invitation and
+may subsequently change. Each operation grouped in a row is configured separately.
+Requests and offline acceptance validate membership, scope and operation authority.
+
+{\compacttable
+\begin{longtable}{L{0.65}L{0.35}}
+\caption{Initial permissions for the Field Manager.}\label{tab:manager-permissions}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Manager capability} & \textbf{Initial setting}\\
+\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Manager capability} & \textbf{Initial setting}\\
+\midrule\endhead
+\bottomrule\endfoot
+Consult properties, parcels and campaigns. & Enabled.\\\midrule
+Consult worker profiles and contact details. & Enabled.\\\midrule
+Consult, create and edit work plans, subject to plan-freezing rules. & Enabled.\\\midrule
+Confirm attendance and record actual assignments, periods and breaks. & Enabled.\\\midrule
+Record departures, deliveries and arrival confirmations. & Enabled.\\\midrule
+Record weighing data and analyses, excluding financial fields unless separately granted. & Enabled.\\\midrule
+Consult operational campaign indicators. & Enabled within assigned scope.\\\midrule
+Consult insurance for workers under the manager's responsibility. & Mandatory within that responsibility.\\\midrule
+Create or maintain worker profiles. & Disabled; owner may grant each operation.\\\midrule
+Manage properties and parcels. & Disabled; owner may grant each operation.\\\midrule
+Manage campaign creation, coverage and lifecycle. & Disabled; owner may grant each operation.\\\midrule
+Correct confirmed work, deliveries, weighing, analyses or financial entries; delete or cancel eligible records. & Disabled; separate correction/deletion authority required.\\\midrule
+Consult contracts/other documents; upload, generate documents or initiate signing. & Disabled; owner may grant each operation.\\\midrule
+Consult monetary indicators, current values and complete tickets/source attachments, including prepared offline copies. & Disabled; explicit owner grant required.\\\midrule
+Enter or correct structured monetary values, penalties and valuations. & Disabled; owner may grant each operation.\\\midrule
+Invite managers, assign scopes or administer permissions. & Owner only.\\
+\end{longtable}}
+
+
+\paragraph{Delegated scope.}
+Property scope includes its parcels and current/future campaigns until revoked;
+there are no separate campaign/parcel scope grants. Several managers may share a
+property. Multi-property campaign views disclose only authorised records and
+attributable indicators, identifying partial scope. Relevant workers and their
+insurance are available for scoped operations; the owner may explicitly make
+additional workers available before assignment. This does not reveal those
+workers' work on other properties.
+
+Daily attendance remains one shared worker/date decision within the business,
+not one per manager or property; concurrent changes follow revision/conflict
+rules. Complete mixed-property delivery records and source files require authority
+over all disclosed property contexts. Partial access exposes only known
+attributable authorised contributions, without inferred allocation.
+
+Insurance consultation cannot be removed while the manager remains responsible
+for those workers. This guarantees access; it does not require opening or checking
+insurance before every field action. Profile creation does not establish documentary
+readiness and requires its own grant, including for same-day offline creation.
+
+Financial consultation and complete-ticket/source-file access are configured
+consistently. Structured financial entry and correction require separate grants.
+Evidence upload follows its operation's entry/attachment permission; worker-document
+upload is independent. Correction authority applies to confirmed records, not to
+reviewing unsaved input or editing an unfrozen plan.
+
+Prepared offline information follows the same grants and account/workspace isolation.
+Access changes and expiry follow \hyperref[br:002]{\identifier{BR-002}}; the local-protection
+details remain under \decisionref{Q-DOC-07}. No instantaneous remote removal from a
+disconnected device is promised.

@@ -1,0 +1,156 @@
+\subsection{\identifier{UC-04} --- Manage Manager Access and Permissions}
+\label{uc:manage-manager-access}
+\label{uc:04}
+
+\paragraph{Status}
+
+Included in the current working specification; owner-controlled permissions apply.
+
+\paragraph{Purpose}
+
+Allow an owner to invite a Field Manager, define the
+    authorised scope and permissions, and later modify
+    or revoke that access.
+
+\paragraph{Actors}
+
+Farm Owner.
+
+\paragraph{Supporting Actor}
+
+Invited Field Manager.
+
+\paragraph{Preconditions}
+
+The owner is authenticated.
+    An internet connection is available.
+    The owner controls the selected business workspace.
+
+The initial profile follows Section~\ref{sec:permission-defaults}, including
+financial/full-ticket consultation disabled until explicitly granted. Structured financial writes require
+additional grants; source upload follows its entry/attachment permission. Mandatory
+insurance access is not a prerequisite review before each field operation. Worker
+creation requires a separate grant, including offline creation.
+
+\paragraph{Main Flow --- Invite a Manager}
+
+\begin{enumerate}
+        \item The owner selects the invitation option.
+        \item The owner enters the manager's email address.
+        \item The owner selects one or more properties, covering their parcels and current/future campaigns until revoked, and any additional workers explicitly made available for that manager. The system presents the default operational permissions from Section~\ref{sec:permission-defaults}; the owner reviews and adjusts them, preserving mandatory insurance access.
+        \item The system checks the permission configuration.
+        \item The system creates an invitation and sends
+        an acceptance link.
+        \item The recipient follows the invitation link.
+        \item An existing account holder authenticates;
+        a new recipient creates and verifies an account only within this valid invitation flow. No owner workspace is created for the manager.
+        \item The system confirms that the authenticated
+        email matches the invitation.
+        \item The recipient explicitly accepts the invitation.
+        \item The system activates the manager's access
+        to the owner's business.
+    \end{enumerate}
+
+\paragraph{Main Flow --- Change Permissions}
+
+\begin{enumerate}
+        \item The owner selects an existing manager.
+        \item The system presents the current scope
+        and permissions.
+        \item The owner changes the configuration.
+        \item The system validates and saves the changes.
+        \item Subsequent online requests use the updated
+        authorisation.
+    \end{enumerate}
+
+\paragraph{Main Flow --- Revoke Access}
+
+\begin{enumerate}
+        \item The owner selects an existing manager.
+        \item The owner requests revocation.
+        \item The system requests confirmation.
+        \item The owner confirms.
+        \item The system revokes the manager's business access.
+        \item Subsequent online requests to that business
+        are refused.
+    \end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{enumerate}[label=A\arabic*.]
+        \item \textbf{Invitation already pending:}
+        The system allows the owner to review, resend
+        or cancel the existing invitation without creating
+        duplicate memberships.
+
+        \item \textbf{Manager already has access:}
+        The system directs the owner to the existing
+        permission configuration.
+
+        \item \textbf{Invalid, expired or cancelled invitation:}
+        Access is not granted.
+        The owner may issue a new invitation. Invitations expire after seven days; resending invalidates the preceding link.
+
+        \item \textbf{Different authenticated email:}
+        The invitation cannot be accepted by that account.
+
+        \item \textbf{Incomplete mandatory permissions:}
+        The system identifies the incompatible configuration.
+        A manager responsible for workers must retain access
+        to their insurance documents within that scope.
+
+        \item \textbf{Invitation cancelled before acceptance:}
+        The invitation no longer grants access.
+
+        \item \textbf{Manager device offline during revocation:}
+        Central access is revoked immediately.
+        The disconnected device enforces the change upon
+        reconnection or expiry of offline authorisation.
+
+        \item \textbf{Pending changes after revocation:}
+        The revoked manager cannot submit new authorised business
+        changes merely because data was previously available offline.
+
+        Existing pending operational proposals may be presented
+        to the owner through an authenticated recovery submission
+        that does not restore the manager's business access.
+
+        The owner may review, accept or reject each proposal.
+
+        Acceptance supplies new explicit owner authorisation and requires validation of campaign status, dates, coverage, revisions, dependencies and conflicts. Device timestamps cannot prove that a proposal predates revocation. Owner approval does not override signing-source eligibility.
+
+        The record distinguishes the account that originally
+        submitted the information from the owner who authorised
+        its acceptance.
+    \end{enumerate}
+
+\paragraph{Postconditions on Success}
+
+The invitation, permission change or revocation is saved.
+    Access is limited to the owner's business and the
+    authorised responsibility scope.
+
+\paragraph{Postconditions on Revocation}
+
+The account remains distinct from its business membership.
+    Existing operational records are preserved.
+    Revocation does not delete worker records or historical
+    business information.
+
+\paragraph{Connectivity}
+
+Invitations, acceptance and permission changes require
+    an internet connection.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:006]{\identifier{FR-006}}, \hyperref[fr:007]{\identifier{FR-007}}, \hyperref[fr:008]{\identifier{FR-008}}.
+
+\hyperref[br:001]{\identifier{BR-001}}, \hyperref[br:002]{\identifier{BR-002}}, \hyperref[br:003]{\identifier{BR-003}}, \hyperref[br:004]{\identifier{BR-004}}.
+
+\paragraph{Decision References}
+\decisionref{Q-AA-01}, \decisionref{Q-AA-02}, \decisionref{D-01}, \decisionref{D-08}.
+
+\paragraph{Scoped consultation}
+Several managers may share a property. Multi-property campaign views show only
+authorised property records and partial indicators. Worker access does not disclose
+other-property work. Overlapping edits require explicit conflict review.

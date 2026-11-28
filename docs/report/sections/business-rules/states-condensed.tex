@@ -1,0 +1,119 @@
+\subsubsection{Accounts, Invitations and Access}
+An account moves from \textit{Pending verification} to \textit{Active}
+after valid email verification. An expired link does not itself delete
+the pending administrator-provisioned owner setup or valid invited-manager signup. Active identity is separate from business membership.
+
+Invitations move from \textit{Pending} to \textit{Accepted}, \textit{Cancelled}
+or \textit{Expired}. Only acceptance by the intended verified account activates
+membership. A manager membership moves from \textit{Active} to \textit{Revoked};
+restoration requires a new explicit owner authorisation through invitation,
+not duplicate operational records.
+
+A session is authenticated, expired or terminated. Offline access additionally
+requires available authorised context and authorisation valid for 15 days since
+the last successful online permissions validation. Expiry blocks access/new
+operations but preserves pending dependencies; validation online renews the period.
+Account suspension/deletion and ownership transfer are not defined by these states.
+
+\subsubsection{Properties, Parcels and Workers}
+Properties/parcels move between \textit{Active} and \textit{Archived}; workers
+between \textit{Active} and \textit{Inactive}. Deletion is terminal and subject
+to dependency checks, not a reversible availability state. A parcel's availability
+also depends on its parent; parent reactivation does not undo independent parcel archival.
+Worker inactivation preserves future plans with warnings.
+
+\subsubsection{Campaign Lifecycle and Archival}
+Creation produces \textit{Planned}. Explicit accepted start transitions to
+\textit{In progress}; closure records actual end and produces \textit{Closed}.
+Authorised reopening returns Closed to In progress after coverage/date validation;
+``Reopened'' is not a fourth permanent state. Only In progress reserves execution.
+Planned campaigns may overlap coverage and actual dates remain independently
+relevant to historical records. Archival is a separate visibility attribute and
+does not release In progress coverage. A local offline start has pending sync state,
+not another accepted lifecycle state or a central reservation guarantee.
+Deletion requires no operational records or blocking pending dependencies.
+
+\subsubsection{Attendance and Completeness}
+For selected/expected workers, attendance is \textit{Awaiting confirmation},
+\textit{Present} or \textit{Absent},
+once per worker and working date in the business. Initial confirmation establishes
+presence/absence; later changes follow correction rules. Unselected unrelated workers have no participation expectation and need no
+DailyAttendance row; this is not a fourth confirmed absence/presence state.
+Actual campaign-area assignment is separate. A late arrival uses actual times, not another attendance state.
+Work completeness is derived for the record/calculation; a confirmed period may
+support a labelled partial total. No mandatory daily-close action is introduced.
+
+\subsubsection{Synchronisation}\label{sec:sync-states}
+Operations use \textit{Pending}, \textit{Synchronising}, \textit{Accepted},
+\textit{Transmission failed}, \textit{Rejected}, \textit{Conflicted} or
+\textit{Outcome uncertain}. Transmission failed means delivery could not be
+completed without evidence of acceptance; Rejected is an explicit server refusal.
+Conflicted requires comparison with accepted revisions. Outcome uncertain means
+the server may have committed without an acknowledgement; check the existing
+operation before retry. These states do not use a generic Failed label. Local confirmation is not server acceptance. An offline delivery
+may be delivered physically while its confirmation is pending.
+
+\subsubsection{Documents and Signatures}
+Current-source identity, replacement deletion,
+withdrawal (available/withdrawn), recorded insurance expiry
+(valid/expired/unconfirmed) and signature information are independent.
+Online and offline, recorded expiry is compared with the current business date.
+Missing expiry is unconfirmed; an unpassed recorded expiry is not independent
+verification of coverage. An expired or withdrawn current source remains consultable until replacement; withdrawal prevents operational signing. Superseded sources/signatures/PDFs are deleted and have no history view. A withdrawn current version
+remains current until replacement, without fallback.
+
+An external-signature declaration is not an application event and does not
+establish individual signers. Application signing is tracked per worker/version:
+no confirmed signature, locally confirmed/pending, accepted, or resolution required.
+Transport failure is a synchronisation condition, not a signature state.
+Replacement deletion and withdrawal follow \hyperref[br:026]{\identifier{BR-026}}; the version
+example is in Section~\ref{sec:document-corrections}.
+
+\subsubsection{Deliveries and Source Information}
+Departure establishes \textit{In transport}; arrival confirmation establishes
+\textit{Delivered}. Retrospective registration may create Delivered directly
+with both timestamps. Ordinary timestamp correction does not reverse delivery;
+cancellation of an erroneous entry changes it to \textit{Cancelled}, preserves its linked records and excludes their indicator contributions. Require reason, authority and reopening of closed affected campaigns. Deletion checks and composed-row removal follow \hyperref[br:031]{\identifier{BR-031}}. Interrupted trips and refused deliveries also become Cancelled with a reason. A new attempt creates a new delivery/transport record, never reinstating the cancelled one.
+
+Weighing/analysis completeness is independent: \textit{Not recorded},
+\textit{Incomplete} or \textit{Available}. A supplied attachment does not itself
+establish complete or calculation-eligible structured data; field thresholds
+remain under \decisionref{Q-DA-08}.
+
+Tickets, analyses and amounts may be recorded In transport. Available data then
+awaits receipt confirmation in delivery detail; it is not missing and contributes
+to no indicator. Delivered, non-cancelled eligibility follows
+\hyperref[br:038]{\identifier{BR-038}}, including locally confirmed arrivals in provisional views.
+
+Reported amounts progress from \textit{Not reported} to \textit{Provisional}
+or directly to \textit{Final}; final replaces provisional. Missing differs
+from reported zero. Final-to-provisional reclassification requires financial correction authority and explicit confirmation under \decisionref{Q-DA-09}.
+
+\subsubsection{Indicators and Report Snapshots}
+Indicators are derived, not editable records. A result may be available,
+partial, unavailable, provisional due to pending local changes and/or based
+on last synchronisation. These conditions may coexist. Financial provisional
+classification is distinct from local pending status. Zero is valid only
+when supported by the available scope and evidence.
+A PDF is a timestamped snapshot; source corrections require a new export.
+Offline reports may include authorised prepared financial information and identify freshness, pending changes and incomplete scope.
+
+
+\paragraph{Generation and signed output.}
+Template input is a draft until reviewed and accepted as an unsigned document
+version. Signing does not change its source identity. A worker-specific PDF
+rendition is a derived output linked to that version and worker, not another
+source version or a signature for other workers.
+
+\paragraph{Form response.}
+Medical-examination response is independently unknown, accepted or refused.
+Accepted/refused is committed with the worker-confirmed signing event and appears
+on that worker's PDF. A refusal may be signed and server-accepted; neither state
+means consent. A cancelled interaction commits neither choice nor signature.
+Uploaded choices remain unknown unless explicitly readable and reviewed.
+
+\paragraph{Private initial setup.}
+The workspace/owner membership may exist as pending before owner activation;
+activate access only after recipient verification/password setup. A technical
+administrator may authenticate without a business membership. The administrator
+bootstrap is deployment-controlled and creates no operational privileges.

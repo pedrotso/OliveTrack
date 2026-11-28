@@ -1,0 +1,198 @@
+\subsection{\identifier{UC-08} --- Plan Work}
+\label{uc:08}
+
+\paragraph{Purpose}
+
+Allow an authorised user to plan workers,
+work areas, optional periods and tasks
+for one or more working days.
+
+Planning may start from a new entry,
+an existing plan or previously recorded actual work.
+It never establishes attendance or actual hours
+for the target dates.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with the relevant planning permissions granted by the owner.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The user has permission to plan work
+    within the selected scope.
+    \item The campaign, work areas
+    and worker records exist.
+    \item Selected areas are included
+    in the campaign coverage.
+    \item The requested dates comply
+    with the campaign lifecycle rules.
+    \item Offline planning requires
+    the necessary authorised reference data
+    to be available on the device.
+\end{itemize}
+
+Planning is optional and supports Planned or In progress campaigns; \identifier{UC-10} does
+not require a prior plan. Workers created locally through \identifier{UC-07} may enter pending
+plans, with worker acceptance preceding dependent plan acceptance. Planning neither
+starts a campaign nor reserves execution.
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user selects the campaign
+    and one or more target dates.
+    \item The user selects a property
+    or an included parcel.
+    \item The system displays existing plans
+    for the selected context.
+    \item The user selects the workers
+    expected to work.
+    \item The user may enter planned periods,
+    task types and optional breaks.
+    Common values can be applied to a group
+    and adjusted individually.
+    \item The system checks required information,
+    worker availability, area eligibility
+    and known scheduling conflicts.
+    \item Where a worker is planned
+    for several areas on the same day,
+    the system requires periods
+    for the relevant assignments.
+    \item The system presents the proposed
+    daily plans and any unresolved issues.
+    \item The user reviews and confirms.
+    \item The system saves independent daily plans
+    and displays their local and server status.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- A minimal plan is sufficient.]
+    For a worker assigned to one area
+    on a working day, the user may save
+    the campaign, date, area and worker
+    without specifying hours or task type.
+
+    \item[A2 --- Individual details differ.]
+    The user adjusts one worker's periods
+    or tasks without unintentionally changing
+    other workers' entries.
+
+    \item[A3 --- Several areas apply.]
+    The user creates the relevant assignments.
+    Periods are required for all assignments
+    of that worker to different areas
+    on the same working day.
+
+    \item[A4 --- Several target dates are selected.]
+    The system applies the reviewed proposal
+    to each selected date.
+    Each date receives an independent plan,
+    validated against its own context.
+
+    \item[A5 --- An existing plan is copied.]
+    The user selects a source plan
+    and the target dates.
+    Workers, areas, periods and tasks
+    are proposed for review.
+    Source plans remain unchanged.
+
+    \item[A6 --- Actual work is used as a basis.]
+    The user selects previously recorded work.
+    Its workers, areas, periods and tasks
+    are proposed as planning information
+    for the target dates.
+    Confirmed attendance and actual work records
+    are not copied to those dates.
+
+    \item[A7 --- Target dates already contain plans.]
+    The system identifies the existing plans.
+    Reuse does not silently overwrite
+    or duplicate them.
+    Changes require explicit review.
+
+    \item[A8 --- A worker is inactive.]
+    The system identifies the inactive worker
+    and requires an eligible selection
+    or authorised reactivation.
+    Existing future plans are flagged
+    rather than silently edited.
+
+    \item[A9 --- Periods overlap.]
+    The system blocks conflicting periods,
+    considering the worker's relevant plans
+    across properties, parcels and campaigns.
+
+    \item[A10 --- Work crosses midnight.]
+    The user records the start and end
+    with sufficient date information.
+    The period belongs to the working date
+    on which it starts.
+    Validation considers the full interval,
+    including its continuation into the next day.
+
+    \item[A11 --- A worker is removed or replaced.]
+    Before actual work has been recorded
+    for the affected daily area context,
+    the user may confirm removal or replacement.
+    Other assignments remain unchanged.
+
+    \item[A12 --- Actual work already exists.]
+    The corresponding plan remains
+    the reference for what was expected.
+    Differences are recorded as actual work
+    or handled through the work-correction process.
+
+    \item[A13 --- The device is offline.]
+    The user may create or adjust plans
+    using prepared authorised data.
+    The system identifies the changes
+    as pending synchronisation.
+
+    \item[A14 --- Planned breaks are entered.]
+    The user identifies break start and end times
+    and their intended counting treatment.
+    The system prevents duplicate deductions
+    in any displayed planned-duration calculation.
+    These values remain subject to actual confirmation.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On success:}
+Daily plans identify the selected campaign,
+working dates, areas and workers,
+with any supplied periods and tasks.
+
+\textbf{On reuse:}
+Target plans are independent of their source.
+Editing a target day does not modify
+the source or other target days.
+
+\textbf{On pending synchronisation:}
+Local plans remain distinguishable
+from server-accepted plans.
+
+\textbf{On cancellation or rejection:}
+Previously accepted information remains unchanged.
+
+\textbf{In all cases:}
+Planning does not confirm attendance,
+create actual hours or modify source actual work.
+
+Period validation follows \identifier{FR-026}; counted-time interpretation is defined in Section~\ref{sec:counted-working-time}.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:024]{\identifier{FR-024}}, \hyperref[fr:025]{\identifier{FR-025}}, \hyperref[fr:026]{\identifier{FR-026}}, \hyperref[fr:027]{\identifier{FR-027}}, \hyperref[fr:029]{\identifier{FR-029}}.
+
+\hyperref[br:015]{\identifier{BR-015}}, \hyperref[br:016]{\identifier{BR-016}}, \hyperref[br:017]{\identifier{BR-017}}, \hyperref[br:019]{\identifier{BR-019}}, \hyperref[br:021]{\identifier{BR-021}}.
+
+\paragraph{Decision References}
+\decisionref{Q-WF-04}, \decisionref{Q-AA-04}, \decisionref{Q-WF-02}.
