@@ -10,7 +10,7 @@ export class SyncService {
     private readonly tasks: TasksService,
   ) {}
 
-  /** Idempotente por mutationId e last-write-wins por updatedAt. */
+  /** Uses mutationId for idempotency and updatedAt for last-write-wins conflict resolution. */
   async push(mutations: Mutation[]): Promise<{ applied: string[] }> {
     const applied: string[] = [];
     for (const m of mutations) {
@@ -39,7 +39,7 @@ export class SyncService {
     return { applied };
   }
 
-  /** Cursor = maior updatedAt (epoch ms) devolvido; inclui registos apagados (soft delete). */
+  /** The cursor is the largest returned updatedAt value (epoch milliseconds). Results include soft-deleted records. */
   async pull(since: number): Promise<PullResponse> {
     const tasks = await this.tasks.changedSince(since);
     const cursor = tasks.length ? tasks[tasks.length - 1].updatedAt : since;

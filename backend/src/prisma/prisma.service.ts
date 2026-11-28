@@ -9,7 +9,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     try {
       await this.$connect();
     } catch (e) {
-      // A API arranca mesmo sem BD para que /api/health responda; os erros de BD surgem por pedido.
+      // The API can start without the database so /api/health can respond. Database requests fail individually.
       this.logger.error(`Sem ligação ao PostgreSQL: ${(e as Error).message}`);
     }
   }

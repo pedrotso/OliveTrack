@@ -17,7 +17,7 @@ async function push() {
   const { applied } = (await res.json()) as { applied: string[] }
   await db.transaction('rw', db.outbox, db.tasks, async () => {
     await db.outbox.bulkDelete(applied)
-    // marca como synced as tarefas sem mutações pendentes
+    // Mark tasks with no pending mutations as synced.
     const pendingIds = new Set((await db.outbox.toArray()).map((o) => o.data.id))
     await db.tasks
       .where('syncStatus')
@@ -36,7 +36,7 @@ async function pull() {
   await db.transaction('rw', db.tasks, db.outbox, db.meta, async () => {
     const pendingIds = new Set((await db.outbox.toArray()).map((o) => o.data.id))
     for (const t of tasks) {
-      if (pendingIds.has(t.id)) continue // alterações locais pendentes ganham até ao push
+      if (pendingIds.has(t.id)) continue // Keep pending local changes until the push completes.
       const local = await db.tasks.get(t.id)
       if (!local || local.updatedAt <= t.updatedAt) await db.tasks.put({ ...t, syncStatus: 'synced' })
     }

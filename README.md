@@ -1,139 +1,93 @@
 # OliveTrack
 
-Plataforma de gestão de colheita de azeitona — projeto final da unidade curricular de Gestão de Projetos (MIACD, DEI/FCTUC).
+Olive harvest management platform for the Project Management course (MIACD, DEI/FCTUC).
 
-Monorepo com três workspaces npm: PWA offline-first (`frontend`), API modular (`backend`) e contratos partilhados (`shared`).
+The repository contains three npm workspaces: an offline-first PWA (`frontend`), a modular API (`backend`), and shared contracts (`shared`). The current skeleton uses a sample task workflow to demonstrate these foundations.
+
+The [project report](report/report.pdf) and its [LaTeX sources](report/) are in the `report` folder.
 
 ## Stack
 
-| Camada | Tecnologias |
+| Layer | Technologies |
 | --- | --- |
-| Frontend | React 19, TypeScript, Vite 8, Tailwind CSS 4, PWA (`vite-plugin-pwa`), IndexedDB via Dexie, TanStack Query |
+| Frontend | React 19, TypeScript, Vite 8, Tailwind CSS 4, `vite-plugin-pwa`, IndexedDB with Dexie, TanStack Query |
 | Backend | Node.js, NestJS 11, Prisma 6, Zod, PostgreSQL 16 |
-| Partilhado | `@app/shared` — tipos e esquemas Zod usados por frontend e backend |
-| Infra | Docker Compose (Postgres 16) |
+| Shared | `@app/shared`, with TypeScript types and Zod schemas for both applications |
+| Infrastructure | Docker Compose with PostgreSQL 16 |
 
-## Estrutura
+## Repository structure
 
-```
+```text
 OliveTrack/
-├── package.json              # workspaces + scripts agregados
-├── docker-compose.yml        # serviço db (postgres:16, porta 5432)
-├── frontend/                 # PWA Vite + React
-│   ├── index.html
-│   ├── vite.config.ts        # proxy /api → localhost:3001, manifest PWA
-│   └── src/
-│       ├── main.tsx
-│       ├── App.tsx
-│       ├── pages/TasksPage.tsx
-│       ├── components/PwaStatus.tsx
-│       ├── db/               # Dexie: tasks, outbox, meta
-│       └── sync/             # outbox → push, pull por cursor
-├── backend/                  # API NestJS
-│   ├── nest-cli.json
-│   ├── tsconfig.json / tsconfig.build.json
-│   ├── vitest.config.ts
-│   ├── .env.example          # DATABASE_URL, PORT, WEB_ORIGIN
-│   ├── prisma/
-│   │   ├── schema.prisma     # Task, AppliedMutation
-│   │   └── migrations/
-│   └── src/
-│       ├── main.ts           # prefixo global /api, CORS, porta 3001
-│       ├── app.module.ts
-│       ├── prisma/           # PrismaModule + PrismaService
-│       ├── health/           # GET /api/health
-│       ├── tasks/            # CRUD /api/tasks
-│       └── sync/             # POST /api/sync/push, GET /api/sync/pull
-└── shared/                   # @app/shared (compilado para dist/)
-    └── src/index.ts
+├── package.json        # Workspaces and commands for the whole project
+├── docker-compose.yml  # Local PostgreSQL 16 on port 5432
+├── frontend/           # React PWA, local data store and sync queue
+├── backend/            # NestJS API, Prisma schema and migrations
+├── shared/             # Shared types and validation schemas
+└── report/             # LaTeX sources and compiled report
 ```
 
-## Pré-requisitos
+## Local development
 
-- Node.js 20+ e npm 10+
-- Docker com o plugin Compose (para o PostgreSQL local)
+The setup was verified with Node.js 24, npm 11, and Docker with Compose. Run the following from the repository root.
 
-## Comandos
+1. Install the locked dependencies and build the shared workspace:
 
-### Instalação (uma vez)
+   ```sh
+   npm ci
+   npm run build -w shared
+   ```
 
-```bash
-npm install
-npx prisma generate --schema backend/prisma/schema.prisma
-cp backend/.env.example backend/.env
-```
+2. Copy `backend/.env.example` to `backend/.env` and adjust the values if needed.
 
-### Base de dados
+   ```sh
+   cp backend/.env.example backend/.env
+   ```
 
-```bash
-npm run db:up          # docker compose up -d db
-npm run db:migrate     # prisma migrate dev (backend)
-```
+   In PowerShell, use `Copy-Item backend/.env.example backend/.env` for the same step.
 
-### Desenvolvimento
+3. Start PostgreSQL, apply the migrations, and start both applications:
 
-```bash
-npm run dev            # frontend (:5173) + backend (:3001) em paralelo
-```
+   ```sh
+   npm run db:up
+   npm run db:migrate
+   npm run dev
+   ```
 
-Ou separadamente:
+The frontend runs at `http://localhost:5173` and proxies `/api` to the backend at `http://localhost:3001`. Run `npm run dev -w frontend` or `npm run dev -w backend` to start a workspace separately. To stop development, press `Ctrl+C` and run `docker compose down` to stop PostgreSQL.
 
-```bash
-npm run dev -w backend     # nest start --watch  → http://localhost:3001/api
-npm run dev -w frontend    # vite               → http://localhost:5173
-```
+## Build and checks
 
-### Build e execução
-
-```bash
-npm run build              # shared → backend → frontend
-npm run start -w backend   # node dist/main.js
+```sh
+npm run build             # Builds shared, backend and frontend in order
+npm run typecheck         # Checks all three workspaces
+npm run lint              # Runs Oxlint for frontend and TypeScript checks for backend
+npm test -w backend       # Runs the existing backend tests
+npm run start -w backend  # Starts the compiled API
 npm run preview -w frontend
 ```
 
-### Qualidade
+## Sample API
 
-```bash
-npm run typecheck          # shared + frontend + backend
-npm run lint               # oxlint (frontend) + tsc --noEmit (backend)
-npm test -w backend        # vitest
-```
-
-### Parar
-
-```bash
-docker compose down        # parar a base de dados
-```
-
-`Ctrl+C` nos processos de `npm run dev`.
-
-## Endpoints da API
-
-Prefixo global `/api`.
-
-| Método | Rota | Descrição |
+| Method | Route | Purpose |
 | --- | --- | --- |
-| GET | `/api/health` | Estado do serviço (`{"ok":true}`) |
-| GET | `/api/tasks` | Listar tarefas |
-| POST | `/api/tasks` | Criar tarefa |
-| GET | `/api/tasks/:id` | Obter tarefa |
-| PUT | `/api/tasks/:id` | Atualizar tarefa |
-| DELETE | `/api/tasks/:id` | Remover tarefa (soft delete) |
-| POST | `/api/sync/push` | Aplicar mutações da outbox |
-| GET | `/api/sync/pull?since=` | Pull incremental por cursor |
+| GET | `/api/health` | Check whether the API process responds (`{"ok":true}`) |
+| GET | `/api/tasks` | List tasks |
+| POST | `/api/tasks` | Create a task |
+| GET | `/api/tasks/:id` | Retrieve a task |
+| PUT | `/api/tasks/:id` | Update a task |
+| DELETE | `/api/tasks/:id` | Mark a task as deleted |
+| POST | `/api/sync/push` | Apply queued local changes |
+| GET | `/api/sync/pull?since=` | Retrieve changes after a cursor |
 
-## Variáveis de ambiente
+The API can start without PostgreSQL. In that state, `/api/health` still responds, while routes that use the database return errors.
 
-Definidas em `backend/.env` (não versionado), a partir de `backend/.env.example`:
+## Backend environment
 
-| Variável | Valor por omissão | Descrição |
+| Variable | Local example | Purpose |
 | --- | --- | --- |
-| `DATABASE_URL` | `postgresql://app:app@localhost:5432/app?schema=public` | Ligação ao PostgreSQL |
-| `PORT` | `3001` | Porta da API |
-| `WEB_ORIGIN` | `http://localhost:5173` | Origem permitida em CORS |
+| `DATABASE_URL` | `postgresql://app:app@localhost:5432/app?schema=public` | Connect to local PostgreSQL |
+| `PORT` | `3001` | Set the API port |
+| `WEB_ORIGIN` | `http://localhost:5173` | Set the browser origin allowed by CORS |
 
-## Notas
-
-- Sem PostgreSQL acessível, a API arranca na mesma: `/api/health` responde 200 e os endpoints que tocam na base de dados devolvem 500.
-- Se a porta 5432 estiver ocupada, altera o mapeamento em `docker-compose.yml` para `"5433:5432"` e ajusta `DATABASE_URL`.
-- O grupo `docker` só fica ativo numa sessão nova após `sudo usermod -aG docker $USER`.
+If port 5432 is in use, change the published port in `docker-compose.yml` and update `DATABASE_URL` to match. For example, use `5433:5432` and set the URL port to `5433`.

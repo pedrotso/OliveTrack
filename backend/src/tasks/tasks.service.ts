@@ -74,7 +74,7 @@ export class TasksService {
     }
   }
 
-  /** Registos alterados depois de `since` (epoch ms), incluindo apagados, por ordem de updatedAt. */
+  /** Returns records changed after `since` (epoch milliseconds), including soft-deleted records, ordered by updatedAt. */
   async changedSince(since: number, take = 1000): Promise<Task[]> {
     const rows = await this.prisma.task.findMany({
       where: { updatedAt: { gt: new Date(since) } },
