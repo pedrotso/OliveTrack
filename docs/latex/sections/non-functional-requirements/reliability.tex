@@ -1,0 +1,130 @@
+\label{sec:nfr-reliability}
+These requirements protect accepted data and recoverable proposals during retries,
+concurrent edits, interrupted transfers, upgrades and central recovery. The protocol
+in Section~\ref{sec:offline-sync} supplies the interaction detail; the synchronisation
+state definitions remain in Section~\ref{sec:sync-states}. Backup and service targets
+are approved specification targets, not measured outcomes or provider guarantees.
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-01} --- Idempotent server processing}\label{nfr:REL-01}
+Every mutating operation shall have the same business effect however many times it is submitted.
+
+\textit{Rationale:} Retries after disconnection must not duplicate business records or signatures.
+
+\textit{Related:} \hyperref[fr:001]{\identifier{FR-001}}, \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:006]{\identifier{FR-006}}, \hyperref[fr:029]{\identifier{FR-029}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:048]{\identifier{FR-048}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Mutations carry stable operation\_id, origin, payload fingerprint and dependencies. Persist minimal outcomes for 90 days after processing. Identical retries have one effect; reused IDs with different content are refused. Expired-context submissions require reviewed recovery, never blind replay that could duplicate effects or recreate deleted records.
+\item Creation of users, memberships, attendance, deliveries, document versions and signatures is protected against duplicate retries.
+\item Related database changes and the idempotency outcome commit atomically. Transfers to object storage have a recoverable readiness/cleanup protocol; this is not a claim of one database/object-store transaction.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-02} --- Optimistic concurrency and conflict resolution}\label{nfr:REL-02}
+Concurrent changes to shared records shall never be silently overwritten.
+
+\textit{Rationale:} Supports informed user review of competing corrections.
+
+\textit{Related:} \hyperref[fr:008]{\identifier{FR-008}}, \hyperref[fr:036]{\identifier{FR-036}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:043]{\identifier{FR-043}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Every mutable shared record has a server-managed revision, and each update carries the client's base revision.
+\item A version mismatch never overwrites accepted server state; the pending proposal is preserved.
+\item The user sees accepted and proposed values side by side for authorised manual review.
+\item Resubmission after review revalidates permissions, campaign state, dependencies and business rules.
+\item Automatic last-write-wins is not used for any persisted business record.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-03} --- Cross-entity integrity and consistent calculations}\label{nfr:REL-03}
+The API and the database shall enforce integrity rules, and server-side validation shall be authoritative even for data entered offline.
+
+\textit{Rationale:} Ensures dashboard correctness and prevents cross-workspace or cross-campaign corruption.
+
+\textit{Related:} \hyperref[fr:026]{\identifier{FR-026}} to \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:046]{\identifier{FR-046}} to \hyperref[fr:062]{\identifier{FR-062}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Foreign-key, uniqueness, business-scope and status-transition constraints are enforced.
+\item Actual work periods are not double counted across assignments, campaigns or adjacent dates.
+\item Delivery-based totals require Delivered, non-cancelled parents under \hyperref[br:038]{\identifier{BR-038}}. Pre-arrival source data awaits receipt confirmation. Ticket deductions are not applied twice; missing analyses are not treated as zero.
+\item For one ticket, replacing a provisional amount with final retains one current valuation, never additive revisions. Separate provisional/final totals across different eligible tickets remain valid and do not imply payments.
+\item Server-side validation prevails over local validation for data that originated offline.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-04} --- Central backup and tested recovery}\label{nfr:REL-04}
+Central data shall be backed up and recoverable within stated targets.
+The recovery point objective (RPO) bounds the recoverable data-loss window;
+the recovery time objective (RTO) bounds the time to restore the agreed service
+after a declared incident. Record both measurement boundaries in the rehearsal.
+
+\textit{Rationale:} Makes central persistence recoverable; measurable objectives depend on an agreed deployment and a rehearsed restore procedure.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:038]{\identifier{FR-038}} to \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:046]{\identifier{FR-046}} to \hyperref[fr:062]{\identifier{FR-062}}; \hyperref[br:026]{\identifier{BR-026}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Automate encrypted central database and compatible file/evidence backups at least daily. Preserve database/file dependencies together, restrict access and alert on failed scheduled backups.
+\item Retain central backups for at least 14 days. This is a recovery policy, not an employment or signed-document retention period or proof of immediate erasure from all backups.
+\item Rehearse RPO at most 24 hours and RTO at most four hours against the agreed deployment/data restore scope. The accepted RPO permits up to 24 hours of central-data loss. These targets do not recover unsent records on a lost device.
+\item Before restoring ordinary service, reapply retained authorised deletion/restriction and access decisions that postdate the backup. Retain recovery metadata independently long enough to enforce them; if it is insufficient, quarantine affected data rather than exposing erased/restricted records.
+\item At least one representative restore rehearsal is performed before operational deployment, validating relationships and accessible retained document versions.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-05} --- Monitoring and incident response}\label{nfr:REL-05}
+Failures shall be detected and reach a named team contact during the harvest period.
+
+\textit{Rationale:} Field work may continue locally during cloud incidents, but failures must be detected for recovery and eventual synchronisation.
+
+\textit{Related:} \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:048]{\identifier{FR-048}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Monitoring covers API reachability, elevated error rates, failed scheduled backups, storage capacity and abnormal synchronisation failures.
+\item Alerts reach an assigned operational contact under a documented response arrangement and produce an incident record. The response coverage and thresholds must be agreed; no unapproved round-the-clock service guarantee is implied.
+\item Monitoring complies with \hyperref[nfr:PRV-06]{\identifier{PRV-06}}.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-06} --- Validated deployments and rollback}\label{nfr:REL-06}
+Releases shall be tested, reversible and safe for devices holding queued work.
+
+\textit{Rationale:} Protects campaign continuity from software releases made while clients are disconnected.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:045]{\identifier{FR-045}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Changes pass automated tests and schema-compatibility checks in a staging environment before release.
+\item A deployable previous version and a documented rollback procedure, including migration compatibility, are preserved.
+\item A release never discards locally queued changes or requires a destructive upgrade.
+\item Staging and test environments use synthetic or appropriately anonymised data (\hyperref[nfr:PRV-02]{\identifier{PRV-02}}).
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-07} --- Older PWA client compatibility}\label{nfr:REL-07}
+Devices running an earlier PWA release shall still be able to synchronise or be told how to recover.
+
+\textit{Rationale:} Prepared clients may run old releases; an expired offline grant still leaves pending data requiring safe recovery.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:043]{\identifier{FR-043}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Support the immediately preceding client release and required payload formats for 30 days after a new release. Preserve queued records/files from unsupported or stale contexts for reviewed recovery; refresh prepared data without blind replay. The server-issued context, not device time alone, establishes eligibility.
+\item Schema transformations never silently discard fields or reinterpret identifiers.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{REL-08} --- Revoked-access and rejected-operation recovery}\label{nfr:REL-08}
+Pending operations associated with a revoked business membership, and rejected
+operations, shall remain protected and recoverable under the applicable review
+procedure. Revoking membership does not revoke the account in other businesses.
+
+\textit{Rationale:} Implements the \hyperref[fr:008]{\identifier{FR-008}} recovery flow and offline signing safety.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:008]{\identifier{FR-008}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:045]{\identifier{FR-045}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Revoking a manager membership immediately denies normal online actions in that business. Disconnected enforcement follows \hyperref[br:002]{\identifier{BR-002}} and \hyperref[nfr:AOC-02]{\identifier{AOC-02}}; the manager role is included.
+\item After origin-account authentication, allow restricted recovery submission without normal business read/write access. The owner accepts or rejects each proposal. Acceptance is new explicit authorisation, subject to normal lifecycle, date, coverage, revision, dependency and integrity checks. Client timestamps do not prove pre-revocation creation; automatic distinction from fabricated prior work is not promised. Concrete protected transport/quarantine/expiry remain implementation validation tasks.
+\item The originating account and the accepting owner are recorded as distinct in the recovery event.
+\item Rejected/conflicting/uncertain outcomes remain distinct and recoverable. A replacement deletes the superseded source; pending signing against it is rejected and cannot be transferred or resurrected. Withdrawn/deleted sources permit inspection/rejection with a reason, not owner-authorised signature validity or automatic resurrection. A valid current source needs fresh worker review and signing. The team defines/tests protected temporary recovery and cleanup within the no-history policy.
+\end{enumerate}
+
+\paragraph{Synchronisation metadata lifetime.}
+Retain authorised change-feed/deletion markers for 90 days. Beyond the supported
+window, require a scoped refresh and reviewed recovery of older proposals; never
+infer that a missing operation outcome means an unprocessed operation. Validate
+server-context expiry and anti-resurrection safeguards in the technical slice.
+These metadata are not a permanent business correction history and do not replace
+security-event or document retention.

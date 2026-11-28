@@ -1,0 +1,140 @@
+\subsection{\identifier{UC-09} --- Consult Work Schedules}
+\label{uc:09}
+
+\paragraph{Purpose}
+
+Allow an authorised user to consult planned work
+by day, by worker or by week,
+within the selected harvest campaign.
+
+Consultation does not modify plans
+or establish actual attendance.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with the relevant consultation permissions granted by the owner.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The selected campaign exists.
+    \item The user is authorised to consult
+    the requested information.
+    \item Offline consultation requires
+    the relevant plans and reference information
+    to be available on the device.
+\end{itemize}
+
+An existing plan is not a precondition:
+a valid query may return no planned work.
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user opens schedule consultation
+    and selects a campaign.
+    \item The user chooses a daily,
+    worker-based or weekly view.
+    \item The user selects the relevant date,
+    week or worker consultation period.
+    \item The user may filter by property,
+    parcel, worker and planned task type.
+    \item The system retrieves the matching
+    authorised plans.
+    \item The system displays the workers,
+    working dates, properties or parcels,
+    planned periods, task types
+    and any recorded planned breaks.
+    \item Missing hours or task types
+    are identified as not yet defined.
+    \item The system identifies relevant
+    synchronisation and freshness information.
+    \item The user may change the view
+    or filters and repeat the consultation.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- No matching plan exists.]
+    After a successful query, the system states
+    that no planned work matches the selection.
+    This does not establish worker absence.
+
+    \item[A2 --- A plan has incomplete details.]
+    The system displays the known information.
+    Missing hours or task types are shown
+    as not yet defined, not as zero hours
+    or an assumed task.
+
+    \item[A3 --- Several areas are included.]
+    The system can display all authorised
+    areas of the selected campaign together.
+    Each assignment retains its property
+    and optional parcel identification.
+
+    \item[A4 --- A period crosses midnight.]
+    The system displays the period under
+    its start date and identifies
+    the end date and time.
+
+    \item[A5 --- A planned worker is inactive.]
+    The system identifies the inactive status.
+    The saved assignment is not silently removed.
+    Any change follows \identifier{UC-08}.
+
+    \item[A6 --- Local changes are pending.]
+    The system identifies locally saved plans
+    or changes awaiting synchronisation.
+    They are not presented as server-confirmed.
+
+    \item[A7 --- The device is offline.]
+    The system displays prepared authorised
+    plans for the current and following week,
+    together with the last successful
+    synchronisation information.
+
+    \item[A8 --- Requested information is not local.]
+    The system explains that the information
+    is unavailable without connectivity.
+    It does not claim that no plan exists.
+
+    \item[A9 --- Retrieval fails.]
+    The system explains the failure
+    and offers a retry where appropriate.
+    A failed query is distinguishable
+    from a successful query with no results.
+
+    \item[A10 --- Access is restricted.]
+    The system excludes unauthorised information
+    and identifies the scope being displayed
+    without exposing protected details.
+
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On success:}
+Matching authorised plans are displayed,
+or a successful query confirms no matching plans.
+
+\textbf{On offline or incomplete consultation:}
+The system identifies the available scope
+and relevant limitations.
+
+\textbf{In all cases:}
+Consultation does not modify plans,
+confirm attendance or create actual hours.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:028]{\identifier{FR-028}}.
+
+\hyperref[br:017]{\identifier{BR-017}}, \hyperref[br:019]{\identifier{BR-019}}, \hyperref[br:021]{\identifier{BR-021}}.
+
+\paragraph{Decision References}
+\decisionref{Q-AA-04}, \decisionref{Q-AA-05}.

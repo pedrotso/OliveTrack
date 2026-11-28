@@ -1,0 +1,36 @@
+\section{Non-Functional Requirements}
+\label{sec:non-functional-requirements}\label{sec:nfr-traceability}
+This section specifies verifiable performance, usability, accessibility, security,
+privacy, reliability and offline-continuity properties for the functional baseline.
+
+\paragraph{Status and verification.}\label{sec:nfr-targets}
+The working-specification status in Section~\ref{sec:document-status} applies.
+Existing policies are 15-day offline authorisation, separate 30-day cache inactivity
+cleanup and the 10~MB upload limit. Authentication, recovery, availability,
+performance and usability targets have now been approved for this specification.
+Concrete mechanisms, deployment resources and execution evidence remain team tasks under
+the residual validations in Section~\ref{sec:validation-pending}. Verification requires configuration and
+recorded evidence.
+
+Use \identifier{PERF-01}--\identifier{PERF-08}, \identifier{USA-01}--\identifier{USA-09},
+\identifier{SEC-01}--SEC-11, \identifier{PRV-01}--PRV-07, \identifier{REL-01}--REL-08 and \identifier{AOC-01}--AOC-06 with lettered
+criteria, for example \identifier{SEC-03(d)}. Each requirement's \emph{Related}
+links identify its functional applicability; Section~\ref{sec:nfr-validation}
+provides planned verification scenarios. Record approved configuration, stimulus,
+environment, expected response and observed measure when executing a quality
+scenario.
+
+\subsection{Performance}\label{sec:nfr-performance}
+\input{sections/non-functional-requirements/performance}
+
+\subsection{Usability and Accessibility}\label{sec:nfr-usability}
+\input{sections/non-functional-requirements/usability}
+
+\subsection{Security}
+\input{sections/non-functional-requirements/security}
+\subsection{Privacy}
+\input{sections/non-functional-requirements/privacy}
+\subsection{Reliability and Recovery}
+\input{sections/non-functional-requirements/reliability}
+\subsection{Availability and Offline Continuity}
+\input{sections/non-functional-requirements/offline-continuity}

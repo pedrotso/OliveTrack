@@ -1,0 +1,116 @@
+\label{sec:nfr-privacy}
+Protect account data and worker records, including required official identification,
+insurance, employment documents, drawn signatures and examination-consent choices.
+Clinical findings are outside this form workflow. Source member references and
+official worker identifiers remain protected business data. The processing basis and
+retention duties must be validated for the actual context; technical controls alone
+do not establish GDPR compliance. \identifier{PRV-04} defines governance procedures without
+silently adding account deletion or worker self-service to the functional scope.
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-01} --- Personal-data minimisation and purpose limitation}\label{nfr:PRV-01}
+The application shall collect and expose only the personal data needed for documented purposes.
+
+\textit{Rationale:} Workers have no management accounts; owners and authorised managers process their records within a business workspace.
+
+\textit{Related:} \hyperref[fr:020]{\identifier{FR-020}} to \hyperref[fr:023]{\identifier{FR-023}}, \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:053]{\identifier{FR-053}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Document the purpose and necessity of account/worker attributes, including the official type, country and number required by \hyperref[fr:020]{\identifier{FR-020}}. Required entry does not itself establish a lawful basis or require collection of a scanned copy.
+\item Each cached dataset and exported report is limited to the authenticated user's authorised responsibilities.
+\item Full document contents and unrelated personal identifiers are not copied into dashboards or technical logs.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-02} --- Lawful processing and transparency}\label{nfr:PRV-02}
+The responsible business shall document the lawful basis for worker data before real data are processed.
+
+\textit{Rationale:} Consent may be inappropriate or insufficient in an employment relationship; compliance depends on purpose and legal context, not on hosting location.
+
+\textit{Related:} \hyperref[fr:020]{\identifier{FR-020}} to \hyperref[fr:023]{\identifier{FR-023}}, \hyperref[fr:038]{\identifier{FR-038}} to \hyperref[fr:045]{\identifier{FR-045}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Before real worker data are used, the purposes, applicable lawful bases, privacy notice and processor responsibilities are documented for worker records, insurance, employment documents and signatures.
+\item Do not assume that a generic GDPR consent signature authorises all employment processing. Validate the applicable basis by purpose, including any sensitive information in supplied documents; unresolved questions remain under \decisionref{Q-NFR-03}.
+\item Academic demonstration and test environments use synthetic or appropriately anonymised data unless real-data processing has been authorised.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-03} --- Protected local data and account isolation}\label{nfr:PRV-03}
+Data held on the device shall be limited, isolated by account and protected after logout or revocation.
+
+\textit{Rationale:} Prepared insurance and signing documents must be available offline while unsent work is safeguarded on logout.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:008]{\identifier{FR-008}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:045]{\identifier{FR-045}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Prepared local datasets contain only authorised required context, with pending local records/dependencies created through supported offline operations stored separately from the accepted baseline.
+\item Private data and pending operations are logically isolated by originating account and business workspace.
+\item Logout immediately blocks workspace access and isolates retained information. Disposable accepted copies may be removed under the local policy; the 30-day inactivity cleanup in \hyperref[fr:003]{\identifier{FR-003}} removes only eligible accepted copies and never pending recovery dependencies.
+\item Normal recovery requires the originating account and renewed authority. The separate revoked-manager owner-review procedure in \hyperref[fr:008]{\identifier{FR-008}}/\hyperref[nfr:REL-08]{\identifier{REL-08}} preserves original authorship without restoring normal access or exposing pending work to another account.
+\item On reconnection, refresh authority before normal protected access/acceptance and apply authorised access/deletion changes. Preserve quarantined pending proposals and required recovery files under the separate recovery policy.
+\item The system does not claim that a disconnected device can be remotely wiped immediately.
+\item Encrypt device-held personal data, protected files and pending operations, isolated by origin account and business. Logout locks protected access while preserving recovery dependencies. Another account cannot read or submit them. Concrete encryption/key lifecycle and trusted-time mechanisms require a technical proof under \decisionref{Q-DOC-07}; browser-origin isolation or screen lock alone is insufficient.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-04} --- Rights, retention and permitted erasure}\label{nfr:PRV-04}
+Personal-data requests shall follow a documented authorised procedure that respects applicable rights, dependencies and validated retention duties.
+
+\textit{Rationale:} Distinguishes rights handling from ordinary record deletion and avoids inventing unapproved self-service workflows.
+
+\textit{Related:} \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:021]{\identifier{FR-021}} to \hyperref[fr:023]{\identifier{FR-023}}, \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:041]{\identifier{FR-041}}; \hyperref[br:026]{\identifier{BR-026}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Handle consultation, correction and erasure requests manually: the owner receives/follows the request; a designated technical responsible person intervenes when necessary and authorised. No dedicated request-management portal is included.
+\item Record request identity, scope, authorisation, action and response through a controlled procedure. Assess dependencies and applicable processing duties; archival/inactivation is not itself erasure.
+\item While a source exists, its contents and signing evidence remain immutable. Successful replacement deletes the previous source, signature and PDF for every category under \identifier{BR-026}, with no inherited signature or consultable history. A failed upload preserves the current source.
+\item The agreed product rule keeps current documents until replacement rather than assigning an invented fixed number of years. Document the applicable purposes/notices and operating responsibilities before real-data use; deployment review does not assert completed legal validation.
+\item Backup expiry and restore suppression follow \identifier{REL-04}. Apply retained deletion decisions before restoring normal access; do not claim immediate erasure from every backup or disconnected device.
+\item Controlled account/data requests follow this manual procedure under \decisionref{Q-AA-07}; owner-facing business closure is excluded under \decisionref{Q-SCOPE-07}. Verified email changes under \identifier{FR-064} preserve account identity.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-05} --- Processing location and breach response}\label{nfr:PRV-05}
+Processing locations, providers and transfers shall be reviewed, and an operational personal-data incident procedure shall exist.
+
+\textit{Rationale:} Hosting location alone does not establish GDPR compliance; organisational responsibilities and transfer arrangements also matter.
+
+\textit{Related:} \hyperref[fr:001]{\identifier{FR-001}} to \hyperref[fr:008]{\identifier{FR-008}}, \hyperref[fr:038]{\identifier{FR-038}} to \hyperref[fr:045]{\identifier{FR-045}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Approve primary, backup, telemetry and support-processing locations before real-data deployment. EU-region hosting is the submitted preference for review under \decisionref{Q-NFR-03}, not a settled provider/deployment decision or a substitute for transfer assessment.
+\item Processing terms and any international transfers are verified for infrastructure, support, telemetry and email-delivery providers.
+\item An incident-response procedure identifies the controller contact, escalation route, containment and assessment steps.
+\item Where GDPR Article 33 applies, the controller assesses notification without undue delay and, where feasible, within 72 hours after awareness, unless the breach is unlikely to risk individuals' rights and freedoms. Record the assessment and any reasons for delay; applicability and responsibility are validated under \decisionref{Q-NFR-03}.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-06} --- Privacy-preserving telemetry}\label{nfr:PRV-06}
+Logs, analytics and diagnostics shall not become an uncontrolled second copy of personal or financial data.
+
+\textit{Rationale:} Observability must not expose protected documents or monetary values.
+
+\textit{Related:} \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:053]{\identifier{FR-053}} to \hyperref[fr:062]{\identifier{FR-062}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Logs, analytics, error reports, queue diagnostics and deployment artefacts minimise personal data and exclude full official identification, document bodies and captured drawings. Operational identifiers are limited to the authorised diagnostic purpose.
+\item Diagnostic records use record identifiers and minimal contextual metadata, with access control and a retention schedule.
+\item Do not copy monetary values or protected document contents into technical diagnostics. This does not prohibit authorised financial business data, prepared offline consultation or PDF indicators under \hyperref[fr:053]{\identifier{FR-053}}, \hyperref[fr:060]{\identifier{FR-060}} and \hyperref[fr:062]{\identifier{FR-062}}.
+\end{enumerate}
+
+\Needspace{7\baselineskip}
+\nfrheading{\identifier{PRV-07} --- Offline document retention and deletion propagation}\label{nfr:PRV-07}
+Offline document preparation shall be selective, and deletions made centrally shall reach local copies.
+
+\textit{Rationale:} Offline insurance and signing (\hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:045]{\identifier{FR-045}}) must not expand personal-data exposure unnecessarily.
+
+\textit{Related:} \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:042]{\identifier{FR-042}}, \hyperref[fr:045]{\identifier{FR-045}}.
+\begin{enumerate}[label=(\alph*),leftmargin=*,itemsep=1pt,topsep=3pt]
+\item Preparation covers current insurance versions for the prepared worker window and explicitly selected workers, and only specifically prepared versions for offline signing.
+\item Contracts are never bulk-downloaded automatically.
+\item Local file/reference metadata identifies the originating account and workspace, associated worker and version or authorised business target, access context and freshness and the document's single worker identity.
+\item Apply received access, withdrawal and deletion changes to prepared copies. Remove superseded accepted source, signature and PDF copies after receiving replacement deletion; route ineligible pending signing to protected temporary recovery without resurrecting the old source. A withdrawn current source remains consultable until replacement but is ineligible for signing; replaced sources have no history view; exclusive local conflicts follow \decisionref{Q-DOC-04}.
+\item Queued retries never recreate a deleted version.
+\end{enumerate}
+
+\paragraph{Regulatory reference.}
+Validate the applicable duties against
+\href{https://eur-lex.europa.eu/eli/reg/2016/679/oj}{Regulation (EU) 2016/679},
+including purpose/minimisation, lawful basis, rights, processors, security,
+notification and transfers. The incident-notification time in \identifier{PRV-05} is a conditional
+legal requirement, not a proposed service-level target or a certification of compliance.

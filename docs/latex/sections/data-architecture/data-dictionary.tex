@@ -1,0 +1,54 @@
+The complete current field inventory is maintained separately in
+\nolinkurl{technical/data-architecture/data-dictionary.tex}. The following meanings
+are essential to interpreting the condensed model.
+{\readabletable
+\begin{longtable}{L{0.31}L{0.69}}
+\caption{Key field groups and their meanings.}\label{tab:data-dictionary-summary}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Field group} & \textbf{Meaning} \\
+\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Field group} & \textbf{Meaning} \\
+\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Identity and scope & User identifies an account; Worker identifies a person within a business, using a separate UUID. Required worker fields: full name, telephone and official identification type/country/number. Workspace references and composite keys prevent cross-business links. \\
+\midrule
+Dates and timezone & Confirmed business timezone governs daily grouping; device timezone drives entry/display with preserved capture context. Full instants preserve overnight and clock-change meaning. Enter minutes; report hours/minutes. Entry, event and acceptance times differ. Only selected/expected workers await attendance; complete confirmed periods require a task. \\
+\midrule
+Delivery state & In transport, delivered or cancelled. Campaign lifecycle is separately Planned, In progress or Closed. Cancellation has reason/actor/time, preserves source records and excludes their contributions. \\
+\midrule
+Reported weights & assigned\_weight\_kg is the ticket's canonical cooperative-reported accepted assigned kg. Other weights preserve meanings/units. Unknown is NULL, not zero. \\
+\midrule
+Yield reference & yield\_percentage is the reported result. Its weighted-average reference is read through the delivery ticket, not stored again on the analysis. \\
+\midrule
+Weighing and penalties & Start/end and excess duration/unit reproduce the ticket. Monetary penalties are reported adjustments; no scale-rate calculation or second deduction follows. \\
+\midrule
+Load provenance & OliveBatch stores actual origins and known quantities separately from declared transport origin. It has no source monetary amounts; mixed-load money remains unallocated by area. No proportional or dominant-parcel allocation is inferred. \\
+\midrule
+Version protection & Keep only the current document source until successful replacement, then delete the old source, signature and PDF for every category. No consultable history; pending old-source signing is ineligible and follows \identifier{Q-DOC-04} recovery. \\
+\midrule
+Generation and renditions & Template/revision and reviewed input snapshot identify generated sources. A rendition is a worker-specific derived signed PDF linked to its source version. \\
+\midrule
+Financial/local state & Reported provisional/final status is distinct from pending/accepted synchronisation. Offline financial content requires financial authorisation. \\
+\midrule
+Files & PDF/JPG/PNG uploads have the 10~MB limit. Availability/upload state does not prove server acceptance of dependent records. \\
+\end{longtable}}
+
+\paragraph{Source integrity.}
+An accepted document source has a protected \texttt{content\_hash} under \identifier{SEC-08};
+the full dictionary records the conditional requiredness by file purpose. This is
+integrity metadata, not signer authentication or a replacement for version identity.
+
+\paragraph{Operational source fields.}
+The full reference records client-confirmed total/assigned-weight semantics, accepted percentage and independently printed duration.
+Document subtype identifies the form; reviewed inputs are version snapshots. A
+required acceptance/refusal choice is bound to signature evidence and rendered in
+the appropriate form area. Signed, server-accepted and consent accepted are separate.
+
+\paragraph{Technical account authority.}
+User.system\_role distinguishes standard users from the Technical Administrator;
+provisioned\_by\_admin\_id records the initial owner's issuer. It does not grant
+access to agricultural records/files. Workspace and initial owner membership
+remain pending until recipient activation; the complete field reference specifies
+these additions within the existing 33-entity model.

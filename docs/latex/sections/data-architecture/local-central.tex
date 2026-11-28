@@ -1,0 +1,37 @@
+The central database holds accepted records; private object storage holds accepted
+files. IndexedDB is selected to store account/workspace-isolated prepared subsets and
+durable proposals. Synchronisation follows Section~\ref{sec:offline-sync}.
+{\readabletable
+\begin{longtable}{L{0.25}L{0.43}L{0.32}}
+\caption{Local preparation and central storage responsibilities.}\label{tab:local-central}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Data group} & \textbf{Prepared / pending locally} & \textbf{Central responsibility} \\
+\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Data group} & \textbf{Prepared / pending locally} & \textbf{Central responsibility} \\
+\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Reference/plans & Assigned properties, coverage, workers and prepared plans; supported planning proposals. & Authoritative identity, grants, availability, campaign state and plan acceptance. Structure and existing-profile administration remain online; explicit starts and basic worker creation have pending dependencies. \\
+\midrule
+Attendance/work & Prepared attendance, assignments, intervals/breaks and authorised correction proposals. & Unique daily state, intervals, dates, scopes, revision/conflict validation. \\
+\midrule
+Documents/signing & Current prepared insurance and explicitly selected current sources for signing; pending drawings and worker-specific renditions. & Version/file readiness, signer eligibility, evidence, current-only replacement deletion and accepted rendition; old-source signing is invalidated. Source generation remains online. \\
+\midrule
+Deliveries/results & Prepared deliveries, tickets/accepted assigned kg, analyses and supported entry/correction/cancellation proposals; separate attachment status. & Single ticket/analysis constraints, provenance, cancellation/dependency validation and source files. \\
+\midrule
+Financial information & Permitted prepared values, penalties, financial/mixed files and consultation/entry/correction proposals. & Financial authorisation, current valuation and accepted source amounts. No unrestricted preparation or automatic redaction. \\
+\midrule
+Indicators/PDF & Available baseline plus identifiable proposals; local arrival may enable provisional results. Financial results require grants. Record scope, freshness, exclusions and pending status. & Server-accepted arrivals and source values; only Delivered, non-cancelled parents contribute under \identifier{BR-038}. \\
+\end{longtable}}
+
+Operation envelopes, revisions, change cursors, deletion markers and dependency
+ordering follow Section~\ref{sec:offline-sync}. The local store retains complete
+pending worker identification and stable UUID references across attendance, work
+and driving. Accept parent identities and campaign starts before dependants,
+preserving proposals needing resolution. Document source acceptance is online;
+only accepted individual sources may be prepared for offline signing.
+
+Local loss may destroy proposals never received centrally. Offline access follows
+\hyperref[br:002]{\identifier{BR-002}}; local-only/cloud-only selectable modes are outside scope.
+Routine interaction follows Section~\ref{sec:offline-interaction}.

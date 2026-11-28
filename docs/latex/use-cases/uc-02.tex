@@ -1,0 +1,125 @@
+\subsection{\identifier{UC-02} --- Log In and Log Out}
+\label{uc:login-logout}
+\label{uc:02}
+
+\paragraph{Purpose}
+
+Authenticate an account holder, establish access to
+    an authorised business workspace and allow the user
+    to terminate the session.
+
+\paragraph{Actors}
+
+Farm Owner; Field Manager with delegated access; Technical Administrator within technical scope.
+
+\paragraph{Preconditions}
+
+For login, an activated account exists and an
+    internet connection is available.
+    For logout, a session exists on the device.
+
+\paragraph{Main Flow --- Login}
+
+\begin{enumerate}
+        \item The user opens the login screen.
+        \item The user enters an email address and password.
+        \item The system validates the credentials and
+        account status.
+        \item The system determines the user's current
+        business access and permissions.
+        \item The system establishes an authenticated session.
+        \item The system opens the authorised business workspace or the restricted technical provisioning view according to the verified authority.
+        \item The system offers supported offline preparation to authorised business users. Technical provisioning requires connectivity.
+    \end{enumerate}
+
+\paragraph{Main Flow --- Logout}
+
+\begin{enumerate}
+        \item The user selects logout.
+        \item The system identifies any local changes that
+        have not yet been accepted by the server.
+        \item The system informs the user of pending changes
+        and provides a synchronisation option when online.
+        \item The user confirms logout.
+        \item The system terminates the session on the device
+        and blocks access to the workspace.
+        \item The system preserves pending changes in protected
+        local storage for recovery through the originating
+        account, subject to renewed authorisation.
+    \end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{enumerate}[label=A\arabic*.]
+        \item \textbf{Invalid credentials:}
+        Access is refused using a response that does not
+        unnecessarily reveal which credential was incorrect.
+
+        \item \textbf{Unverified account:}
+        Workspace access is refused and the user is offered
+        a route to complete verification.
+
+        \item \textbf{No authorised business access:}
+        Authentication does not grant access to a business
+        from which the account has been removed.
+
+        \item \textbf{No connection during login:}
+        A new online authentication cannot be completed.
+        Previously authorised offline use follows the
+        established offline-session policy.
+
+        \item \textbf{Expired or invalid session:}
+        The system requests renewed authentication before
+        protected online operations continue.
+
+        \item \textbf{Logout while offline:}
+        The local session is terminated and workspace access
+        is blocked. Any server-side invalidation requiring
+        connectivity is completed when communication
+        becomes possible.
+
+        \item \textbf{Pending synchronisation failure:}
+        The user may still log out.
+        Pending changes are not silently discarded or
+        exposed to another account.
+
+        \item \textbf{Local inactivity cleanup:} On application opening, check
+        account/business/device inactivity before updating last use. After 30 days,
+        remove only eligible centrally accepted copies, preserving pending proposals
+        and their recovery files. Removed copies need connected preparation again.
+        Central records are unchanged; cleanup does not renew offline authorisation.
+        \item \textbf{Explicit discard:} Only the authenticated originating user may
+        confirm discard of selected pending work after a warning identifying the
+        loss. Logout alone does not discard it.
+        \item \textbf{Offline authorisation expires:} Apply
+        \hyperref[br:002]{\identifier{BR-002}} and \hyperref[fr:004]{\identifier{FR-004}}: only successful
+        online permissions validation renews access. Expiry blocks consultation
+        and new operations while preserving protected pending dependencies.
+    \end{enumerate}
+
+\paragraph{Postconditions on Login}
+
+The user can access only the authorised business
+    information and operations.
+
+\paragraph{Postconditions on Logout}
+
+The workspace is inaccessible through the terminated
+    local session.
+    Pending data, if any, remains protected and is not
+    transferred to another account.
+
+\paragraph{Connectivity}
+
+Login and online permission validation require internet.
+    Supported offline work requires previous authentication
+    and locally available authorised data.
+    Logout is available online and offline.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:002]{\identifier{FR-002}}, \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}.
+
+\hyperref[br:002]{\identifier{BR-002}}, \hyperref[br:003]{\identifier{BR-003}}, \hyperref[br:004]{\identifier{BR-004}}.
+
+\paragraph{Decision References}
+\decisionref{D-19}, \decisionref{D-22}, \decisionref{Q-AA-04}, \decisionref{Q-AA-05}.

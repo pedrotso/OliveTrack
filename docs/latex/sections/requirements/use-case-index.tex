@@ -1,0 +1,55 @@
+This reverse index records the main and supporting functional requirements
+explicitly linked by each use case. Supporting links identify dependencies, not
+additional ownership of the same capability.
+Each use case also links to its requirements and business rules, while each NFR
+identifies the functional capabilities it constrains. These links support impact
+analysis and criterion-level verification; they do not establish implementation
+or exhaustive test coverage.
+
+{\compacttable
+\begin{longtable}{L{0.17}L{0.83}}
+\caption{Use-case index to the functional catalogue.}\label{tab:uc-fr-index}\\
+\toprule\rowcolor{TableHeader}\textbf{Use case} & \textbf{Main and related functional requirements}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}\textbf{Use case} & \textbf{Main and related functional requirements}\\\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\hyperref[uc:01]{\identifier{UC-01}} & \hyperref[fr:001]{\identifier{FR-001}}\\
+\midrule
+\hyperref[uc:02]{\identifier{UC-02}} & \hyperref[fr:002]{\identifier{FR-002}}, \hyperref[fr:003]{\identifier{FR-003}}, \hyperref[fr:004]{\identifier{FR-004}}\\
+\midrule
+\hyperref[uc:03]{\identifier{UC-03}} & \hyperref[fr:005]{\identifier{FR-005}}, \hyperref[fr:064]{\identifier{FR-064}}\\
+\midrule
+\hyperref[uc:04]{\identifier{UC-04}} & \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:006]{\identifier{FR-006}}, \hyperref[fr:007]{\identifier{FR-007}}, \hyperref[fr:008]{\identifier{FR-008}}\\
+\midrule
+\hyperref[uc:05]{\identifier{UC-05}} & \hyperref[fr:009]{\identifier{FR-009}}, \hyperref[fr:010]{\identifier{FR-010}}, \hyperref[fr:011]{\identifier{FR-011}}, \hyperref[fr:012]{\identifier{FR-012}}, \hyperref[fr:013]{\identifier{FR-013}}\\
+\midrule
+\hyperref[uc:06]{\identifier{UC-06}} & \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:010]{\identifier{FR-010}}, \hyperref[fr:014]{\identifier{FR-014}}, \hyperref[fr:015]{\identifier{FR-015}}, \hyperref[fr:016]{\identifier{FR-016}}, \hyperref[fr:017]{\identifier{FR-017}}, \hyperref[fr:018]{\identifier{FR-018}}, \hyperref[fr:019]{\identifier{FR-019}}\\
+\midrule
+\hyperref[uc:07]{\identifier{UC-07}} & \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:021]{\identifier{FR-021}}, \hyperref[fr:022]{\identifier{FR-022}}, \hyperref[fr:023]{\identifier{FR-023}}\\
+\midrule
+\hyperref[uc:08]{\identifier{UC-08}} & \hyperref[fr:024]{\identifier{FR-024}}, \hyperref[fr:025]{\identifier{FR-025}}, \hyperref[fr:026]{\identifier{FR-026}}, \hyperref[fr:027]{\identifier{FR-027}}, \hyperref[fr:029]{\identifier{FR-029}}\\
+\midrule
+\hyperref[uc:09]{\identifier{UC-09}} & \hyperref[fr:028]{\identifier{FR-028}}\\
+\midrule
+\hyperref[uc:10]{\identifier{UC-10}} & \hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:016]{\identifier{FR-016}}, \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:030]{\identifier{FR-030}}, \hyperref[fr:031]{\identifier{FR-031}}, \hyperref[fr:032]{\identifier{FR-032}}, \hyperref[fr:033]{\identifier{FR-033}}, \hyperref[fr:034]{\identifier{FR-034}}, \hyperref[fr:035]{\identifier{FR-035}}\\
+\midrule
+\hyperref[uc:11]{\identifier{UC-11}} & \hyperref[fr:033]{\identifier{FR-033}}, \hyperref[fr:036]{\identifier{FR-036}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:061]{\identifier{FR-061}}\\
+\midrule
+\hyperref[uc:12]{\identifier{UC-12}} & \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:039]{\identifier{FR-039}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:044]{\identifier{FR-044}}\\
+\midrule
+\hyperref[uc:13]{\identifier{UC-13}} & \hyperref[fr:040]{\identifier{FR-040}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:044]{\identifier{FR-044}}, \hyperref[fr:063]{\identifier{FR-063}}\\
+\midrule
+\hyperref[uc:14]{\identifier{UC-14}} & \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:042]{\identifier{FR-042}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:044]{\identifier{FR-044}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:063]{\identifier{FR-063}}\\
+\midrule
+\hyperref[uc:15]{\identifier{UC-15}} & \hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:046]{\identifier{FR-046}}, \hyperref[fr:047]{\identifier{FR-047}}, \hyperref[fr:048]{\identifier{FR-048}}, \hyperref[fr:061]{\identifier{FR-061}}\\
+\midrule
+\hyperref[uc:16]{\identifier{UC-16}} & \hyperref[fr:049]{\identifier{FR-049}}, \hyperref[fr:050]{\identifier{FR-050}}, \hyperref[fr:053]{\identifier{FR-053}}, \hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:061]{\identifier{FR-061}}\\
+\midrule
+\hyperref[uc:17]{\identifier{UC-17}} & \hyperref[fr:051]{\identifier{FR-051}}, \hyperref[fr:052]{\identifier{FR-052}}, \hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:058]{\identifier{FR-058}}, \hyperref[fr:061]{\identifier{FR-061}}\\
+\midrule
+\hyperref[uc:18]{\identifier{UC-18}} & \hyperref[fr:053]{\identifier{FR-053}}, \hyperref[fr:054]{\identifier{FR-054}}, \hyperref[fr:059]{\identifier{FR-059}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:061]{\identifier{FR-061}}, \hyperref[fr:062]{\identifier{FR-062}}\\
+\midrule
+\hyperref[uc:19]{\identifier{UC-19}} & \hyperref[fr:055]{\identifier{FR-055}}, \hyperref[fr:056]{\identifier{FR-056}}, \hyperref[fr:057]{\identifier{FR-057}}, \hyperref[fr:058]{\identifier{FR-058}}, \hyperref[fr:059]{\identifier{FR-059}}, \hyperref[fr:060]{\identifier{FR-060}}, \hyperref[fr:061]{\identifier{FR-061}}, \hyperref[fr:062]{\identifier{FR-062}}\\
+\midrule
+\hyperref[uc:20]{\identifier{UC-20}} & \hyperref[fr:038]{\identifier{FR-038}}, \hyperref[fr:040]{\identifier{FR-040}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:042]{\identifier{FR-042}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:044]{\identifier{FR-044}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:063]{\identifier{FR-063}}\\
+\end{longtable}}

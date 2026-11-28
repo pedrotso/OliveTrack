@@ -1,0 +1,74 @@
+\Needspace{10\baselineskip}
+\subsubsection{Properties and Campaigns}
+{\requirementtable
+\begin{longtable}{L{0.18}L{0.82}}
+\caption{Functional requirements: Properties and Campaigns.}\label{tab:catalogue-properties-campaigns}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endfirsthead
+\caption[]{Functional requirements: Properties and Campaigns (continued).}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endhead
+\midrule\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\rowcolor{TableHeader}
+\phantomsection\label{fr:009}\textbf{\identifier{FR-009}} & \textbf{The system shall create properties with required and optional descriptive information.}\\*
+\phantomsection\label{ac:009:a}\identifier{FR-009(a)} & Require name and textual location; declared hectares and olive varieties are optional and may be added later.\\
+\phantomsection\label{ac:009:b}\identifier{FR-009(b)} & Unknown area stays unknown; derive ownership from the workspace. Use textual location and optional declared hectares; maps and map-derived areas are a possible future enhancement outside the final-delivery commitment under \decisionref{Q-SCOPE-02}.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:010}\textbf{\identifier{FR-010}} & \textbf{The system shall create named parcels within a property.}\\*
+\phantomsection\label{ac:010:a}\identifier{FR-010(a)} & Require a name and authorised parent property; area and varieties are optional.\\
+\phantomsection\label{ac:010:b}\identifier{FR-010(b)} & Parcels are optional. Campaign setup creates reusable property parcels under the same grant, not campaign-only divisions.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:011}\textbf{\identifier{FR-011}} & \textbf{The system shall allow authorised users to consult and update properties and parcels.}\\*
+\phantomsection\label{ac:011:a}\identifier{FR-011(a)} & Preserve identity and historical associations; new parcels do not redistribute earlier property-level records.\\
+\phantomsection\label{ac:011:b}\identifier{FR-011(b)} & Prepared details are consultable offline; creation/changes require connectivity. Missing local data does not establish non-existence.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:012}\textbf{\identifier{FR-012}} & \textbf{The system shall archive and reactivate properties and parcels.}\\*
+\phantomsection\label{ac:012:a}\identifier{FR-012(a)} & Confirmed archival preserves history and blocks new operational associations through the property and its parcels.\\
+\phantomsection\label{ac:012:b}\identifier{FR-012(b)} & Reactivation requires connected authority; parent reactivation does not undo independent parcel archival.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:013}\textbf{\identifier{FR-013}} & \textbf{The system shall delete eligible properties and parcels.}\\*
+\phantomsection\label{ac:013:a}\identifier{FR-013(a)} & Delete only with connected authority, confirmation and no associated records.\\
+\phantomsection\label{ac:013:b}\identifier{FR-013(b)} & Otherwise refuse and offer archival; cancellation preserves the record.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:014}\textbf{\identifier{FR-014}} & \textbf{The system shall create Planned campaigns and select their coverage.}\\*
+\phantomsection\label{ac:014:a}\identifier{FR-014(a)} & Require name, planned start and eligible property/parcel coverage; allow multiple properties. Create Planned campaigns even where other campaigns are planned or executing.\\
+\phantomsection\label{ac:014:b}\identifier{FR-014(b)} & Prevent duplicate parent/child coverage. Selection reserves no execution; apply \identifier{FR-019} at start/reopening. New parcels remain reusable.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:015}\textbf{\identifier{FR-015}} & \textbf{The system shall allow authorised users to consult and update campaigns and coverage.}\\*
+\phantomsection\label{ac:015:a}\identifier{FR-015(a)} & Prepared details are consultable offline; management changes require connectivity.\\
+\phantomsection\label{ac:015:b}\identifier{FR-015(b)} & Validate added coverage. Removal requires reopening if closed and resolving dependencies through permitted correction/deletion; unresolved dependencies block removal, without cascade deletion.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:016}\textbf{\identifier{FR-016}} & \textbf{The system shall explicitly start campaigns and maintain distinct planned and actual dates.}\\*
+\phantomsection\label{ac:016:a}\identifier{FR-016(a)} & Explicit start confirms a separate actual start and changes Planned to In progress; validate authority, chronology and exclusive coverage.\\
+\phantomsection\label{ac:016:b}\identifier{FR-016(b)} & Allow prepared authorised offline start. Save a stable pending operation; dependent work/deliveries await ordered server acceptance.\\
+\phantomsection\label{ac:016:c}\identifier{FR-016(c)} & Without an actual start, first actual assignment may propose its working date, but starting remains explicit. Planning, presence and deliveries never start campaigns silently; recording time proves neither actual start nor acceptance.\\
+\phantomsection\label{ac:016:d}\identifier{FR-016(d)} & Atomically validate current permissions and competing execution on reconnection. Preserve conflicting starts/fieldwork for resolution; never accept both or silently change actual dates.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:017}\textbf{\identifier{FR-017}} & \textbf{The system shall close and reopen campaigns with execution validation.}\\*
+\phantomsection\label{ac:017:a}\identifier{FR-017(a)} & Connected authorised closure requires an In progress campaign, actual end and activity validation; retain records and \identifier{FR-035} and \identifier{FR-054} completion exceptions.\\
+\phantomsection\label{ac:017:b}\identifier{FR-017(b)} & Reopening returns Closed to In progress only after authority, actual-date and exclusive-coverage checks; it bypasses no correction or execution constraint.\\
+\phantomsection\label{ac:017:c}\identifier{FR-017(c)} & Confirmed-work correction/removal requires reopening without a grace period. Planned overlap is allowed; conflicting In progress execution blocks reopening.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:018}\textbf{\identifier{FR-018}} & \textbf{The system shall archive, unarchive or delete eligible campaigns.}\\*
+\phantomsection\label{ac:018:a}\identifier{FR-018(a)} & Archival changes visibility, not lifecycle or execution coverage; unarchiving does not reopen.\\
+\phantomsection\label{ac:018:b}\identifier{FR-018(b)} & Delete only without operational records and with connected authority and confirmation; otherwise offer archival.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:019}\textbf{\identifier{FR-019}} & \textbf{The system shall prevent conflicting campaign execution without blocking preparation.}\\*
+\phantomsection\label{ac:019:a}\identifier{FR-019(a)} & Allow overlapping Planned campaigns; starting, reopening or extending In progress coverage requires exclusive execution in the affected area.\\
+\phantomsection\label{ac:019:b}\identifier{FR-019(b)} & Whole-property execution conflicts with every parcel; distinct parcels may run concurrently. Archival never releases In progress coverage.\\
+\phantomsection\label{ac:019:c}\identifier{FR-019(c)} & Validate actual chronology and historical overlap, including retrospective changes. Central validation accepts at most one conflicting execution and preserves rejected proposals.\\
+\end{longtable}
+}

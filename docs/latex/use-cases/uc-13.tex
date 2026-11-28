@@ -1,0 +1,177 @@
+\subsection{\identifier{UC-13} --- Upload and Update Worker Documents}
+\label{uc:13}
+
+\paragraph{Purpose}
+
+Allow an authorised user to upload documents
+and create new versions associated with
+one worker.
+
+This use case covers existing files supplied for upload. Generation follows
+\identifier{UC-20} and signing follows \identifier{UC-14}; the workflows share the
+same version and retention rules.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with upload or update
+permissions for the relevant document type.
+
+Insurance consultation permission does not
+automatically permit document modification.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item An internet connection is available.
+    \item The user has permission
+    for the document type and affected workers.
+    \item The selected worker record exists within the authorised business.
+    \item For a version update,
+    the target document exists.
+    \item A supported file is available.
+\end{itemize}
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user opens document management.
+    \item The user chooses a new document
+    or a new version of an existing document.
+    \item The user selects or reviews the document's single worker.
+    \item The user selects the document category:
+    contract, insurance or other, and records a form subtype where known
+    (Table~\ref{tab:source-forms}).
+    \item The user provides or confirms
+    the document title and selects the file.
+    \item For insurance, the user enters
+    the expiry date where known.
+    \item The user may add observations
+    and declare whether the uploaded version
+    was signed outside the application.
+    \item The system validates permissions,
+    required fields, file format and size.
+    \item The system presents the submission
+    and relevant version-retention consequences.
+    \item The user confirms.
+    \item The system stores the accepted version,
+    records its upload date and version identity,
+    and makes it current.
+    \item The system applies the retention policy
+    and confirms the outcome.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- An insurance expiry date is unknown.]
+    The system allows the document to be saved
+    with validity identified as unconfirmed.
+    It does not infer validity from upload date.
+
+    \item[A2 --- The selected worker is incorrect.]
+    The user corrects the selection before acceptance. An accepted document's
+    worker identity is fixed; a document for another worker is a separate upload.
+
+    \item[A3 --- A version was signed externally.]
+    The user explicitly identifies that status
+    for the uploaded version.
+    It is distinguishable from an application
+    signing event and is not presented
+    as externally verified by the system.
+
+    \item[A4 --- An existing signed document is updated.]
+    The new version becomes current
+    without inheriting an earlier signature.
+    Successful replacement deletes the old source and signing files
+    under A5.
+
+
+    \item[A5 --- A replacement is accepted.]
+    For every category, including signed contracts, keep the current source until
+    the new upload is complete and validated. Publish the replacement and delete
+    the previous source, signature, signed PDF and external-signature declaration.
+    The replacement is unsigned unless explicitly declared externally signed in
+    its own upload; it inherits no status. Keep no consultable version history.
+    Pending signing of the superseded source requires rejection/recovery under
+    \decisionref{Q-DOC-04}; it cannot delay replacement indefinitely or recreate
+    deleted content. Propagate deletion to prepared copies on synchronisation.
+
+    \item[A6 --- An incorrect upload may be deleted.]
+    An authorised user may confirm deletion
+    when the target has no signature
+    and no dependent records.
+
+    \item[A7 --- An incorrect upload is signed.]
+    The user may withdraw it from use,
+    preserving its file and signature association
+    while it remains retained.
+    The current withdrawn version remains until successful replacement, which deletes its file, signature and signed PDF under \identifier{BR-026}.
+
+    If the withdrawn version is current, it remains identified
+    as current and withdrawn until a replacement is accepted.
+
+    An earlier version does not automatically become current.
+
+    \item[A8 --- Validation fails.]
+    The system identifies unsupported formats,
+    files exceeding the size limit,
+    missing required information
+    or invalid associations.
+    No version is accepted until corrected.
+
+    \item[A9 --- Upload or storage fails.]
+    The system reports the failure.
+    The current source and its signing files remain unchanged.
+    Failed uploads do not trigger retention deletion.
+
+    \item[A10 --- A submission is repeated.]
+    Retrying the same upload operation
+    does not unintentionally publish
+    duplicate versions or trigger extra deletion.
+
+    \item[A11 --- Connectivity is unavailable.]
+    Upload and update operations cannot complete.
+    Prepared offline insurance consultation
+    remains available through \identifier{UC-12}.
+
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On success:}
+The accepted version becomes current
+and is available for authorised consultation
+through the associated worker records.
+
+
+\textbf{On any successful replacement:}
+Only the new current source remains available for the document. The old source,
+signature and signed PDF are deleted, including for contracts; no signing status
+is inherited and no version-history browser is provided.
+
+\textbf{On failure or cancellation:}
+The previously accepted current source and its signing files are unchanged
+and no retention deletion is performed.
+
+\textbf{In all cases:}
+A new version does not inherit signatures
+from another version.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:040]{\identifier{FR-040}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:044]{\identifier{FR-044}}, \hyperref[fr:063]{\identifier{FR-063}}.
+
+\hyperref[br:022]{\identifier{BR-022}}, \hyperref[br:023]{\identifier{BR-023}}, \hyperref[br:024]{\identifier{BR-024}}, \hyperref[br:025]{\identifier{BR-025}}, \hyperref[br:026]{\identifier{BR-026}}, \hyperref[br:027]{\identifier{BR-027}}, \hyperref[br:028]{\identifier{BR-028}}, \hyperref[br:030]{\identifier{BR-030}}.
+
+\paragraph{Decision References}
+\decisionref{Q-DOC-06}, \decisionref{D-07}, \decisionref{Q-DOC-07}, \decisionref{Q-DOC-01}, \decisionref{Q-DOC-04}.
+
+\paragraph{Uploaded examples}
+The four individual forms may be uploaded here. Retain the
+original file. An external-signature declaration does not imply acceptance of a
+medical examination. A structured response may be recorded only when explicitly
+visible in the source and reviewed; ambiguous responses remain unknown.

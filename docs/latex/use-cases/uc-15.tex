@@ -1,0 +1,50 @@
+\subsection{\identifier{UC-15} --- Record Transport and Olive Deliveries}\label{uc:15}
+
+\paragraph{Purpose}
+Record departure and arrival, source areas and transport details; correct or cancel an erroneous delivery record, or delete it when permitted. Weights, analyses and amounts may arrive later.
+
+\paragraph{Actors}
+Farm Owner; Field Manager with the relevant scope and permissions.
+
+\paragraph{Preconditions}
+\begin{itemize}
+\item Campaign and source areas exist in scope; the driver is a registered business worker.
+\item Entry/arrival permission is required; confirmed-record corrections, cancellation/deletion or reassignment require separate authority.
+\item Offline entry uses prepared campaign/area context and prepared or newly created local workers. A pending explicit start may precede dependent trips. Campaign reopening and structural management require connectivity.
+\end{itemize}
+
+\paragraph{Main Flow}
+\begin{enumerate}
+\item The user selects the campaign and one or more source properties or optional parcels.
+\item The user records known source quantities, collection origin, variety and harvesting method where available.
+\item The user selects the registered worker driver, vehicle and destination (existing or free text), and enters the actual departure time.
+\item The user may record the transport-document reference and its declared origin separately from actual load sources.
+\item The user reviews and confirms the entry. The system saves it as in transport with explicit local/server status.
+\item After arrival, the user confirms delivery and enters an arrival time not before departure; the system validates chronology.
+\item Arrival confirmation enables the delivery count and eligible weight, yield and monetary contributions under \identifier{BR-038}. An offline confirmation updates labelled local provisional indicators; central totals await server acceptance. Driver selection generates no attendance or hours.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+\begin{description}[style=nextline]
+\item[A1 --- Retrospective registration.] The user enters both event times; the system saves directly as delivered and keeps event and entry dates distinct.
+\item[A2 --- Mixed or incomplete source information.] The user records actual origins and known quantities. The system leaves unknown quantities unallocated and does not assign the whole load to a declared/dominant parcel or accept percentage allocation.
+\item[A3 --- Source information arrives separately.] The system saves the delivery without requiring weights/results/amounts; Delivered still counts without them. The user may enter at most one ticket and one analysis, and the ticket's amount, before or after arrival confirmation. Available pre-arrival data awaits receipt confirmation in detail and contributes nothing yet.
+\item[A4 --- Ordinary correction.] The authorised user reviews the current driver, vehicle, destination or timestamps and reopens a closed campaign first. The system validates chronology and affected associations.
+\item[A5 --- Delete an erroneous record.] The user requests deletion and confirms. The system checks deletion authority and absence of dependent ticket, analysis, amount or evidence. It removes composed transport/source-batch rows in the same validated operation, without deleting external results. Otherwise it refuses deletion and offers eligible cancellation.
+\item[A6 --- Cancel an erroneous, interrupted or refused delivery.] The authorised user provides a reason, reopens a closed campaign first and confirms cancellation. The system retains the record and linked sources and excludes their indicator contributions. Use cancellation also for interrupted trips or refused deliveries. A new physical attempt is a new delivery/transport record; never reinstate the cancelled record.
+\item[A7 --- Change campaign or source areas.] The user requests new campaign/source associations and reopens closed campaigns first. The system validates permissions, coverage, dates and dependencies in every affected context, preserves dependent evidence/results and blocks unresolved inconsistencies.
+\item[A8 --- Offline correction or cancellation.] The system saves the authorised local proposal against the known revision. It remains pending until required reopening and dependency checks succeed; the server revalidates every affected context.
+\item[A9 --- Unavailable driver or invalid input.] The system preserves recoverable input and requires a registered worker driver. The authorised user creates the worker through \identifier{UC-07} online or offline before selection; the trip preserves its dependency on that worker.
+\item[A10 --- Cancel input or submission fails.] The user may cancel unsaved input without changing accepted records. On uncertain submission, the system checks/retries the existing operation without duplicates and distinguishes this from cancelling a delivery record.
+\end{description}
+
+\paragraph{Postconditions}
+Departure/arrival state and synchronisation status remain distinct. Successful corrections retain current values. Accepted cancellation preserves dependencies and removes indicator contributions; eligible deletion removes only the confirmed dependency-free record.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:046]{\identifier{FR-046}}, \hyperref[fr:047]{\identifier{FR-047}}, \hyperref[fr:048]{\identifier{FR-048}}, \hyperref[fr:061]{\identifier{FR-061}}.
+
+\hyperref[br:001]{\identifier{BR-001}}, \hyperref[br:012]{\identifier{BR-012}}, \hyperref[br:031]{\identifier{BR-031}}, \hyperref[br:035]{\identifier{BR-035}}, \hyperref[br:036]{\identifier{BR-036}}, \hyperref[br:038]{\identifier{BR-038}}.
+
+\paragraph{Decision References}
+\decisionref{D-12}, \decisionref{D-13}, \decisionref{Q-DA-10}.

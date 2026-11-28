@@ -1,0 +1,192 @@
+\subsection{\identifier{UC-14} --- Review and Sign a Document}
+\label{uc:14}
+
+\paragraph{Purpose}
+
+Allow a worker to review a specific document version
+and confirm a drawn signature in person
+on an authorised user's device.
+
+The signing result belongs to that worker
+and the reviewed version.
+
+
+\paragraph{Actors}
+
+\textbf{Initiating actor:} Farm Owner.
+
+\textbf{Additional initiating actor:} Field Manager,
+with the relevant permissions.
+
+\textbf{Signing actor:} Worker.
+
+The worker does not require
+an application management account.
+
+This process collects the worker's signature only.
+Any required owner signature is handled separately.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The worker and document exist, and the document belongs to that worker.
+    \item The initiating user has permission
+    to access the document and initiate signing.
+    \item The selected version is available
+    and eligible for signing.
+    \item The worker is physically present.
+    \item The worker has not already completed
+    this signing process for the selected version.
+    \item Offline signing requires the authorised
+    document and relevant data
+    to be available on the device.
+\end{itemize}
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The initiating user selects
+    the worker and document version.
+    \item The system clearly identifies
+    the intended worker and document.
+    \item The initiating user confirms
+    that the selected worker is present.
+    \item The system presents the document
+    for the worker to review.
+    \item For a decision-bearing form, the worker explicitly chooses acceptance or
+    refusal; the system displays that choice separately from signing. Other forms
+    have no consent-choice step. The worker then chooses to proceed.
+    \item The system displays a signature
+    drawing area.
+    \item The worker draws a signature
+    using a finger or compatible pen.
+    \item The worker reviews the drawing
+    and its association with the document.
+    \item The worker explicitly confirms
+    the signing action.
+    \item The system saves the signature result
+    with the worker, version, initiating user, recorded date/time and explicit form response where required.
+    \item The system generates and retains a timestamped worker-specific PDF
+    rendition linked to that version and signing result, preserving the source.
+    Offline output is labelled pending until central acceptance; file-transfer
+    status is tracked separately.
+    \item The system displays whether the result
+    is pending synchronisation
+    or accepted by the server.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}[style=nextline]
+
+    \item[A1 --- The worker redraws the signature.]
+    Before confirmation, the worker may clear
+    the drawing and try again.
+
+    \item[A2 --- The worker cancels.]
+    No completed signature is created
+    by the cancelled interaction.
+    The document is not marked as signed
+    for that worker by this interaction.
+
+    \item[A3 --- No signature has been drawn.]
+    The system requests a drawing
+    before accepting confirmation.
+
+    \item[A4 --- The document cannot be reviewed.]
+    Signing cannot proceed.
+    The system explains the access
+    or retrieval limitation.
+
+    \item[A5 --- A signing result already exists.]
+    If the worker has already confirmed a signature
+    for the selected version,
+    the system displays its actual state.
+
+    A pending or uncertain result is checked
+    or resumed rather than replaced
+    by another signing interaction.
+
+    An accepted signature is not overwritten.
+
+    \item[A6 --- Worker and document do not match.]
+    The system refuses signing and requires the individual document belonging
+    to the selected worker. Templates and signatures cannot change that identity.
+
+    \item[A7 --- The device is offline.]
+    The system saves the confirmed result
+    locally as pending synchronisation.
+    It does not claim server acceptance.
+
+
+    \item[A8 --- The source has been replaced.]
+    Replacement deletes the old source under \identifier{BR-026}. Do not transfer
+    a signature or mark the new source signed. Prepare the new source and obtain
+    fresh worker review, drawing, any required choice and confirmation.
+
+    \item[A9 --- Signing of a superseded source reconnects.]
+    The server rejects it as source-replaced, preserves protected temporary
+    recovery/outcome information and explains the need for fresh signing. It does
+    not recreate an old file or retain a consultable source/version history.
+
+    \item[A10 --- The source is withdrawn or deleted.]
+    Signing cannot be accepted. An owner may inspect the recoverable proposal's
+    status/reason and reject it, but cannot restore eligibility by approval or
+    reuse the drawing on a replacement. Received deletion removes prepared old
+    source copies; unrelated pending work remains protected. Recovery records are
+    temporary technical data, not retained document history.
+
+    \item[A11 --- The submission outcome is uncertain.]
+    The system checks the existing operation
+    before initiating another signing event.
+    It does not automatically ask
+    the worker to sign again.
+\item[A12 --- Worker created in the field.] A newly created offline worker cannot
+sign a document prepared for another worker. First accept the worker online, then
+upload or generate that worker's individual source through \identifier{UC-13} or
+\identifier{UC-20}. Once the source has been accepted and prepared on the device,
+signing may proceed online or offline under \identifier{FR-045(a)}. Preserve pending
+worker and work records while connectivity is unavailable.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On local confirmation:}
+The signature result, identifying information
+and the generated local PDF rendition are saved on the device with separate file status.
+The result is pending until server acceptance
+where connectivity is unavailable.
+
+\textbf{On server acceptance:}
+The signature is associated with
+the intended worker and reviewed version
+and is available for authorised consultation with its worker-specific PDF rendition.
+The signed source, signature evidence and rendition remain while that source is current; successful replacement deletes them under \identifier{BR-026}. the PDF neither
+overwrites the source nor displays another worker's application-captured signature.
+
+\textbf{On cancellation:}
+No completed signature is created
+by the cancelled interaction.
+
+\textbf{On unresolved submission:}
+The pending or rejected state is explicit.
+No other document version is marked as signed.
+
+\textbf{In all cases:}
+Participation does not grant additional
+application permissions.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:020]{\identifier{FR-020}}, \hyperref[fr:041]{\identifier{FR-041}}, \hyperref[fr:042]{\identifier{FR-042}}, \hyperref[fr:043]{\identifier{FR-043}}, \hyperref[fr:044]{\identifier{FR-044}}, \hyperref[fr:045]{\identifier{FR-045}}, \hyperref[fr:063]{\identifier{FR-063}}.
+
+\hyperref[br:023]{\identifier{BR-023}}, \hyperref[br:026]{\identifier{BR-026}}, \hyperref[br:027]{\identifier{BR-027}}, \hyperref[br:028]{\identifier{BR-028}}, \hyperref[br:029]{\identifier{BR-029}}, \hyperref[br:030]{\identifier{BR-030}}.
+
+\paragraph{Decision References}
+\decisionref{Q-DOC-02}, \decisionref{Q-DOC-04}, \decisionref{Q-DOC-07}.
+
+\paragraph{Form response and cancellation}
+For medical-examination consent, signing a refusal completes this case and records
+a signed refusal. Cancelling signing records no completed signature or response.
+The choice is bound to the reviewed version and worker, included on the derived
+PDF and immutable after confirmation. A change requires a newly reviewed version.
+Clinical results are outside this workflow.

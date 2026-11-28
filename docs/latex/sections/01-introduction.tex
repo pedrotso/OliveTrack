@@ -1,0 +1,226 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Purpose of the Document}
+
+This document defines the proposed requirements
+and architecture of OliveTrack, a platform
+for managing olive harvest operations in a private deployment for Pepe's parents,
+with one initial owner account and owner-invited managers.
+
+It establishes a shared understanding of the problem,
+intended users, functional scope, business rules
+and expected system behaviour.
+It also connects the use cases to the functional
+requirements, quality requirements
+and architectural decisions developed by the team.
+Section~\ref{sec:risk-management} also records the working delivery-risk assessment
+and response approach. The concise summary in Section~\ref{sec:project-planning}
+connects the specification to effort, delivery planning and progress evidence.
+
+The document supports both product development
+and project management.
+An explicit description of the expected behaviour
+helps the team identify missing work,
+define implementation and validation tasks,
+allocate responsibilities and prepare effort estimates.
+
+This working specification complements the estimation workbook, team hours
+sheet and other course deliverables. It provides a shared requirements and design
+baseline for review; it does not replace task assignments, an approved delivery
+plan or acceptance evidence.
+
+\subsection{Project Context}
+
+Olive harvest management involves information
+that is produced by different people
+and becomes available at different times.
+
+Before fieldwork, the owner may optionally plan the expected workers,
+work areas and, where known, schedules and tasks.
+During or after the working day, actual attendance,
+work periods, tasks and breaks must be recorded.
+
+Harvested olives are transported and delivered
+to a cooperative or another receiving destination.
+Weighing tickets provide information about
+the delivered load.
+Analysis results and monetary values may arrive later.
+
+Worker documents, including contracts
+and insurance records, must also be accessible.
+Some documents require a signing interaction.
+Insurance information is particularly important
+when work takes place in the field.
+
+When this information is distributed across
+paper records and separate files,
+it becomes harder to retrieve, reconcile
+and summarise the campaign's results.
+Differences between planned and actual work,
+missing analysis results and ambiguous weight values
+can also lead to incorrect conclusions.
+
+OliveTrack proposes a shared digital environment
+for the owner's business.
+It supports properties with optional parcels,
+harvest campaigns covering one or more areas,
+worker records, operational entry,
+document consultation and campaign indicators.
+
+Field connectivity may be unreliable.
+Essential field operations therefore require
+prepared offline access and local entry,
+followed by synchronisation when connectivity returns.
+Administrative operations may require connectivity,
+as specified in the individual use cases.
+
+The project is being developed within the
+Project Management course.
+The proposed scope must remain compatible
+with the academic schedule,
+available resources and agreed delivery objectives.
+
+\subsection{Objectives}
+
+The proposed solution pursues the following objectives:
+
+\begin{enumerate}
+
+    \item \textbf{Organise the harvest context.}
+    Maintain identifiable properties, optional parcels
+    and campaigns without mixing operational records
+    from different areas or harvest periods.
+
+    \item \textbf{Separate planning from actual work.}
+    Support daily and multi-day planning,
+    while requiring explicit confirmation
+    of attendance and actual work.
+
+    \item \textbf{Record work consistently.}
+    Distinguish machinery operation from general work,
+    account for explicitly recorded breaks
+    and prevent overlapping actual periods
+    for the same worker.
+
+    \item \textbf{Track deliveries and source information.}
+    Connect transport, delivery, weighing,
+    analysis and monetary information
+    without inventing missing measurements
+    or applying deductions twice.
+
+    \item \textbf{Support worker-document workflows.}
+    Provide controlled access to uploaded documents,
+    prepared offline insurance consultation
+    and the agreed signing interaction.
+
+    \item \textbf{Provide understandable indicators.}
+    Present campaign results with clear units,
+    reporting scope, data completeness
+    and provisional or final status where applicable.
+
+    \item \textbf{Support work in the field.}
+    Allow essential operations to continue
+    with prepared authorised data
+    when a network connection is unavailable.
+
+
+\end{enumerate}
+
+Detailed measurable targets are addressed
+in the non-functional requirements.
+The objectives above do not constitute
+verified performance or operational results.
+
+\subsection{Sources and Document Status}\label{sec:document-status}
+
+The current document draws on:
+
+\begin{itemize}
+
+    \item The \emph{OliveTrack Team Guide},
+    dated 9 October 2026~\cite{project-guide},
+    describing the business context,
+    illustrative examples and unresolved questions.
+
+    \item The existing Statement of Work,
+    persona descriptions, general architecture,
+    data architecture and non-functional
+    requirements proposals supplied to the team~\cite{project-baseline}.
+
+    \item Initial responses supplied
+    by the teammate acting as an intermediary
+    with the client.
+
+    \item The subsequent requirements review,
+    including the use-case discussions
+    and proposed resolutions recorded
+    during document development.
+
+    \item The team's security, privacy and reliability review and the updated
+    performance, usability and availability proposal dated 3 November 2026,
+    reconciled with the current functional decisions.
+
+    \item The team's \emph{OliveTrack General Architecture}, version 1.1, and
+    \emph{OliveTrack Risk Management Plan}, dated November 2026~\cite{project-architecture,project-risk}, reconciled with
+    the current functional/data baseline. Unconfirmed voting, milestone, resource
+    and provider assumptions retain explicit review status.
+
+    \item Operational photographs and ticket explanations supplied by the client
+    intermediary on 6 November 2026, reviewed on 21 November 2026~\cite{project-examples}. Field interpretation
+    and form inventory appear in Section~\ref{sec:source-examples}.
+\end{itemize}
+
+This working specification consolidates the supplied sources and subsequent
+requirements, business-rule and technical-decision reviews, including the
+stack, access model and quality targets adopted during the author's review of
+5 November 2026, followed by the operational-document review of 21 November 2026. Illustrative examples, working decisions and client-provided
+responses have different validation status. Conflicting
+statements require an explicit decision; author review does not establish formal
+approval by the whole team or client, or legal validation of templates or signatures.
+
+Section~\ref{sec:validation} records current decisions, residual questions and
+validation responsibilities; the detailed questionnaire is maintained separately.
+The intermediate submission milestone was 6 November 2026; the presentation
+milestone was 10 November 2026, with a browser-based navigable prototype and sample
+data as the planned demonstration. This revision is dated 21 November 2026;
+the milestone dates alone do not establish submission or presentation evidence.
+Throughout this report, specified behaviour, prototype interaction, implemented
+functionality and verified results are distinct. The demonstration does not
+establish production security, durable synchronisation or operational acceptance.
+
+\paragraph{Project Deliverables.}
+The files developed during this project phase are collected in the shared project
+folder: this report and its LaTeX source, effort estimates, recorded team hours,
+the supplementary data reference, team roster and navigable demonstration.
+The presentation slides were planned for the 10 November 2026 milestone;
+their delivery status must be checked in the shared folder.
+\par\href{https://drive.google.com/drive/folders/1rIQ5pGJDSKda0syKZ2MtbdDA0DTqOnRW?usp=sharing}{Open the shared project folder.}
+
+\paragraph{How to use this specification.}
+Sections~\ref{sec:users} and~\ref{sec:scope} establish stakeholders and boundaries;
+Sections~\ref{sec:use-cases}--\ref{sec:non-functional-requirements} define behaviour,
+shared constraints and quality criteria. Sections~\ref{sec:solution-architecture}
+and~\ref{sec:data-architecture} describe the solution and data design.
+Section~\ref{sec:risk-management} connects risks to delivery planning, and
+Section~\ref{sec:validation} records validation, decisions and unresolved matters. Read the full data dictionary only when
+implementing or checking fields not repeated in the principal model.
+
+\paragraph{Course alignment and AI assistance.}
+The supplied course materials guide requirement organisation/change control,
+risk assessment and planning~\cite{course-presentation,course-concepts,course-scope,course-estimation,course-risk,course-planning,course-customer}. Templates are used
+selectively, without claiming that every taught process has been performed.
+AI assistance was used in drafting/restructuring this report, preparing LaTeX
+and developing the navigable prototype. These contributions require author
+verification; they are not client approval, executed acceptance tests or evidence
+of production readiness. The team-wide inventory of tools, contributions and
+review responsibilities remains to be completed under \decisionref{Q-PM-02}
+in accordance with the course disclosure requirements.
+
+\paragraph{Revision of 24 November 2026.}
+The owner confirmed private initial provisioning by a Technical Administrator;
+manager account creation remains invitation-based and planning remains included.
+The attached skeleton, hours sheet, estimation workbook and revised task catalogue
+supply implementation/planning evidence, with their different baselines identified
+in Section~\ref{sec:project-planning}. Existing scaffold files are evidence of a
+starting structure; executed tests are needed for completion claims.

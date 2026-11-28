@@ -1,0 +1,151 @@
+\subsection{\identifier{UC-11} --- Correct Work Records}
+\label{uc:11}
+
+\paragraph{Purpose}
+
+Allow an authorised user to correct saved attendance
+and actual work information, including assignments without hours,
+periods, tasks, work areas and breaks.
+
+Corrections update the affected totals
+without rewriting the original work plan.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+with explicit correction
+permissions granted by the owner.
+
+Permission to record work does not automatically
+grant permission to correct confirmed records.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The target record exists.
+    \item The user has correction permission
+    for the affected records and contexts.
+    \item Campaigns whose work records
+    are being changed are open.
+    \item Offline correction requires
+    the relevant authorised data
+    to be available on the device.
+\end{itemize}
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user selects the worker,
+    working date and relevant context.
+    \item The system displays current attendance,
+    periods, tasks, areas, breaks and totals.
+    \item The user proposes the correction.
+    \item The system validates permissions,
+    campaign status, dates, associations,
+    time intervals and break treatment.
+    \item The system checks the worker's
+    relevant periods for overlaps.
+    \item The system presents the corrected
+    information and affected totals for review.
+    \item The user confirms.
+    \item The system saves the current values
+    and updates the affected local totals.
+    \item The system displays whether the change
+    is pending synchronisation or accepted
+    by the server.
+\end{enumerate}
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- A campaign is closed.]
+    Correction cannot proceed until
+    an authorised user reopens the campaign
+    through \identifier{UC-06}.
+    No additional correction deadline applies.
+
+    \item[A2 --- Presence is changed to absence.]
+    The system identifies all actual campaign-area assignments,
+    including those without hours, and all periods and breaks
+    associated with that worker and working date within the business.
+
+    The user must have the required permissions,
+    and affected campaigns must satisfy
+    the reopening rules.
+
+    The system requests confirmation before
+    removing the affected work and changing attendance.
+    It must not leave the worker absent
+    while contradictory confirmed assignments, periods or breaks remain.
+
+    \item[A3 --- Record associations are incorrect.]
+    The user may correct the worker, working date,
+    campaign, property or parcel.
+
+    The system validates the origin and destination
+    contexts, campaign status and time overlaps.
+    It also checks daily-attendance consistency.
+
+    Only the selected work records are reassigned.
+    Other periods belonging to the original worker
+    remain unchanged.
+
+    Affected origin and destination totals
+    are updated after acceptance.
+
+    \item[A4 --- Periods or breaks are invalid.]
+    The system identifies the problem
+    and preserves unaffected input.
+    Corrections must not create overlapping
+    actual periods or duplicate break deductions.
+
+    \item[A5 --- The device is offline.]
+    The system saves the correction locally
+    and identifies it as pending.
+    Local totals reflect the pending change.
+    Server permissions, campaign status
+    and consistency are checked on reconnection.
+
+    \item[A6 --- The server record has changed.]
+    The system presents the current server values
+    and the pending correction to an authorised
+    user for manual resolution.
+    No conflicting update is silently substituted.
+
+    \item[A7 --- The user resolves a conflict.]
+    The user may retain the server values
+    or review and confirm a revised correction.
+    Any submitted correction is validated again.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On local acceptance:}
+The corrected values and affected local totals
+are saved with their synchronisation status.
+
+\textbf{On server acceptance:}
+Central records and dependent totals
+reflect the accepted correction.
+Other clients receive the change
+through synchronisation.
+
+\textbf{On cancellation or rejection:}
+Authoritative accepted records remain unchanged.
+Any unresolved local proposal is clearly identified.
+
+\textbf{In all cases:}
+Original plans and unrelated records
+are not modified.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:033]{\identifier{FR-033}}, \hyperref[fr:036]{\identifier{FR-036}}, \hyperref[fr:037]{\identifier{FR-037}}, \hyperref[fr:061]{\identifier{FR-061}}.
+
+\hyperref[br:011]{\identifier{BR-011}}, \hyperref[br:018]{\identifier{BR-018}}, \hyperref[br:019]{\identifier{BR-019}}, \hyperref[br:020]{\identifier{BR-020}}, \hyperref[br:021]{\identifier{BR-021}}.
+
+\paragraph{Decision References}
+\decisionref{Q-WF-04}, \decisionref{D-04}.

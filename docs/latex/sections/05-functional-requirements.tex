@@ -1,0 +1,38 @@
+\section{Functional Requirements}
+\label{sec:functional-requirements}
+The catalogue groups related behaviours into \identifier{FR-001} to \identifier{FR-064}.
+Each ID groups a related capability; its lettered criteria are the independently
+referenced verification conditions. Groups organise the catalogue by affinity,
+while shared constraints are stated once.
+The catalogue defines the working functional baseline for the single final
+delivery in Section~\ref{sec:final-delivery}; stakeholder approval and verification
+remain distinct from inclusion.
+Requirements retain stable identifiers across revisions. \identifier{FR-063} and \identifier{FR-064}
+specify document generation and account updates, respectively.
+\subsection{Requirements Catalogue}
+\label{sec:requirements-catalogue}
+\paragraph{Common acceptance conditions.}
+The shared conditions in Section~\ref{sec:shared-definitions} apply to
+every relevant requirement: business/operation authorisation, accurate
+local/server status, retry without duplicate effects, preservation of
+accepted data on cancellation, recoverable validation failures and
+explicit handling of unknown values. Connectivity remains operation-specific.
+The server revalidates offline proposals, including access and conflicts.
+Shared conditions remain mandatory without repetition in every row.
+A criterion referencing a business rule or section incorporates its applicable
+conditions; verification records the criterion and those conditions together.
+\paragraph{Criterion references for verification.}
+Verification checks and implementation tasks identify the requirement and
+the relevant lettered acceptance criterion. For example, \identifier{FR-041(a)} covers
+acceptance of a new current version, \identifier{FR-041(b)} covers retention and deletion,
+and \identifier{FR-041(c)} covers incorrect uploads and withdrawal.
+\input{sections/requirements/catalogue-access}
+\input{sections/requirements/catalogue-properties-campaigns}
+\input{sections/requirements/catalogue-workforce}
+\input{sections/requirements/catalogue-documents}
+\input{sections/requirements/catalogue-deliveries}
+\input{sections/requirements/catalogue-indicators}
+\Needspace{6\baselineskip}
+\subsection{Mapping to Use Cases}
+\label{sec:requirements-mapping}
+\input{sections/requirements/use-case-index}

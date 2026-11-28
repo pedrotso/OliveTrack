@@ -1,0 +1,69 @@
+\Needspace{10\baselineskip}
+\subsubsection{Worker Documents and Signing}
+{\requirementtable
+\begin{longtable}{L{0.18}L{0.82}}
+\caption{Functional requirements: Worker Documents and Signing.}\label{tab:catalogue-documents}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endfirsthead
+\caption[]{Functional requirements: Worker Documents and Signing (continued).}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endhead
+\midrule\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\rowcolor{TableHeader}
+\phantomsection\label{fr:038}\textbf{\identifier{FR-038}} & \textbf{The system shall allow authorised users to consult and download current authorised worker documents.}\\*
+\phantomsection\label{ac:038:a}\identifier{FR-038(a)} & List current contract/insurance/other documents with subtype, title, source identity and individual signing status; show any form response separately and open/download available files. Replaced sources/signatures/PDFs are unavailable; no history browser is provided.\\
+\phantomsection\label{ac:038:b}\identifier{FR-038(b)} & Apply business-wide owner access and manager worker/document grants under \identifier{BR-024}; profile access alone is insufficient.\\
+\phantomsection\label{ac:038:c}\identifier{FR-038(c)} & Apply \identifier{BR-026} retention and \identifier{BR-025} expiry, including unknown, expired and withdrawn states. Current does not imply valid/signed; unavailable retrieval is not an empty list.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:039}\textbf{\identifier{FR-039}} & \textbf{The system shall prepare insurance documents for field consultation.}\\*
+\phantomsection\label{ac:039:a}\identifier{FR-039(a)} & Prepare current insurance for workers planned for the current/following week and additional existing workers selected online. Prepare no superseded versions; apply replacement deletion on synchronisation.\\
+\phantomsection\label{ac:039:b}\identifier{FR-039(b)} & Show preparation failures, missing files and freshness; apply received access/deletion changes. Preparation coverage does not determine offline expiry.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:040}\textbf{\identifier{FR-040}} & \textbf{The system shall upload worker documents and their metadata.}\\*
+\phantomsection\label{ac:040:a}\identifier{FR-040(a)} & Online upload requires modification authority, exactly one same-business worker, category, title and an individual file; retain subtype and original contents. Notes are optional; version/upload time are automatic.\\
+\phantomsection\label{ac:040:b}\identifier{FR-040(b)} & Apply \identifier{BR-044} formats/approved size limit, subject to representative-file validation; unknown insurance expiry remains unconfirmed.\\
+\phantomsection\label{ac:040:c}\identifier{FR-040(c)} & Bind the source to that individual worker. External-signature declarations follow \identifier{BR-027} and create no application signing event.\\
+\phantomsection\label{ac:040:d}\identifier{FR-040(d)} & Validate/review before acceptance; incomplete files cannot become current, and retries create no duplicate versions.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:041}\textbf{\identifier{FR-041}} & \textbf{The system shall replace current documents, delete superseded files/signatures and manage withdrawal or eligible deletion.}\\*
+\phantomsection\label{ac:041:a}\identifier{FR-041(a)} & Keep the current source until a complete replacement is validated and accepted. Failure/cancellation preserves it; retries publish no duplicate replacement. The new source inherits no signature or external declaration.\\
+\phantomsection\label{ac:041:b}\identifier{FR-041(b)} & Apply \identifier{BR-026} to all categories: delete the superseded source, signature and signed PDF, including signed contracts and externally declared signed uploads. Retain no consultable version history. Invalidate pending signing of the removed source without transferring or resurrecting it.\\
+\phantomsection\label{ac:041:c}\identifier{FR-041(c)} & An authorised user may delete a dependency-free incorrect unsigned upload after confirmation. Signed errors may be withdrawn until replacement; withdrawal does not expose an older version. Successful replacement deletes the withdrawn source and its signing files too.\\
+\phantomsection\label{ac:041:d}\identifier{FR-041(d)} & Management is online. Propagate accepted replacement/deletion to prepared copies on synchronisation; keep backup/restore suppression and temporary rejected-proposal recovery separate from normal document history.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:042}\textbf{\identifier{FR-042}} & \textbf{The system shall conduct in-person document review and explicit worker signing.}\\*
+\phantomsection\label{ac:042:a}\identifier{FR-042(a)} & An authorised initiator identifies the present worker and eligible version; no worker account or owner signature is required.\\
+\phantomsection\label{ac:042:b}\identifier{FR-042(b)} & The worker reviews the version, explicitly chooses acceptance/refusal where required, draws and reviews a non-empty signature, and confirms. Redraw/cancel is available before confirmation; cancellation is distinct from signed refusal.\\
+\phantomsection\label{ac:042:c}\identifier{FR-042(c)} & Record worker, source version, initiator, time and any required response as immutable evidence while the source is current. A signed refusal is not consent. A new source needs fresh review/signing; successful replacement deletes the old evidence/PDF.\\
+\phantomsection\label{ac:042:d}\identifier{FR-042(d)} & Retain source and timestamped worker-specific PDF with signature and any explicit choice in the appropriate form area. Preserve source markings; offline output remains pending until acceptance.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:043}\textbf{\identifier{FR-043}} & \textbf{The system shall prevent duplicate signing and recover uncertain submissions.}\\*
+\phantomsection\label{ac:043:a}\identifier{FR-043(a)} & Do not repeat completed worker/version signing; show accepted results and check/resume pending or uncertain operations before requesting another signature.\\
+\phantomsection\label{ac:043:b}\identifier{FR-043(b)} & Distinguish no confirmed signature, local pending, accepted and resolution-required outcomes; preserve recoverable results without duplicate events.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:044}\textbf{\identifier{FR-044}} & \textbf{The system shall bind each document and its signing result to exactly one worker.}\\*
+\phantomsection\label{ac:044:a}\identifier{FR-044(a)} & Require exactly one same-business worker per Document. Accepted ownership is immutable; every version, signature and rendition must reference that same worker.\\
+\phantomsection\label{ac:044:b}\identifier{FR-044(b)} & Reject another worker signing or receiving a rendition of the document. Generating for several workers creates separate individual documents from the selected template.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:045}\textbf{\identifier{FR-045}} & \textbf{The system shall prepare and synchronise offline signing for the reviewed version.}\\*
+\phantomsection\label{ac:045:a}\identifier{FR-045(a)} & Prepare and sign authorised individual versions, including contracts, without bulk contract download. A newly created offline worker must first be accepted online and receive an uploaded/generated individual source before offline signing can be prepared.\\
+\phantomsection\label{ac:045:b}\identifier{FR-045(b)} & Accept pending signing only against the same current eligible source. Replacement deletes the old source; reject its pending signature and require fresh worker review/signing of the new source.\\
+\phantomsection\label{ac:045:c}\identifier{FR-045(c)} & Preserve protected temporary recovery/outcome information for an ineligible source without a version-history browser. Owner approval cannot validate a withdrawn/deleted/replaced source. Never transfer a signature or recreate deleted content; remove superseded prepared copies on synchronisation.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:063}\textbf{\identifier{FR-063}} & \textbf{The system shall generate reviewed worker documents from available templates.}\\*
+\phantomsection\label{ac:063:a}\identifier{FR-063(a)} & Generate online using the four supplied Spanish templates and their reviewed revision. Prefill known identity and review date, role and form selections in Table~\ref{tab:source-forms}; preserve the Spanish text, identify gaps and leave worker profiles unchanged.\\
+\phantomsection\label{ac:063:b}\identifier{FR-063(b)} & Review each document and its worker before unsigned acceptance. Generate a separate individual source per selected worker for every template; preserve accepted versions on failure/cancellation.\\
+\phantomsection\label{ac:063:c}\identifier{FR-063(c)} & Use \identifier{UC-14} signing and \identifier{FR-042(d)} PDFs, including prepared offline signing. Required choices are worker-confirmed, never prefilled as consent. Worker days/hours are consulted through \identifier{FR-023}; no dedicated attendance-document generation is included.\\
+\end{longtable}
+}

@@ -1,0 +1,39 @@
+Statements separate the present source of concern from its possible loss. Context,
+trigger and proposed role owner accompany the short statement; probability, impact
+and timeframe are inherited from the contribution pending team confirmation.
+\emph{ToS} numbers identify potentially affected success conditions, not proof of
+approved priorities. Re-rate impacts when the selected scope and evidence are known.
+{\compacttable
+\begin{longtable}{L{0.11}L{0.62}L{0.27}}
+\caption{Working risk register and qualitative assessment.}\label{tab:risk-register}\\
+\toprule\rowcolor{TableHeader}
+\textbf{ID} & \textbf{Condition, consequence and trigger} & \textbf{Assessment / proposed owner}\\\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{ID} & \textbf{Condition, consequence and trigger} & \textbf{Assessment / proposed owner}\\\midrule\endhead
+\multicolumn{3}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\phantomsection\label{risk:RS-01}\identifier{RS-01} & \textbf{Architecture validation.} The selected stack and candidate services still require an integration slice; incompatible choices may delay implementation or cause rework.\newline\textit{Source:} Technical / integration. \textit{ToS:} 1, 2, 5.\newline\textit{Trigger:} First integration slice blocked by an unresolved contract, dependency or service choice. & High / Critical / Short.\newline\textbf{Exposure: High.}\newline Backend/architecture lead.\\
+\midrule
+\phantomsection\label{risk:RS-02}\identifier{RS-02} & \textbf{Offline synchronisation.} Field workflows require durable queues, dependency ordering and concurrent updates; integration complexity may cause reconciliation failures or delay the agreed delivery.\newline\textit{Source:} Technical / integration. \textit{ToS:} 1, 3, 4.\newline\textit{Trigger:} Retries duplicate effects, pending work disappears, or stale revisions overwrite accepted data in tests. & Medium / Critical / Short.\newline\textbf{Exposure: Medium.}\newline Backend/synchronisation lead.\\
+\midrule
+\phantomsection\label{risk:RS-03}\identifier{RS-03} & \textbf{Outdoor interaction.} Phone/tablet field use is in scope, but representative outdoor validation is not evidenced; unsuitable controls may prevent efficient logging.\newline\textit{Source:} Technical / usability. \textit{ToS:} 1, 4.\newline\textit{Trigger:} Representative phone/tablet users cannot complete the selected tasks under agreed conditions. & Medium / Marginal / Medium.\newline\textbf{Exposure: Low.}\newline UI/usability lead.\\
+\midrule
+\phantomsection\label{risk:RS-04}\identifier{RS-04} & \textbf{Regression readiness.} The report contains planned checks but no verified CI/regression evidence; missing automated checks may allow defects to reach a milestone demonstration.\newline\textit{Source:} Technical / integration. \textit{ToS:} 2, 3.\newline\textit{Trigger:} A change reaches integration without passing the agreed build and core-rule checks. & High / Marginal / Short.\newline\textbf{Exposure: Medium.}\newline Testing/integration lead.\\
+\midrule
+\phantomsection\label{risk:RS-05}\identifier{RS-05} & \textbf{Contribution consistency.} Multiple contributors share client, server and rule contracts; inconsistent implementation or unreviewed generated code may create incompatible dependencies and rework.\newline\textit{Source:} Technical / integration. \textit{ToS:} 2, 3, 5.\newline\textit{Trigger:} An unreviewed dependency, incompatible interface or unexplained generated block enters a proposed merge. & Medium / Marginal / Short.\newline\textbf{Exposure: Low.}\newline Technical reviewer.\\
+\midrule
+\phantomsection\label{risk:RS-06}\identifier{RS-06} & \textbf{Academic capacity.} Nine students share project work with other academic commitments; reduced availability may leave insufficient effort for implementation and acceptance.\newline\textit{Source:} Delivery / capacity. \textit{ToS:} 1, 2, 5.\newline\textit{Trigger:} Forecast work exceeds available person-hours or an owner cannot meet a dependent task date. & High / Catastrophic / Short.\newline\textbf{Exposure: Critical.}\newline Project coordinator.\\
+\midrule
+\phantomsection\label{risk:RS-07}\identifier{RS-07} & \textbf{Scope expansion.} Some optional capabilities still need explicit scope decisions for the single final delivery; uncontrolled additions may displace essential development and validation work.\newline\textit{Source:} Delivery / scope. \textit{ToS:} 1, 2, 5.\newline\textit{Trigger:} An unestimated feature or excluded payroll/payment/mapping capability enters the delivery backlog. & High / Critical / Short.\newline\textbf{Exposure: High.}\newline Project coordinator.\\
+\midrule
+\phantomsection\label{risk:RS-08}\identifier{RS-08} & \textbf{Client clarification.} Ticket/document interpretation depends on client clarification through an intermediary; delayed answers may block correct implementation or acceptance.\newline\textit{Source:} Stakeholder validation. \textit{ToS:} 1, 2, 3.\newline\textit{Trigger:} A decision needed by a scheduled task has no validated answer or agreed fallback by its review date. & High / Critical / Short.\newline\textbf{Exposure: High.}\newline Client intermediary.\\
+\midrule
+\phantomsection\label{risk:RS-09}\identifier{RS-09} & \textbf{Task ownership.} Nine members contribute across connected deliverables; unclear ownership or stale tracking may create gaps, duplicated effort and uneven workload.\newline\textit{Source:} Delivery / coordination. \textit{ToS:} 1, 2, 5.\newline\textit{Trigger:} A deliverable lacks one accountable owner/date or completed work is absent from the shared tracking. & High / Critical / Short.\newline\textbf{Exposure: High.}\newline Project coordinator.\\
+\midrule
+\phantomsection\label{risk:RS-10}\identifier{RS-10} & \textbf{Integration friction.} Parallel client, API and schema changes share contracts; incompatible changes may break integration and consume the planned validation period.\newline\textit{Source:} Technical / integration. \textit{ToS:} 2, 3, 5.\newline\textit{Trigger:} A dependent branch cannot merge/build or a contract/migration change has no coordinated consumer update. & Medium / Critical / Short.\newline\textbf{Exposure: Medium.}\newline Integration lead.\\
+\midrule
+\phantomsection\label{risk:RS-11}\identifier{RS-11} & \textbf{Handover continuity.} Delivery tasks need continuing ownership despite changing availability; incomplete handovers may leave decisions or unfinished work without an accountable owner.\newline\textit{Source:} Delivery / coordination. \textit{ToS:} 1, 2.\newline\textit{Trigger:} A departing/unavailable owner has no documented handover, backup or accessible work. & Medium / Marginal / Medium.\newline\textbf{Exposure: Low.}\newline Project coordinator.\\
+\midrule
+\phantomsection\label{risk:RS-12}\identifier{RS-12} & \textbf{Representative validation.} Acceptance depends on representative users, devices and source examples that are not yet fully evidenced; synthetic scenarios alone may conceal unsuitable workflows.\newline\textit{Source:} Stakeholder validation. \textit{ToS:} 1, 3, 4.\newline\textit{Trigger:} Planned validation lacks a representative user, device or sanitised source example. & High / Marginal / Medium.\newline\textbf{Exposure: Medium.}\newline Client intermediary / usability lead.\\
+\end{longtable}}
+The assessment column lists probability / impact / timeframe, followed by exposure and proposed role owner.

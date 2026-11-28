@@ -1,0 +1,73 @@
+\subsection{\identifier{UC-06} --- Manage Harvest Campaigns}
+\label{uc:06}
+\paragraph{Purpose}
+Create and configure Planned campaigns, explicitly start them online or offline,
+consult/update eligible details, close/reopen, archive/restore or delete eligible
+campaigns. Shared conditions in Section~\ref{sec:shared-definitions} apply.
+\paragraph{Actors}
+Farm Owner; Field Manager with the specific owner-granted operation and scope.
+\paragraph{Preconditions}
+The user has valid business access and operation permission. Selected properties
+and optional parcels exist and are eligible. Structural administration, closure
+and reopening require connectivity; an explicit start may be recorded offline
+with prepared campaign context and unexpired offline authority.
+\paragraph{Main Flow --- Create a Planned Campaign}
+\begin{enumerate}
+\item The user opens campaign management and chooses creation.
+\item The user supplies name, planned start and one or more whole properties or
+selected parcels. New parcels, if needed, are created through connected \identifier{UC-05}.
+\item The system validates scope and avoids duplicate parent/child coverage.
+Other Planned campaigns or current execution do not prevent this preparation.
+\item The user reviews and confirms; the system saves the campaign as Planned.
+No actual start, presence or work is created.
+\end{enumerate}
+\paragraph{Alternative Flows}
+\begin{description}[style=nextline]
+\item[A1 --- Explicit start.] The user selects Start campaign and confirms the
+actual start date. Validate permission, chronology, relevant historical activity
+and exclusive execution coverage. On central acceptance, transition to In progress.
+Whole-property execution conflicts with each parcel; distinct parcels may coexist.
+\item[A2 --- Offline start.] Save explicit start and dependent work/transport
+locally with stable identifiers, marking them pending. Allow authorised local
+continuation. Revalidate and accept the start before dependent records; a competing
+accepted start leaves recoverable proposals for resolution, never two accepted
+executions. Device time alone is not proof of acceptance or event chronology.
+\item[A3 --- First actual assignment.] If no actual start exists, \identifier{UC-10} proposes
+its working date and requires explicit confirmation or correction. A plan,
+attendance or delivery never silently starts a campaign. Existing dates remain
+unchanged unless an authorised date correction is confirmed.
+\item[A4 --- Consult/update.] Prepared details may be consulted offline. Structural
+changes remain connected. Changes to In progress coverage also validate exclusive
+execution. Added divisions do not redistribute historical records.
+\item[A5 --- Remove coverage.] Resolve all dependent work/delivery associations
+using their permitted workflows; reopen a Closed campaign first. No cascade deletion
+occurs and unresolved dependencies block removal.
+\item[A6 --- Close.] For In progress, confirm actual end while connected. Validate
+recorded activity and preserve records; transition to Closed.
+\item[A7 --- Complete missing work.] \identifier{UC-10} may add missing details or previously
+unrecorded periods within valid actual dates without replacing/removing confirmed
+values or changing confirmed associations. All attendance/overlap checks still apply.
+\item[A8 --- Correct confirmed work.] \identifier{UC-11} requires reopening before correcting
+or removing confirmed work; no 15-day grace period or correction-age limit applies.
+Work outside actual dates also requires reopening and date review.
+\item[A9 --- Late external information.] Weighing-ticket information, analyses and
+reported amounts for existing deliveries may be added/corrected after closure
+without reopening. Delivery/transport corrections and new trips follow
+\identifier{UC-15}; they are not covered by this source-information exception.
+\item[A10 --- Reopen.] A Closed campaign returns to In progress only after connected
+authority, date review and exclusive-coverage validation. A currently executing
+conflicting campaign blocks reopening. Preserve the original records.
+\item[A11 --- Archive/restore.] Change usual-list visibility independently of
+Planned/In progress/Closed. Archival does not close or release In progress coverage;
+restoring visibility does not start or reopen.
+\item[A12 --- Delete.] Require connected authority, confirmation and no associated
+operational records or blocking pending dependencies; otherwise retain and offer archival.
+\end{description}
+\paragraph{Postconditions}
+Creation produces Planned; accepted start/reopening produces In progress; closure
+produces Closed with actual end. Local confirmation remains distinct from central
+acceptance. Cancellation before confirmation changes no accepted record.
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:004]{\identifier{FR-004}}, \hyperref[fr:010]{\identifier{FR-010}}, \hyperref[fr:014]{\identifier{FR-014}}, \hyperref[fr:015]{\identifier{FR-015}}, \hyperref[fr:016]{\identifier{FR-016}}, \hyperref[fr:017]{\identifier{FR-017}}, \hyperref[fr:018]{\identifier{FR-018}}, \hyperref[fr:019]{\identifier{FR-019}}.
+
+\identifier{BR-006}--BR-013; decisions \identifier{D-02}, \identifier{D-03}, \identifier{D-04}, \decisionref{D-22}--\decisionref{D-24}.

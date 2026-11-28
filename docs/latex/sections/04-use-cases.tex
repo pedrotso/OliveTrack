@@ -1,0 +1,111 @@
+\section{Use Cases}
+\label{sec:use-cases}
+
+This section specifies account and business interactions. Actor identities and
+permissions follow Section~\ref{sec:users}; workers participate without management
+accounts. The shared definitions and acceptance conditions below apply to all
+use cases; each case adds its operation-specific conditions and exceptions.
+
+\subsection{Scope and Review Status}
+The use cases describe the working specification under the review status in
+Section~\ref{sec:document-status}. Decisions and residual questions are recorded
+in Section~\ref{sec:validation}.
+
+\subsection{Shared Definitions}
+\label{sec:uc-shared-definitions}
+\label{sec:shared-definitions}
+
+\begin{description}
+\item[Language, time and display.] The interface is English for now; generated
+worker forms preserve their supplied Spanish wording. Use DD/MM/YYYY, 24-hour
+times and decimal comma. Percentages/EUR amounts display two decimals; work totals
+use hours/minutes and weights/areas preserve source precision. Detect the device
+timezone for entry/display and preserve capture context with UTC instants. Confirm
+an initially device-suggested shared business timezone for consistent working dates.
+\item[Business context.] One owner workspace contains properties, campaigns,
+workers, documents and operations. Account, membership and Worker are distinct
+identities. Records from different businesses are not automatically shared or merged.
+\item[Property and parcel.] A property may have named parcels. A whole-property
+record is distinct from a parcel record; new divisions do not redistribute past data.
+\item[Campaign.] Planned, In progress and Closed are lifecycle states; archival is
+independent. Coverage and execution follow \hyperref[br:008]{\identifier{BR-008}} and
+\hyperref[br:009]{\identifier{BR-009}}.
+\item[Working date.] The business-local start date identifies a work period even
+after midnight. Full instants validate chronology/overlap; work entry uses minutes
+and totals display hours/minutes without per-period rounding.
+\item[Attendance and participation.] Daily attendance belongs to a business worker
+and working date; an actual assignment supplies campaign and area. Only expected
+or selected workers await a decision; unrelated unselected workers generate no alert.
+\item[Confirmation and synchronisation.] User confirmation is distinct from central
+acceptance. State meanings are defined in Section~\ref{sec:sync-states}. Offline
+preparation covers authorised context, not every historical record; its download
+window is distinct from the authorisation duration in \hyperref[br:002]{\identifier{BR-002}}.
+\item[Authorisation.] Authentication, membership, responsibility scope and operation
+permission are checked separately, including files. Denial must not disclose
+protected information. Manager defaults follow Section~\ref{sec:permission-defaults}.
+\item[Validation, cancellation and retry.] Invalid input remains recoverable.
+Cancelling unsaved input preserves accepted records. Failed or uncertain transmission
+does not establish rejection: check or resume the same operation without duplicate
+effects. Reconnection revalidates current grants, revisions, dependencies and rules;
+rejected/conflicting proposals remain recoverable and distinct from accepted data.
+\item[Current values and domain records.] Ordinary profile/work/source corrections retain current values rather than permanent field history. A current document source and its signature/PDF remain domain records only until successful replacement deletes that graph; no consultable document history is retained.
+\item[Offline creation.] Basic worker creation and explicit campaign start may
+operate offline with valid grants. Dependent records keep stable local identities
+and remain pending until their prerequisites are accepted.
+\item[Financial information.] Consultation, structured entry and correction are
+separate grants. Complete-file access and source upload follow Section~\ref{sec:permission-defaults};
+there is no mandatory monetary-content classification or automatic redaction.
+\item[Task and capability.] Profile machinery capability is distinct from performed
+work. Every complete confirmed actual period has its task; attendance and assignments
+may be known before periods are complete.
+\item[Provenance and collection.] Source property/parcel, collection from trees or ground, harvesting method and olive variety are distinct attributes. KILOS ASIGNADOS is accepted kg; MEDIANERIA is the accepted percentage and never laboratory yield.
+\item[Completion and correction.] Section~\ref{sec:completion-correction} defines
+initial completion, changes to confirmed work and late entry in closed campaigns.
+\end{description}
+
+\subsection{Use Case Catalogue}
+
+\begin{description}
+
+    \item[\identifier{UC-01}] Provision and Activate the Initial Owner Account.
+    \item[\identifier{UC-02}] Log In and Log Out.
+    \item[\identifier{UC-03}] Recover and Update Account Access.
+    \item[\identifier{UC-04}] Manage Manager Access and Permissions.
+    \item[\identifier{UC-05}] Manage Properties and Parcels.
+    \item[\identifier{UC-06}] Manage Harvest Campaigns.
+    \item[\identifier{UC-07}] Manage Worker Records.
+    \item[\identifier{UC-08}] Plan Work.
+    \item[\identifier{UC-09}] Consult Work Schedules.
+    \item[\identifier{UC-10}] Record Attendance and Actual Work Periods.
+    \item[\identifier{UC-11}] Correct Work Records.
+    \item[\identifier{UC-12}] Consult Worker Documents.
+    \item[\identifier{UC-13}] Upload and Update Worker Documents.
+    \item[\identifier{UC-14}] Review and Sign a Document.
+    \item[\identifier{UC-15}] Record Transport and Olive Deliveries.
+    \item[\identifier{UC-16}] Record Weighing Data and Adjustments.
+    \item[\identifier{UC-17}] Record Analysis Results.
+    \item[\identifier{UC-18}] Manage Cooperative-Reported Ticket Values.
+    \item[\identifier{UC-19}] Consult Campaign Indicators.
+    \item[\identifier{UC-20}] Generate Worker Documents.
+\end{description}
+
+\input{use-cases/uc-01}
+\input{use-cases/uc-02}
+\input{use-cases/uc-03}
+\input{use-cases/uc-04}
+\input{use-cases/uc-05}
+\input{use-cases/uc-06}
+\input{use-cases/uc-07}
+\input{use-cases/uc-08}
+\input{use-cases/uc-09}
+\input{use-cases/uc-10}
+\input{use-cases/uc-11}
+\input{use-cases/uc-12}
+\input{use-cases/uc-13}
+\input{use-cases/uc-14}
+\input{use-cases/uc-15}
+\input{use-cases/uc-16}
+\input{use-cases/uc-17}
+\input{use-cases/uc-18}
+\input{use-cases/uc-19}
+\input{use-cases/uc-20}

@@ -1,0 +1,121 @@
+\Needspace{10\baselineskip}
+\subsubsection{Workers, Planning and Actual Work}
+{\requirementtable
+\begin{longtable}{L{0.18}L{0.82}}
+\caption{Functional requirements: Workers, Planning and Actual Work.}\label{tab:catalogue-workforce}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endfirsthead
+\caption[]{Functional requirements: Workers, Planning and Actual Work (continued).}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Reference} & \textbf{Requirement and acceptance criteria}\\
+\midrule\endhead
+\midrule\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+\rowcolor{TableHeader}
+\phantomsection\label{fr:020}\textbf{\identifier{FR-020}} & \textbf{The system shall create identified worker records online or offline and maintain existing profiles.}\\*
+\phantomsection\label{ac:020:a}\identifier{FR-020(a)} & Require name, telephone and identification type (DNI, NIE or Other with description), issuing country and number. Preserve the number as text and generate a stable internal ID. Creation provides no account or identity verification and requires no scan.\\
+\phantomsection\label{ac:020:b}\identifier{FR-020(b)} & Record machinery capability and optional notes separately from tasks; apply same-business duplicate warnings and reviewed distinct records under \identifier{BR-014}, without cross-business merging.\\
+\phantomsection\label{ac:020:c}\identifier{FR-020(c)} & Allow authorised same-day offline creation with required fields and a stable pending ID; permit local attendance, work and driving. Documents require accepted individual source preparation under \identifier{FR-045(a)}.\\
+\phantomsection\label{ac:020:d}\identifier{FR-020(d)} & Accept worker identity before dependants; recheck duplicates/authority and preserve work/files during resolution. Retries reuse the same worker and operation IDs.\\
+\phantomsection\label{ac:020:e}\identifier{FR-020(e)} & Existing-profile administration remains online, preserving associations, current values and modification time. Required-field checks and duplicate warnings apply; country-specific document-format validation is outside the final delivery under \decisionref{Q-ID-01}.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:021}\textbf{\identifier{FR-021}} & \textbf{The system shall inactivate and reactivate workers.}\\*
+\phantomsection\label{ac:021:a}\identifier{FR-021(a)} & Preserve work/documents, exclude inactive workers from new-work selection and flag future plans without changing them.\\
+\phantomsection\label{ac:021:b}\identifier{FR-021(b)} & Reactivation reuses identity; daily non-selection or absence is not inactivation.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:022}\textbf{\identifier{FR-022}} & \textbf{The system shall delete eligible worker records.}\\*
+\phantomsection\label{ac:022:a}\identifier{FR-022(a)} & Delete only without associated records and with connected authority and confirmation.\\
+\phantomsection\label{ac:022:b}\identifier{FR-022(b)} & Otherwise refuse and offer inactivation; cancellation preserves the worker.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:023}\textbf{\identifier{FR-023}} & \textbf{The system shall allow authorised users to consult worker profiles and their actual days and hours worked, including available offline data.}\\*
+\phantomsection\label{ac:023:a}\identifier{FR-023(a)} & Consult prepared authorised worker profiles and locally created worker records offline, showing pending/availability limits. Missing local data does not prove central non-existence.\\
+\phantomsection\label{ac:023:b}\identifier{FR-023(b)} & Profile access alone grants no document rights. \identifier{FR-020} permits offline creation; existing-profile administration remains online.\\
+\phantomsection\label{ac:023:c}\identifier{FR-023(c)} & The profile's activity view lists actual working dates, recorded start/end periods, tasks, areas and counted hours per day and overall. Filter by date range and optionally campaign/property/parcel. Apply Section~\ref{sec:worker-activity-calculations}; count each working date once across matching areas/campaigns.\\
+\phantomsection\label{ac:023:d}\identifier{FR-023(d)} & Show presence with incomplete periods separately. Plans establish no actual work; missing hours are not zero. Show local pending changes and accepted values with their actual status.\\
+\phantomsection\label{ac:023:e}\identifier{FR-023(e)} & Require work-record consultation authority for the displayed scope. Profile access reveals no other-property work. Offline history uses only prepared authorised records, labelling partial coverage and freshness; unavailable history is not an empty result.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:024}\textbf{\identifier{FR-024}} & \textbf{The system shall prepare independent daily work plans with group and individual values.}\\*
+\phantomsection\label{ac:024:a}\identifier{FR-024(a)} & Planning is optional. Select campaign, eligible area, workers and dates; create an independent plan for each date.\\
+\phantomsection\label{ac:024:b}\identifier{FR-024(b)} & Hours/tasks are optional for one area per worker/date; multiple areas require periods for every relevant assignment.\\
+\phantomsection\label{ac:024:c}\identifier{FR-024(c)} & Apply group periods, tasks and optional counted/non-counted breaks with individual overrides. Plans confirm neither attendance nor work.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:025}\textbf{\identifier{FR-025}} & \textbf{The system shall reuse a plan or actual work as a reviewed planning proposal.}\\*
+\phantomsection\label{ac:025:a}\identifier{FR-025(a)} & Copy workers, areas, periods, tasks and applicable breaks to reviewed target-date proposals; preserve source records and do not copy attendance/actual confirmation.\\
+\phantomsection\label{ac:025:b}\identifier{FR-025(b)} & Validate each target without silent overwrite/duplication; review inactive workers for eligible replacement or reactivation.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:026}\textbf{\identifier{FR-026}} & \textbf{The system shall validate planned periods and scheduling conflicts.}\\*
+\phantomsection\label{ac:026:a}\identifier{FR-026(a)} & Defined periods must end after their start; reject same-worker planned overlaps across properties, campaigns and adjacent dates.\\
+\phantomsection\label{ac:026:b}\identifier{FR-026(b)} & Allow equal consecutive boundaries; use complete overnight timestamps and start-date association. Missing hours cannot establish conflict-free scheduling.\\
+\phantomsection\label{ac:026:c}\identifier{FR-026(c)} & Validate planned and actual interval sets separately; a matching plan does not duplicate actual work.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:027}\textbf{\identifier{FR-027}} & \textbf{The system shall adjust eligible plans while preserving their role as an expectation.}\\*
+\phantomsection\label{ac:027:a}\identifier{FR-027(a)} & Allow worker removal/replacement before actual work exists in the affected daily-area context.\\
+\phantomsection\label{ac:027:b}\identifier{FR-027(b)} & Thereafter preserve that plan as a reference; record differences as actual work/corrections. Other target-date plans remain independently editable.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:028}\textbf{\identifier{FR-028}} & \textbf{The system shall allow authorised users to consult schedules through daily, worker and weekly views, including offline preparation.}\\*
+\phantomsection\label{ac:028:a}\identifier{FR-028(a)} & Use the same plans in all views with campaign/property/parcel/worker/task filters; identify missing hours/tasks, breaks, inactive workers and overnight ends.\\
+\phantomsection\label{ac:028:b}\identifier{FR-028(b)} & Prepare the current and following week; prepare extra dates explicitly. Show freshness and pending changes.\\
+\phantomsection\label{ac:028:c}\identifier{FR-028(c)} & Distinguish empty results, failures and unavailable local data; consultation confirms no attendance or work.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:029}\textbf{\identifier{FR-029}} & \textbf{The system shall create and adjust plans offline using prepared reference data.}\\*
+\phantomsection\label{ac:029:a}\identifier{FR-029(a)} & Save supported plan changes locally as pending; revalidate authority and business rules on reconnection.\\
+\phantomsection\label{ac:029:b}\identifier{FR-029(b)} & Rejected/conflicting changes remain unaccepted; preserve source and target-plan integrity during recovery.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:030}\textbf{\identifier{FR-030}} & \textbf{The system shall distinguish daily attendance from campaign participation and unrelated workers.}\\*
+\phantomsection\label{ac:030:a}\identifier{FR-030(a)} & Keep one attendance decision per worker/start date/business. Selected/expected workers await explicit Present/Absent confirmation; unrelated unselected workers generate neither absence nor alerts.\\
+\phantomsection\label{ac:030:b}\identifier{FR-030(b)} & Permit direct actual entry without planning, including newly created offline workers. Confirm campaign-area participation separately; presence may precede hours.\\
+\phantomsection\label{ac:030:c}\identifier{FR-030(c)} & Absence cannot coexist with actual assignments/periods. Areas share daily presence; missing-hours alerts require presence and incomplete campaign work. Driver selection creates no presence.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:031}\textbf{\identifier{FR-031}} & \textbf{The system shall explicitly confirm actual periods with their task and area.}\\*
+\phantomsection\label{ac:031:a}\identifier{FR-031(a)} & Review a plan or enter actual work directly; permit individual changes in group entry without silently confirming attendance or rewriting plans.\\
+\phantomsection\label{ac:031:b}\identifier{FR-031(b)} & A confirmed complete period requires task, area and valid start/end instants. Split task/area changes; missing details remain incomplete assignments, not unclassified counted hours.\\
+\phantomsection\label{ac:031:c}\identifier{FR-031(c)} & Use the local start date for overnight work. Keep presence, assignment, complete period and synchronisation distinct; first work may explicitly propose start under \identifier{FR-016}.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:032}\textbf{\identifier{FR-032}} & \textbf{The system shall record breaks and calculate counted working time.}\\*
+\phantomsection\label{ac:032:a}\identifier{FR-032(a)} & Require break start/end with end later than start; record its worker and counted/non-counted treatment. Reject positive-duration overlap with another break for that worker; consecutive boundaries are allowed.\\
+\phantomsection\label{ac:032:b}\identifier{FR-032(b)} & Warn when a break lies partly/wholly outside recorded work or hours are still incomplete. Deduct only the non-counted intersection with that worker's actual periods, never counted breaks or already excluded gaps; attribute deductions to affected tasks.\\
+\phantomsection\label{ac:032:c}\identifier{FR-032(c)} & Apply Section~\ref{sec:counted-working-time}; no payroll calculation is implied.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:033}\textbf{\identifier{FR-033}} & \textbf{The system shall validate actual periods and prevent worker-time overlap.}\\*
+\phantomsection\label{ac:033:a}\identifier{FR-033(a)} & Actual periods must end after their start; reject same-worker overlaps across areas, campaigns and adjacent dates.\\
+\phantomsection\label{ac:033:b}\identifier{FR-033(b)} & Allow equal consecutive boundaries; reject zero duration and any positive overlap.\\
+\phantomsection\label{ac:033:c}\identifier{FR-033(c)} & Use complete overnight timestamps; validate plans separately without counting them as actual work.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:034}\textbf{\identifier{FR-034}} & \textbf{The system shall record attendance and actual work offline with its dependencies.}\\*
+\phantomsection\label{ac:034:a}\identifier{FR-034(a)} & Use prepared campaign/area context and prepared workers or workers created under \identifier{FR-020}; support pending \identifier{FR-016} starts and retain parent/dependency IDs.\\
+\phantomsection\label{ac:034:b}\identifier{FR-034(b)} & Apply the same task, chronology, attendance and overlap checks locally; label provisional totals and revalidate centrally. Preserve work at expiry under \identifier{FR-004}.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:035}\textbf{\identifier{FR-035}} & \textbf{The system shall allow authorised users to enter retrospective work and complete missing information.}\\*
+\phantomsection\label{ac:035:a}\identifier{FR-035(a)} & Preserve actual working date separately from entry timestamp.\\
+\phantomsection\label{ac:035:b}\identifier{FR-035(b)} & After closure, complete missing details/periods within actual dates without changing confirmed values/associations; validate attendance, coverage and overlap under \identifier{BR-011}.\\
+\phantomsection\label{ac:035:c}\identifier{FR-035(c)} & Confirmed-work changes/removals require reopening; work outside actual campaign dates also requires date review. Entry never silently changes campaign dates.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:036}\textbf{\identifier{FR-036}} & \textbf{The system shall correct attendance, actual work and valid record associations.}\\*
+\phantomsection\label{ac:036:a}\identifier{FR-036(a)} & Require correction authority and valid dates, coverage, overlaps and open campaign state in every affected context; no age-based deadline applies.\\
+\phantomsection\label{ac:036:b}\identifier{FR-036(b)} & Allow worker, date, campaign, area, period, task and break corrections without changing plans or unrelated work.\\
+\phantomsection\label{ac:036:c}\identifier{FR-036(c)} & Changing presence to absence requires confirmed removal of all contradictory assignments, periods and breaks for that business date, including assignments without hours; cancellation preserves them.\\
+\phantomsection\label{ac:036:d}\identifier{FR-036(d)} & Moving a period preserves other work and attendance consistency; retain current values without permanent field-change history.\\
+\midrule
+\rowcolor{TableHeader}
+\phantomsection\label{fr:037}\textbf{\identifier{FR-037}} & \textbf{The system shall support offline corrections and authorised conflict resolution.}\\*
+\phantomsection\label{ac:037:a}\identifier{FR-037(a)} & Save prepared corrections as pending; compare changed accepted values with the proposal for authorised manual review.\\
+\phantomsection\label{ac:037:b}\identifier{FR-037(b)} & Keep accepted values or resubmit a reviewed correction for validation; temporary comparison creates no permanent correction history.\\
+\end{longtable}
+}

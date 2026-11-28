@@ -1,0 +1,77 @@
+PostgreSQL is the selected central relational store; exact DDL, indexes and
+transactional enforcement still require implementation and verification.
+{\readabletable
+\begin{longtable}{L{0.28}L{0.72}}
+\caption{Proposed physical data representations.}\label{tab:physical-model}\\
+\toprule\rowcolor{TableHeader}
+\textbf{Family} & \textbf{Proposed representation} \\
+\midrule\endfirsthead
+\toprule\rowcolor{TableHeader}
+\textbf{Family} & \textbf{Proposed representation} \\
+\midrule\endhead
+\multicolumn{2}{r}{\footnotesize\itshape Continued on next page}\\\endfoot
+\bottomrule\endlastfoot
+Identity/scope & UUID primary and operation ids; composite scope keys support same-workspace references. Integer revision counters support concurrency. \\
+\midrule
+Time & Full event/signing/acceptance instants use timestamptz; date for work/campaign/expiry dates. Workspace business\_timezone stores a validated timezone identifier. This type preserves the instant but not the original timezone/offset, so preserve capture-time IANA timezone metadata separately. Device timezone governs entry/display; the confirmed business timezone governs shared working-date assignment and filters. Minute-level input does not reduce timestamps to time-of-day values. \\
+\midrule
+Quantities/money & numeric for accepted assigned kg, other weights, areas, yield and amounts. Monetary amounts use two decimal places; weights/areas preserve source precision and calculations retain full stored values. The team verifies database precision and range constraints. \\
+\midrule
+Source/configuration & Schema-validated jsonb for other reported weights, invitation configuration, template fields and reviewed generation inputs. Core associations remain FKs. \\
+\midrule
+Files & Private object storage for source, template, signature and rendition bytes; StoredFile metadata and server-side format/size/access validation. Upload limit: 10~MB = 10,000,000 bytes; JPEG/JPG share the same accepted image format. \\
+\end{longtable}}
+
+The instant/timezone distinction follows the
+\href{https://www.postgresql.org/docs/18/datatype-datetime.html\#DATATYPE-DATETIME-INPUT-TIMESTAMPS}{PostgreSQL date/time documentation}.
+
+\paragraph{Essential keys and indexes.}
+Use unique membership, coverage/assignment, attendance, plan, current-document-source,
+worker/version signature and ticket-valuation keys. Unique delivery references
+enforce one ticket/analysis; a unique version/worker key identifies a rendition.
+Index campaign/area/date queries, worker intervals, document worker/version links and
+attachment targets. Owner and whole-property/parcel uniqueness need explicit
+partial/NULL handling; minimum-child counts and dependency checks are transactional.
+
+Enforce planned and actual same-worker overlaps separately through exclusion or
+equivalent serialised validation. Serialise execution reservations across a property
+and its parcels, including start/reopening and coverage changes. Unlocked
+read-then-insert checks or ordinary indexes alone are insufficient.
+
+Store required official identification as text, preserving leading zeroes; use a
+non-unique workspace/\allowbreak{}type/\allowbreak{}country/\allowbreak{}normalised-number lookup index. Worker and
+operation UUIDs support client creation. Campaign lifecycle values are
+\texttt{planned}, \texttt{in\_progress} and \texttt{closed}.
+
+The physical design also requires an operation-outcome ledger, authorised
+change/deletion feed and protected owner-review recovery store. Preserve template
+snapshots and retained signed/cancelled-record references. Local prepared subsets,
+outbox and file metadata need not mirror every central table. Local authorisation
+metadata stores online-validation and expiry instants; its approved policies and
+unresolved implementation mechanisms follow Sections~\ref{sec:business-rules}--\ref{sec:solution-architecture}.
+
+\identifier{SEC-08} requires an integrity digest for each accepted document source, stored with
+protected metadata and verified before association. Keep client confirmation and server acceptance timestamps distinct. A unique document reference permits one current accepted DocumentVersion; replacement creates its new identity and removes old signing/rendition rows and file references consistently. Salted password hashes, session/token
+verifiers, security-event logs,
+deletion/restriction recovery metadata and deployment key controls are technical
+persistence concerns, not additional business actors/entities. Their implementation
+and approved technical retention limits follow Section~\ref{sec:non-functional-requirements}
+and Section~\ref{sec:nfr-targets}.
+
+AccessGrant has required property scope and a unique membership/operation/property
+key; there is no independent campaign/parcel scope discriminator. WorkerAvailability
+uses same-workspace membership/worker FKs and a unique pair. Validate invitation
+scope at creation and acceptance, including revoked/archived property context.
+Security events use a 90-day server-event policy; minimal operation outcomes and
+change/deletion markers use their separate 90-day policies. Store originator and
+accepting owner separately for reviewed recovery. These mechanisms do not add
+ordinary field-change history or override the current-only document replacement policy.
+
+\paragraph{Provisioning fields.}
+Add checked system role and nullable self-referencing administrator issuer on
+\texttt{app\_user}. Existing normal users migrate to standard authority; never infer
+administrator status from an Owner membership. Use a deployment-level single-client
+transactional guard and pending-to-active workspace/membership checks. A protected
+bootstrap procedure prepares the initial administrator; normal APIs never expose
+administrator self-registration. Token verifiers and password hashes remain
+technical authentication persistence. No additional domain entity is needed.

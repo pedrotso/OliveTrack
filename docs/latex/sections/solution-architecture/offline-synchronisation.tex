@@ -1,0 +1,128 @@
+\label{sec:offline-sync}
+\label{sec:offline-synchronisation}
+The proposed protocol separates durable local proposals from centrally accepted
+records. Prepared datasets and local/central storage responsibilities are described
+in Section~\ref{sec:data-local-central}. Authentication limits, recovery mechanisms
+require technical validation even where their behaviour and selected stack are approved.
+
+
+\subsubsection{Local Proposals and Ordered Dependencies}
+
+Each proposed operation is identified by a stable \texttt{operation\_id}, origin
+User, Workspace, entity type and ID, and operation kind.
+For validation, it also carries the payload, base revision for updates, dependency
+IDs and client recording time. The local outbox uses the states in
+Section~\ref{sec:sync-states}, with separate retry detail.
+Client timestamps do not prove central acceptance or prior authorisation.
+Use stable client-generated record identifiers for offline creation; the selected
+UUID generation method must be consistent across devices and server.
+
+The selected local store must persist each business proposal and its outbox entry
+atomically before the application reports a successful local save. Show local confirmation separately from acceptance.
+Submit dependencies first: a delivery before its ticket, a version before signing,
+and accepted metadata/file readiness before dependent references. Basic worker creation and explicit campaign start are supported exceptions.
+Queue a worker before attendance, assignments and driver references. Individual
+document creation/source acceptance is online and requires that worker first;
+prepare that accepted source before offline signing. Queue campaign start before dependent
+execution records. Administration of existing profiles and property creation remain online.
+
+
+Use one stable client-generated Worker UUID and operation UUID through local
+creation and acceptance. Pending references must not be replaced by an unrelated
+identity if a duplicate warning appears. Resolve an existing/new identity only
+through an explicit reviewed procedure that preserves work, document associations
+and files; no automatic merging or cross-business lookup is introduced.
+
+An explicit start proposes Planned to In progress. The server validates authority,
+actual dates and competing execution atomically before accepting dependent records.
+Concurrent offline starts on one area cannot both become accepted; keep the rejected
+or conflicting start and its dependencies recoverable. A device timestamp is not
+an authoritative proof of an exclusive reservation.
+
+
+\subsubsection{Central Acceptance, Conflicts and Incoming Changes}
+
+For each request: authenticate the account, determine the operation workspace,
+validate current authority, check operation identity and compare its fingerprint,
+then validate base revision and domain invariants in a transaction. A reused ID
+with different content is not the same retry. Commit the business change and its
+idempotency outcome consistently, and return affected identities/revisions.
+An outcome ledger stores minimal replay status, not a permanent full copy of every
+old business row. Retain minimal operation outcomes for 90 days after processing
+and change/deletion-feed markers for 90 days. Support the preceding client/payload
+version for 30 days after a release. Server-issued validity context must route
+stale requests to refresh/reviewed recovery; missing expired metadata never proves
+that a request is new. Validate safeguards against duplication and resurrection.
+
+An uncertain transmission triggers operation-status checking or safe retry.
+Never assume that timeout means no central change. A stale base revision produces
+a conflict, not Last Write Wins. Authorised users compare accepted values and the
+proposal, then keep accepted data or resubmit a reviewed correction for validation.
+
+
+The server supplies only changes the account may receive, using a proposed durable
+cursor. Apply business changes, deletion markers and cursor advancement consistently.
+A deletion marker is a technical synchronisation fact, not a field-change history.
+After access reduction, the client removes inaccessible prepared data without
+submitting it through another account. Beyond the valid change-retention window,
+refresh authorised data rather than silently missing old deletions.
+
+Track attachment upload separately from structured-record acceptance. Keep failed
+uploads recoverable and do not expose an unavailable object as stored. A replacement
+version becomes current only once its source is available. Offline retention cleanup
+must not revive deleted versions when a pending signature reconnects.
+
+
+\subsubsection{Access Expiry, Logout and Recovery}
+
+Logout blocks local access but preserves recoverable pending work in account-isolated
+protected storage. Renewed authentication is required for normal recovery.
+Revocation is enforced online and on reconnection or offline expiry; no instantaneous
+remote wipe of disconnected devices is asserted.
+
+Existing pending manager proposals may enter a restricted Owner-review workflow
+without restoring manager workspace access. Preserve origin and reviewer, and run
+all campaign, date, revision and dependency checks on acceptance. Owner acceptance
+supplies new explicit authority; client timestamps cannot establish pre-revocation
+creation. The origin account authenticates only for restricted submission, without
+normal workspace access. Concrete protected transport/quarantine/expiry remains
+a verification task. Signing-source eligibility cannot be overridden by approval.
+
+
+Enforce \hyperref[br:002]{\identifier{BR-002}} through a local gate storing the last successful
+online permission-validation instant and expiry. Cached use and cleanup cannot
+renew it. Protect this context against simple clock rollback; the trusted-time
+mechanism remains a security design decision. Expiry blocks consultation/new
+operations but preserves protected recoverable proposals until online revalidation.
+It does not deliver server changes; the authorised change feed does that.
+
+The routine presentation follows Section~\ref{sec:offline-interaction}. A simple
+status does not replace durable outbox storage, dependency checks or idempotency.
+Local protection and expiry follow \identifier{PRV-03}/\identifier{AOC-02}; the final mechanism remains
+under \decisionref{Q-DOC-07}. Warning/retry timing and concrete local security
+mechanisms remain pending; approved session/backup/recovery/availability targets
+are specified by their owning NFRs. \identifier{REL-08} and \decisionref{Q-NFR-06} govern restricted
+owner-review recovery, not a normal submission bypass.
+
+\subsubsection{Local Indicators and Operation Boundaries}
+
+Use the last accepted available baseline plus identifiable local proposals: create
+once, replace on update and remove the previous contribution on local removal.
+Label affected values provisional and disclose missing/partial scope and last sync.
+Apply the same Delivered, non-cancelled eligibility to all delivery-based totals.
+A local arrival confirmation enables eligible contributions in the provisional
+view; pre-arrival source data remains in detail awaiting receipt confirmation.
+Central totals use only server-accepted arrival confirmations and source values.
+Rejected proposals do not remain part of accepted totals. Never imply knowledge of
+other-device changes since last synchronisation. Offline PDF may include authorised prepared financial information and records generation time, scope, freshness, missing information and pending data. Financial source provisional/final status is separate from synchronisation status.
+
+
+
+The outbox accepts only the operations supported in
+Section~\ref{sec:non-functional-requirements}; connected administration and source
+generation use online endpoints. Prepared datasets/file manifests enforce the
+operation and complete-file restrictions in Section~\ref{sec:conceptual-files}.
+Coordinate source, evidence and rendition cleanup with protected signing operations;
+exclusively local signatures may require \decisionref{Q-DOC-04} resolution.
+Cancellation remains a domain update in the change feed, rather than a deletion
+marker, preserving dependencies while removing indicator contributions.

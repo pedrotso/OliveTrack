@@ -1,0 +1,109 @@
+% Language and encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+% Page layout and typography
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{needspace}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+% Keep headings with their opening content; use modest, consistent spacing.
+\AddToHook{cmd/section/before}{\Needspace{10\baselineskip}}
+\AddToHook{cmd/subsection/before}{\Needspace{5\baselineskip}}
+\AddToHook{cmd/subsubsection/before}{\Needspace{5\baselineskip}}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+    {2.25ex \@plus .5ex \@minus .2ex}{-1em}%
+    {\normalfont\normalsize\bfseries}}
+\makeatother
+
+% Mathematical formulas
+\usepackage{amsmath}
+
+% Images and tables
+\usepackage{graphicx}
+\usepackage{placeins}
+\graphicspath{{figures/}}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{6pt}
+\usepackage[font=small,labelfont=bf,labelsep=colon]{caption}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.7}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+% Lists and colours
+\usepackage{enumitem}
+\setlist{itemsep=3pt,topsep=5pt}
+
+\usepackage[table]{xcolor}
+
+% Shared table style: readable prose, subtle headers and clear row boundaries.
+\definecolor{TableHeader}{HTML}{E7EEF4}
+\definecolor{TableRule}{HTML}{BAC8D3}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{\dimexpr#1\linewidth-2\tabcolsep\relax}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\readabletable}{%
+    \small
+    \renewcommand{\arraystretch}{1.15}%
+    \setlength{\tabcolsep}{7pt}%
+    \setlength{\extrarowheight}{4pt}%
+    \setlength{\aboverulesep}{3pt}%
+    \setlength{\belowrulesep}{3pt}%
+    \arrayrulecolor{TableRule}%
+}
+\newcommand{\compacttable}{%
+    \readabletable
+    \renewcommand{\arraystretch}{1.1}%
+    \setlength{\extrarowheight}{2pt}%
+    \setlength{\aboverulesep}{2pt}%
+    \setlength{\belowrulesep}{2pt}%
+}
+\newcommand{\requirementtable}{\compacttable}
+
+% Links and references
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={OliveTrack: Intermediate Project Report},
+    pdfsubject={Olive Harvest Management Platform},
+    pdfauthor={OliveTrack Project Team},
+    pdflang={en-GB},
+    bookmarksnumbered=true
+}
+\DeclareRobustCommand{\identifier}[1]{\mbox{#1}}
+\pdfstringdefDisableCommands{\def\identifier#1{#1}}
+
+% Keep NFR titles separate from their statements without changing identifiers.
+\newcommand{\nfrheading}[1]{\paragraph{#1}\mbox{}\par\nobreak}
+
+% Contents depth: sections and subsections
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+% Visible marker for unresolved questions
+\newcommand{\openquestion}[1]{%
+    \par\noindent
+    \textcolor{orange!60!black}{%
+        \textbf{Open question:} #1%
+    }\par
+}
+
+% Stable links to centralised pending and confirmed decisions.
+\newcommand{\decisionref}[1]{\hyperref[decision:#1]{\identifier{#1}}}

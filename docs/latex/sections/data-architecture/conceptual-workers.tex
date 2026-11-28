@@ -1,0 +1,17 @@
+\subsubsection{Business Worker Records}
+\label{sec:conceptual-workers}
+Worker belongs to a Workspace and retains a stable internal UUID across planning,
+attendance, work, driving, document associations and signatures. Mandatory fields
+are full name, telephone, official identification type, issuing country and number;
+keep the number as text, separately from the UUID and from optional fiscal data.
+The type/country/number tuple supports non-unique same-business duplicate lookup;
+it is neither a primary key nor a global uniqueness constraint. Identification types are DNI, NIE and Other; Other requires a description. The issuing country is recorded, while country-specific document-format validation is excluded under \decisionref{Q-ID-01}. Offline proposals and their
+dependants retain the same UUID through acceptance, as described in
+Section~\ref{sec:offline-sync}. Profile updates preserve identity and links;
+machinery capability is stored separately from actual tasks.
+
+The profile's activity history queries DailyAttendance, ActualWorkAssignment,
+WorkPeriod and WorkBreak under the same worker identity and authorised scope.
+Daily and selected-period totals are derived under \identifier{FR-023(c)}; no
+additional worker-hours table or copied profile total is required. Corrections
+refresh the view from current work records.

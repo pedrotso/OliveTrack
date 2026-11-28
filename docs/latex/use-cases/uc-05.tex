@@ -1,0 +1,136 @@
+\subsection{\identifier{UC-05} --- Manage Properties and Parcels}
+\label{uc:05}
+
+\paragraph{Purpose}
+
+Allow an authorised user to create, consult, update,
+archive, reactivate and, where permitted, delete
+properties and their optional parcels.
+
+The current agricultural scope concerns
+olive harvesting.
+
+
+\paragraph{Actors}
+
+\textbf{Primary actor:} Farm Owner.
+
+\textbf{Additional actor:} Field Manager,
+when explicitly granted property-management
+permissions by the owner.
+
+Permission to record operational work does not
+automatically grant permission to manage properties.
+
+\paragraph{Preconditions}
+
+\begin{itemize}
+    \item The user has permission for
+    the requested operation.
+    \item Creation, modification, archival,
+    reactivation and deletion require
+    an internet connection.
+    \item For operations on an existing record,
+    that record exists within the authorised scope.
+    \item To create a parcel, its property exists.
+    \item Offline consultation requires
+    previously downloaded authorised information.
+\end{itemize}
+
+\paragraph{Main Flow}
+
+\begin{enumerate}
+    \item The user opens property management.
+    \item The user chooses to create a property
+    or selects an existing property.
+    \item The system presents the existing
+    information or an entry form.
+    \item The user enters or updates the property
+    name and textual location.
+    \item The user may enter the declared area
+    in hectares and one or more olive varieties.
+    \item The system identifies the owner
+    associated with the property.
+    \item If internal divisions are needed,
+    the user creates or updates named parcels.
+    Parcel area and olive varieties are optional.
+    \item The system validates the information
+    and access permissions.
+    \item The user reviews and confirms the changes.
+    \item The system saves the records
+    and confirms the result.
+\end{enumerate}
+
+For consultation only, the flow ends after
+the requested information is displayed.
+
+\paragraph{Alternative Flows and Exceptions}
+
+\begin{description}
+
+    \item[A1 --- No internal divisions are needed.]
+    The user saves the property without parcels.
+    The absence of parcels does not prevent
+    use of the property in operational records.
+
+    \item[A2 --- Optional information is unknown.]
+    The user leaves area or variety information
+    unfilled and may add it later.
+    An unknown area is not treated as zero.
+
+    \item[A3 --- The user archives a record.]
+    The system requests confirmation and
+    archives the selected property or parcel.
+    Historical records remain accessible
+    within the user's permissions.
+    The archived record is unavailable
+    for new operational associations.
+
+    \item[A4 --- The user reactivates a record.]
+    The system validates the request
+    and restores its availability,
+    subject to its parent property's state.
+
+    \item[A5 --- The user requests deletion.]
+    The system checks for associated records.
+    If none exist, the user may confirm deletion.
+    Otherwise, deletion is refused
+    and archival is offered.
+
+    \item[A6 --- Connectivity is unavailable.]
+    The system permits consultation of
+    previously downloaded authorised records
+    and identifies their synchronisation status.
+    Management operations are unavailable
+    until connectivity is restored.
+\end{description}
+
+\paragraph{Postconditions}
+
+\textbf{On successful creation or update:}
+Property and parcel information is saved
+with the correct ownership and parent associations.
+
+\textbf{On archival:}
+Historical information is preserved,
+and new operational use is blocked
+for the archived scope.
+
+\textbf{On reactivation:}
+The record becomes available again,
+subject to the property's availability.
+
+\textbf{On deletion:}
+Only the eligible record without
+associated records is removed.
+
+\textbf{On consultation, cancellation or rejection:}
+Stored information remains unchanged.
+
+\paragraph{Related Requirements and Rules}
+\hyperref[fr:009]{\identifier{FR-009}}, \hyperref[fr:010]{\identifier{FR-010}}, \hyperref[fr:011]{\identifier{FR-011}}, \hyperref[fr:012]{\identifier{FR-012}}, \hyperref[fr:013]{\identifier{FR-013}}.
+
+\hyperref[br:005]{\identifier{BR-005}}, \hyperref[br:006]{\identifier{BR-006}}, \hyperref[br:013]{\identifier{BR-013}}.
+
+\paragraph{Decision References}
+\decisionref{Q-SCOPE-01}, \decisionref{D-06}.
