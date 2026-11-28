@@ -4,7 +4,7 @@ Olive harvest management platform for the Project Management course (MIACD, DEI/
 
 The repository contains three npm workspaces: an offline-first PWA (`frontend`), a modular API (`backend`), and shared contracts (`shared`). The current skeleton uses a sample task workflow to demonstrate these foundations.
 
-The [project report](report/report.pdf) and its [LaTeX sources](report/) are in the `report` folder.
+The [project report](docs/report/report.pdf) and its [LaTeX sources](docs/report/) are in `docs/report`.
 
 ## Stack
 
@@ -24,7 +24,8 @@ OliveTrack/
 ├── frontend/           # React PWA, local data store and sync queue
 ├── backend/            # NestJS API, Prisma schema and migrations
 ├── shared/             # Shared types and validation schemas
-└── report/             # LaTeX sources and compiled report
+└── docs/
+    └── report/         # LaTeX sources and compiled report
 ```
 
 ## Local development
