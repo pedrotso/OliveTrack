@@ -9,6 +9,7 @@
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:integration": "node --test test/tasks.integration.test.cjs",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy"
   },

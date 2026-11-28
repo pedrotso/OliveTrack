@@ -1,0 +1,86 @@
+name: CI
+
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  workspace:
+    name: Workspace checks (${{ matrix.workspace }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace: [shared, backend, frontend]
+    env:
+      WORKSPACE: ${{ matrix.workspace }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Verify npm version
+        run: test "$(npm --version)" = "$(node -p "require('./package.json').packageManager.split('@').pop()")"
+      - name: Install dependencies
+        run: npm ci --include=dev
+      - name: Build shared package
+        run: npm run build -w shared
+      - name: Build workspace
+        if: matrix.workspace != 'shared'
+        run: npm run build -w "$WORKSPACE"
+      - name: Check types
+        run: npm run typecheck -w "$WORKSPACE"
+      - name: Lint frontend
+        if: matrix.workspace == 'frontend'
+        run: npm run lint -w frontend
+      - name: Run backend unit tests
+        if: matrix.workspace == 'backend'
+        run: npm test
+
+  postgres-integration:
+    name: PostgreSQL integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TEST_DATABASE_URL: postgresql://app:app@127.0.0.1:5432/olivetrack_ci?schema=public
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: app
+          POSTGRES_DB: olivetrack_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U app -d olivetrack_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Verify npm version
+        run: test "$(npm --version)" = "$(node -p "require('./package.json').packageManager.split('@').pop()")"
+      - name: Install dependencies
+        run: npm ci --include=dev
+      - name: Build shared package and API
+        run: |
+          npm run build -w shared
+          npm run build -w backend
+      - name: Apply migrations to the test database
+        run: npm run db:deploy -w backend
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+      - name: Run API integration test
+        run: npm run test:integration -w backend
