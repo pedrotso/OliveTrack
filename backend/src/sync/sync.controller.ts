@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { BadRequestException, Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { PushRequestSchema } from "@app/shared";
 import { SyncService } from "./sync.service";
@@ -9,7 +10,7 @@ export class SyncController {
   @Post("push")
   async push(@Body() body: unknown) {
     const parsed = PushRequestSchema.safeParse(body);
-    if (!parsed.success) throw new BadRequestException({ error: parsed.error.flatten() });
+    if (!parsed.success) throw new BadRequestException({ error: z.flattenError(parsed.error) });
     return this.sync.push(parsed.data.mutations);
   }
 

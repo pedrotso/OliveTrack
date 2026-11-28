@@ -10,5 +10,11 @@
     "db:up": "docker compose up -d db",
     "db:migrate": "npm run db:migrate -w backend"
   },
+  "overrides": {
+    "@prisma/config@6.19.3": {
+      "deepmerge-ts": "8.0.2",
+      "effect": "3.22.1"
+    }
+  },
   "devDependencies": { "concurrently": "^9.0.0" }
 }
